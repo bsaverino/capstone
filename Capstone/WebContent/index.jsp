@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
 	This is where the header will go.  
-=======
 making a change.
->>>>>>> refs/remotes/choose_remote_name/master
 </body>
 </html>
