@@ -5,8 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script language="JavaScript">
+function doCalcTotal() {
+ var input1 = parseInt(document.all.textbox1.value);
+ var input2 = parseInt(document.all.textbox2.value);
+
+ var myTotal = input1 + input2;
+
+ document.all.textbox3.value = myTotal;
+}
+</script>
+
 </head>
 <body>
+<input type="text" name="textbox1"> +
+<input type="text" name="textbox2"> =
+<input type="text" name="textbox3">
+<input type="button" value="Calculate Total" onClick="doCalcTotal()">
+
 	This is where the header will go.  
 making a change.
 
