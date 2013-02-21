@@ -7,21 +7,33 @@
 <title>Insert title here</title>
 <script language="JavaScript">
 function doCalcTotal() {
- var input1 = parseInt(document.all.textbox1.value);
- var input2 = parseInt(document.all.textbox2.value);
+ var bore = parseFloat(document.all.bore.value);
+ var stroke = parseFloat(document.all.stroke.value);
+ var cylinders = parseFloat(document.all.cylinders.value);
+ var cubicInch = Math.pow(bore,2)*stroke*0.7853982*cylinders;
 
- var myTotal = input1 + input2;
-
- document.all.textbox3.value = myTotal;
+ document.all.cubicInch.value = cubicInch;
 }
 </script>
 
 </head>
 <body>
-<input type="text" name="textbox1"> +
-<input type="text" name="textbox2"> =
-<input type="text" name="textbox3">
-<input type="button" value="Calculate Total" onClick="doCalcTotal()">
+<h3>Cubic Inch Calculator Sample</h3>
+<table>
+<tr>
+<td>Bore:</td><td><input type="text" name="bore"></td>
+</tr>
+<tr>
+<td>Stroke:</td><td><input type="text" name="stroke"></td>
+</tr>
+<tr>
+<td>Number of Cylinders:</td><td><input type="text" name="cylinders"></td>
+</tr>
+<tr>
+<td>Cubic Inch:</td><td><td><input type="text" name="cubicInch"></td>
+</tr>
+</table>
+<input type="button" value="Calculate Cubic Inch" onClick="doCalcTotal()">
 
 	This is where the header will go.  
 making a change.
