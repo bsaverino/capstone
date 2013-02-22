@@ -40,7 +40,8 @@
 	<input type="button" value="Calculate Cubic Inch"
 		onClick="doCalcTotal()">
 	<br />
-
+	<br />
+	<a href="UserRegistrationPage.jsp">Register</a>
 	<br /> This is where the header will go. making a change. another
 	change. Have fun wiht the manual merge
 </body>
