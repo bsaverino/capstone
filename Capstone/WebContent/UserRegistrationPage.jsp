@@ -60,16 +60,32 @@
 			<p>Birthdate</p>
 			<div class="control-group">
 				<div class="controls">
+				<div class="input-prepend">
 					<input title="Month" type="text" name="month" id="month" size="2" maxlength="2" placeholder="MM">
-					<input title="Day" type="text" name="day" id="day" size="2" maxlength="2" placeholder="DD">
-					<input title="Year" type="text" name="year" id="year" size="4" maxlength="4" placeholder="YYYY">
+					</div>
 				</div>
 			</div>
+			<div class="control-group">
+				<div class="controls">
+				<div class="input-prepend">
+					<input title="Day" type="text" name="day" id="day" size="2" maxlength="2" placeholder="DD">
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+				<div class="input-prepend">
+					<input title="Year" type="text" name="year" id="year" size="4" maxlength="4" placeholder="YYYY">
+					</div>
+				</div>
+			</div>	
 			<p>Gender</p>
 			<div class="control-group">
 				<div class="controls">
-					<input type="radio" name="sex" value="male"> Male
-					<input type="radio" name="sex" value="female"> Female
+				<div class="input-prepend">
+					<input type="radio" name="sex" value="male"><label for="male">Male</label>
+					<input type="radio" name="sex" value="female"><label for="female">Female</label>
+					</div>
 				</div>
 				</div>
 			<p> </p>
