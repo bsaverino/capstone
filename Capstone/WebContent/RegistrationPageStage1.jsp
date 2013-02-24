@@ -139,8 +139,8 @@
 								name="sex" id="female" VALUE="Female" /></label></li> -->
 
 						<div class="btn-group" data-toggle="buttons-radio">
-							<button type="button" class="btn btn-primary">Male</button>
-							<button type="button" class="btn btn-primary">Female</button>
+							<button type="button" class="btn btn-primary" name="sex" value="male">Male</button>
+							<button type="button" class="btn btn-primary"name="sex" value="female">Female</button>
 						</div>
 
 

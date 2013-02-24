@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="java.util.Calendar"%>
 <html lang="en">
 <head>
 <title>Unicorn Admin</title>
@@ -43,6 +44,8 @@
 					class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
 			<li class="btn btn-inverse"><a title="" href="login.html"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+			<li class="btn btn-inverse"><a title="" href="RegistrationPageStage2.jsp"><i
+				class="icon icon-align-left"></i> <span class="text">Register</span></a></li>
 		</ul>
 	</div>
 
@@ -105,8 +108,7 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Registration 1</a> <a
-				href="#" class="current">Registration 2</a>
+				class="icon-home"></i> Home</a> <a href="#" class="current">Registraton</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -115,15 +117,16 @@
 						<div class="widget-title">
 							<span class="icon"> <i class="icon-pencil"></i>
 							</span>
-							<h5>Registration Page 2</h5>
+							<h5>Registration Page 1</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post">
+							<form id="form-wizard" class="form-horizontal" method="post" action = "RegistrationServlet">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">First Name</label>
 										<div class="controls">
-											<input id="firstName" type="text" name="firstName" />
+											<input type="text" title="First Name" name="firstname"
+							id="firstname" size="32" maxlength="32" placeholder="First Name">
 										</div>
 									</div>
 									<div class="control-group">
@@ -165,8 +168,48 @@
 									<div class="control-group">
 										<label class="control-label">Gender</label>
 										<div class="controls">
-											<label><input type="radio" name=" Male" />Male</label> <label><input
+											<label><input type="radio" name=" Male" /> Male</label> <label><input
 												type="radio" name=" Female" /> Female</label>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Birthdate</label>
+										<div class="controls">
+											<select name="MonthDropdown">
+												<option value="0" selected="selected">Month</option>
+												<%
+													for (int i = 1; i <= 12; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
+										</div>
+										<div class="controls">
+											<select name="DayDropdown">
+												<option value="0" selected="selected">Day</option>
+												<%
+													for (int i = 1; i <= 31; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
+										</div>
+										<div class="controls">
+											<select name="YearDropdown">
+												<option value="0" selected="selected">Year</option>
+												<%
+													int year = Calendar.getInstance().get(Calendar.YEAR);
+													for (int i = 1900; i <= year; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
 										</div>
 									</div>
 
@@ -185,9 +228,8 @@
 			</div>
 
 			<div class="row-fluid">
-				<div id="footer" class="span12">
-					2012 &copy; Brought to you by Unity Productions
-				</div>
+				<div id="footer" class="span12">2012 &copy; Brought to you by
+					Unity Productions</div>
 			</div>
 		</div>
 	</div>
