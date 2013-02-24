@@ -3,6 +3,7 @@ package edu.ben.cmsc398.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 public class DBConnector {
 	
@@ -23,7 +24,6 @@ public class DBConnector {
 			System.out.println("VendorError: "+ ex.getErrorCode());
 		}
 	}
-
 	public Connection getConnection() {
 		return conn;
 	}
