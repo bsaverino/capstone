@@ -44,7 +44,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-						<input type="number" title="Postal Code" name="postalcode"
+						<input type="text" title="Postal Code" name="postalcode"
 							id="postalcode" size="9" maxlength="9" placeholder="Postal Code">
 					</div>
 				</div>
@@ -128,19 +128,29 @@
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-					
-						   <input type="radio" name="sex" value="male">
+
+						<!-- <input type="radio" name="sex" value="male">
 						   <label for="male">Male&nbsp;</label> 
 						   <input type="radio" name="sex" value="female">
-							<label for="female">Female&nbsp;</label>
-						<!-- <label for="male">Male&nbsp;<input type="radio" name="sex" id="male" VALUE="no" class="required" /></label> 
-							<label for="female">Female&nbsp;<input type="radio" name="sex" id="female" VALUE="no" /></label> -->
+							<label for="female">Female&nbsp;</label> -->
+						<!-- <li><label for="male">Male&nbsp;<input type="radio"
+								name="sex" id="male" VALUE="Male" class="required" /></label></li>
+							<li><label for="female">Female&nbsp;<input type="radio"
+								name="sex" id="female" VALUE="Female" /></label></li> -->
+
+						<div class="btn-group" data-toggle="buttons-radio">
+							<button type="button" class="btn btn-primary">Male</button>
+							<button type="button" class="btn btn-primary">Female</button>
+						</div>
+
+
 					</div>
 				</div>
 			</div>
 			<p></p>
 			<div class="form-actions">
-				<span class="pull-left"></span><span class="pull-right"><input
+				<span class="pull-left"><input type="button"
+					class="btn btn-inverse" value="Cancel" /></span><span class="pull-right"><input
 					type="submit" class="btn btn-inverse" value="Next" /></span>
 			</div>
 		</form>
