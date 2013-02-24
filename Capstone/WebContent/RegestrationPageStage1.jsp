@@ -36,15 +36,15 @@
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-						<input type="text" title="Email" name="email" id="email" size="32"
-							maxlength="32" placeholder="Email Address">
+						<input type="email" title="Email" name="email" id="email"
+							size="32" maxlength="32" placeholder="Email Address">
 					</div>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-						<input type="text" title="Postal Code" name="postalcode"
+						<input type="number" title="Postal Code" name="postalcode"
 							id="postalcode" size="9" maxlength="9" placeholder="Postal Code">
 					</div>
 				</div>
@@ -78,8 +78,8 @@
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-						<select name="MonthDropdown" >
-						<option value="0" selected = "selected" >Month</option>
+						<select name="MonthDropdown">
+							<option value="0" selected="selected">Month</option>
 							<%
 								for (int i = 1; i <= 12; i++) {
 							%>
@@ -94,8 +94,8 @@
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-						<select name="DayDropdown" >
-						<option value="0" selected = "selected" >Day</option>
+						<select name="DayDropdown">
+							<option value="0" selected="selected">Day</option>
 							<%
 								for (int i = 1; i <= 31; i++) {
 							%>
@@ -111,7 +111,7 @@
 				<div class="controls">
 					<div class="input-prepend">
 						<select name="YearDropdown">
-						<option value="0" selected = "selected" >Year</option>
+							<option value="0" selected="selected">Year</option>
 							<%
 								int year = Calendar.getInstance().get(Calendar.YEAR);
 								for (int i = 1900; i <= year; i++) {
@@ -128,9 +128,13 @@
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-prepend">
-						<input type="radio" name="sex" value="male"><label
-							for="male">Male</label> <input type="radio" name="sex"
-							value="female"><label for="female">Female</label>
+					
+						   <input type="radio" name="sex" value="male">
+						   <label for="male">Male&nbsp;</label> 
+						   <input type="radio" name="sex" value="female">
+							<label for="female">Female&nbsp;</label>
+						<!-- <label for="male">Male&nbsp;<input type="radio" name="sex" id="male" VALUE="no" class="required" /></label> 
+							<label for="female">Female&nbsp;<input type="radio" name="sex" id="female" VALUE="no" /></label> -->
 					</div>
 				</div>
 			</div>
