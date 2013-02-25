@@ -59,8 +59,6 @@
 			rCal Tracer</a>
 		<ul>
 			<li><a href="#"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li><a href="#"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="#"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li><a href="#"><i class="icon icon-th-list"></i> <span>Calculators</span>
 					<span class="label">3</span></a>
 				<ul>
@@ -78,9 +76,8 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Registration 1</a> <a
-				href="#">Registration 2</a><a href="#" class="current">Registration
-				3</a>
+				class="icon-home"></i> Home</a> <a href="#">Personal Info</a> <a
+				href="#">Car Info</a><a href="#" class="current">Car Specs (optional)</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
