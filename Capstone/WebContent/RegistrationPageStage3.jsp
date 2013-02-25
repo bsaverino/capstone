@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+	pageEncoding="US-ASCII"%>
 <%@ page import="java.util.Calendar"%>
 <html lang="en">
 <head>
@@ -9,6 +11,38 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
+<script>
+	function KeepCount() {
+
+		var NewCount = 0;
+
+		if (document.joe.dog.checked) {
+			NewCount = NewCount + 1;
+		}
+
+		if (document.joe.cat.checked) {
+			NewCount = NewCount + 1;
+		}
+
+		if (document.joe.pig.checked) {
+			NewCount = NewCount + 1;
+		}
+
+		if (document.joe.ferret.checked) {
+			NewCount = NewCount + 1;
+		}
+
+		if (document.joe.hampster.checked) {
+			NewCount = NewCount + 1;
+		}
+
+		if (NewCount == 3) {
+			alert('Pick Just Two Please');
+			document.joe;
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -56,8 +90,9 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Registration 1</a> <a href="#">Registration 2</a><a
-				href="#" class="current">Registration 3</a>
+				class="icon-home"></i> Home</a> <a href="#">Registration 1</a> <a
+				href="#">Registration 2</a><a href="#" class="current">Registration
+				3</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -66,58 +101,122 @@
 						<div class="widget-title">
 							<span class="icon"> <i class="icon-pencil"></i>
 							</span>
-							<h5>Registration Page 2</h5>
+							<h5>Registration Page 3</h5>
 						</div>
 						<div class="widget-content nopadding">
 							<form id="form-wizard" class="form-horizontal" method="post">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">First Name</label>
+										<label class="control-label">Is your car Naturally
+											Aspirate, Supercharged, Turbocharged, or does it use Nitrous?
+										</label>
 										<div class="controls">
-											<input id="firstName" type="text" name="firstName" />
+											<input type="checkbox" name="radios"
+												onClick="return KeepCount()" /> Nitrous</label> <label><input
+												type="checkbox" name="radios" onClick="return KeepCount()" />
+												Supercharged/Turbocharged</label> <label><input
+												type="checkbox" name="radios" onClick="return KeepCount()" />
+												Naturally Aspirated</label>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Last Name</label>
+										<label class="control-label">Do you use Synthetic Oil?</label>
 										<div class="controls">
-											<input id="lastName" type="text" name="lastName" />
+											<label><input type="radio" name="radios" value="yes" />
+												Yes</label> <label><input type="radio" name="radios"
+												value="no" /> No</label>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">E-Mail</label>
+										<label class="control-label">What Octane fuel do you
+											use?</label>
 										<div class="controls">
-											<input id="email" type="email" name="email" />
+											<select>
+												<option value="0" selected="selected">Octane</option>
+											</select>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Area Code</label>
+										<label class="control-label">How many cylinders does
+											your motor have? </label>
 										<div class="controls">
-											<input id="areaCode" type="text" name="areaCode" />
+											<select>
+												<option value="0" selected="selected">Cylinders</option>
+												<%
+													for (int i = 1; i <= 16; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Username</label>
+										<label class="control-label">How much Horespower does
+											your motor have at the wheel?</label>
 										<div class="controls">
-											<input id="username" type="text" name="username" />
+											<input id="horsepower" type="text" name="horsepower" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Password</label>
+										<label class="control-label">How much Torque does your
+											motor have at the wheel?</label>
 										<div class="controls">
-											<input id="password" type="password" name="password" />
+											<input id="torque" type="text" name="torque" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Confirm Password</label>
+										<label class="control-label">What is the bore of your
+											cylinders? </label>
 										<div class="controls">
-											<input id="password2" type="password" name="password2" />
+											<input id="pistonBore" type="text" name="pistonBore" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Gender</label>
+										<label class="control-label">What is the Stroke of
+											your motor? </label>
 										<div class="controls">
-											<label><input type="radio" name=" Male" />Male</label> <label><input
-												type="radio" name=" Female" /> Female</label>
+											<input id="stroke" type="text" name="stroke" />
+										</div>
+									</div>
+
+									<div class="control-group">
+										<label class="control-label">Are your pistons Domed or
+											Dished?</label>
+										<div class="controls">
+											<label><input type="radio" name="radios"
+												value="domed" /> Domed</label> <label><input type="radio"
+												name="radios" value="dished" /> Dished</label>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">What is the cc of your
+											piston? </label>
+										<div class="controls">
+											<input id="pistonCC" type="text" name="pistonCC" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">How thick are your head
+											gaskets?</label>
+										<div class="controls">
+											<input id="headGasketThickness" type="text"
+												name="headGasketThickness" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Bore of your head
+											gaskets?</label>
+										<div class="controls">
+											<input id="headGasketBore" type="text" name="headGasketBore" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">What is the cc of your
+											heads?</label>
+										<div class="controls">
+											<input id="headCC" type="text" name="headCC" />
 										</div>
 									</div>
 
@@ -136,9 +235,8 @@
 			</div>
 
 			<div class="row-fluid">
-				<div id="footer" class="span12">
-					2012 &copy; Brought to you by Unity Productions
-				</div>
+				<div id="footer" class="span12">2012 &copy; Brought to you by
+					Unity Productions</div>
 			</div>
 		</div>
 	</div>
