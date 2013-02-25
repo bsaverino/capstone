@@ -58,21 +58,17 @@
 		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
 			rCal Tracer</a>
 		<ul>
-			<li><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li><a href="buttons.html"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="buttons.html"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
-			<li class="submenu active open"><a href="#"><i
-					class="icon icon-th-list"></i> <span>Calculators</span> <span
-					class="label">3</span></a>
+			<li><a href="#"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="#"><i class="icon-road"></i> <span>Performance</span></a></li>
+			<li><a href="#"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="#"><i class="icon icon-th-list"></i> <span>Calculators</span>
+					<span class="label">3</span></a>
 				<ul>
 					<li><a href="form-common.html">Cubic Inch Cal</a></li>
 					<li><a href="form-validation.html">Compression Ratio Cal</a></li>
-					<li class="active"><a href="form-wizard.html">Fuel
-							Injector Cal</a></li>
+					<li><a href="form-wizard.html">Fuel Injector Cal</a></li>
 				</ul></li>
-
 		</ul>
-
 	</div>
 
 
