@@ -8,35 +8,47 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
-<script language="JavaScript">
+<script>
 	function doCalcTotal() {
+		var pistonType = 0;
 		var bore = parseFloat(document.calc.bore.value);
 		var stroke = parseFloat(document.calc.stroke.value);
 		var pistonDeckHeight = parseFloat(document.calc.pistonDeckHeight.value);
 		var headCC = parseInt(document.calc.headCC.value);
 		var pistonCC = parseInt(document.calc.pistonCC.value);
-		var pistonType="test";
-		if(document.calc.pistonType.value=="pistonTypeDome")
-			pistonType = "dome";
-		else if(document.calc.pistonType.value=="pistonTypeDish")
-			pistonType = "dish";
-		else
-			alert('Select a Piston Type');
+
+		if(getValue()=="-1")
+			pistonType = -1;
+		if(getValue()=="1")
+			pistonType = 1;
 		var headGasketThickness = parseFloat(document.calc.headGasketThickness.value);
 		var headGasketBore = parseFloat(document.calc.headGasketBore.value);
-		
-		var CYV = 0.7853982 * Math.pow(bore,2) * stroke;
-		var CLV = 0.7853982 * Math.pow(bore,2) * pistonDeckHeight;
-		var PCC = pistonCC * 0.0610237; //Have to edit this based on the Piston Type (- or +)
-		var HG = 0.7853982 * Math.pow(headGasketBore,2) *headGasketThickness;
+
+		var CYV = 0.7853982 * Math.pow(bore, 2) * stroke;
+		var CLV = 0.7853982 * Math.pow(bore, 2) * pistonDeckHeight;
+		var PCC = (pistonType * pistonCC) * 0.0610237; //Have to edit this based on the Piston Type (- or +)
+		var HG = 0.7853982 * Math.pow(headGasketBore, 2) * headGasketThickness;
 		var HCC = 0.0610237 * headCC;
-		var total = (CYV+CLV+PCC+HG+HCC)/(CLV+PCC+HG+HCC);
-		document.calc.compressionRatioTotal.value =total;
+		var total = (CYV + CLV + PCC + HG + HCC) / (CLV + PCC + HG + HCC);
+		document.calc.compressionRatioTotal.value = total;
+	}
+
+	function getValue() {
+
+		var radios = document.getElementsByName('pistonType');
+
+		for (var i = 0, length = radios.length; i < length; i++) {
+		    if (radios[i].checked) {
+		        /* alert(radios[i].value); */
+		        return radios[i].value;
+		    }
+		}
+
 	}
 </script>
 </head>
 <body>
-
+	getValue();
 
 	<div id="header">
 		<h1>
@@ -120,15 +132,16 @@
 								<div class="control-group">
 									<label class="control-label">Piston Type</label>
 									<div class="controls">
-										<label><input type="radio" id="pistonTypeDome" name="pistonType" value="pistonTypeDome" /> Dome</label> 
-										<label><input type="radio" id="pistonTypeDish" name="pistonType" value="pistonTypeDish" /> Dish</label>
+										<label><input type="radio" id="pistonTypeDome"
+											name="pistonType" onClick="return getValue()" value="1"/>
+											Dome</label> <label><input type="radio" id="pistonTypeDish"
+											name="pistonType" onClick="return getValue()" value="-1"/> Dish</label>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Piston CC</label>
 									<div class="controls">
-										<input type="text" id="pistonCC"
-											name="pistonCC">
+										<input type="text" id="pistonCC" name="pistonCC">
 									</div>
 								</div>
 								<div class="control-group">
@@ -141,15 +154,14 @@
 								<div class="control-group">
 									<label class="control-label">Head Gasket Bore</label>
 									<div class="controls">
-										<input type="text" id="headGasketBore"
-											name="headGasketBore">
+										<input type="text" id="headGasketBore" name="headGasketBore">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Compression Ratio</label>
 									<div class="controls">
 										<input type="text" id="compressionRatioTotal"
-											name="compressionRatioTotal" disabled>
+											name="compressionRatioTotal">
 									</div>
 								</div>
 								<div class="form-actions">
