@@ -2,160 +2,245 @@
 <%@ page import="java.util.Calendar"%>
 <html lang="en">
 <head>
-<title>rCalc Tracer</title>
+<title>Unicorn Admin</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/unicorn.register.css" />
+<link rel="stylesheet" href="css/unicorn.main.css" />
+<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
 </head>
 <body>
-	<div id="logo">
-		<img src="img/logo.png" alt="" />
+
+
+	<div id="header">
+		<h1>
+			<a href="./dashboard.html">Unicorn Admin</a>
+		</h1>
 	</div>
-	<div id="loginbox">
-		<form id="loginform" class="form-vertical"
-			action="RegistrationServlet">
-			<p>Enter User Information</p>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="text" title="First Name" name="firstname"
-							id="firstname" size="32" maxlength="32" placeholder="First Name">
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="text" title="Last Name" name="lastname" id="lastname"
-							size="32" maxlength="32" placeholder="Last Name">
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="email" title="Email" name="email" id="email"
-							size="32" maxlength="32" placeholder="Email Address">
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="text" title="Postal Code" name="postalcode"
-							id="postalcode" size="9" maxlength="9" placeholder="Postal Code">
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="text" title="Username" name="username" id="username"
-							size="32" maxlength="32" placeholder="Username">
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="password" name="password" id="password" size="32"
-							maxlength="32" placeholder="Password">
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<input type="password" name="confirm_password"
-							id="confirm_password" size="32" maxlength="32"
-							placeholder="Confirm Password">
-					</div>
-				</div>
-			</div>
-			<p>Birthdate</p>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<select name="MonthDropdown">
-							<option value="0" selected="selected">Month</option>
-							<%
-								for (int i = 1; i <= 12; i++) {
-							%>
-							<option value=<%=i%>><%=i%></option>
-							<%
-								}
-							%>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<select name="DayDropdown">
-							<option value="0" selected="selected">Day</option>
-							<%
-								for (int i = 1; i <= 31; i++) {
-							%>
-							<option value=<%=i%>><%=i%></option>
-							<%
-								}
-							%>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
-						<select name="YearDropdown">
-							<option value="0" selected="selected">Year</option>
-							<%
-								int year = Calendar.getInstance().get(Calendar.YEAR);
-								for (int i = 1900; i <= year; i++) {
-							%>
-							<option value=<%=i%>><%=i%></option>
-							<%
-								}
-							%>
-						</select>
-					</div>
-				</div>
-			</div>
-			<p>Gender</p>
-			<div class="control-group">
-				<div class="controls">
-					<div class="input-prepend">
 
-						<!-- <input type="radio" name="sex" value="male">
-						   <label for="male">Male&nbsp;</label> 
-						   <input type="radio" name="sex" value="female">
-							<label for="female">Female&nbsp;</label> -->
-						<!-- <li><label for="male">Male&nbsp;<input type="radio"
-								name="sex" id="male" VALUE="Male" class="required" /></label></li>
-							<li><label for="female">Female&nbsp;<input type="radio"
-								name="sex" id="female" VALUE="Female" /></label></li> -->
+	<div id="search">
+		<input type="text" placeholder="Search here..." />
+		<button type="submit" class="tip-right" title="Search">
+			<i class="icon-search icon-white"></i>
+		</button>
+	</div>
+	<div id="user-nav" class="navbar navbar-inverse">
+		<ul class="nav btn-group">
+			<li class="btn btn-inverse"><a title="" href="#"><i
+					class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+			<li class="btn btn-inverse dropdown" id="menu-messages"><a
+				href="#" data-toggle="dropdown" data-target="#menu-messages"
+				class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
+					class="text">Messages</span> <span class="label label-important">5</span>
+					<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a class="sAdd" title="" href="#">new message</a></li>
+					<li><a class="sInbox" title="" href="#">inbox</a></li>
+					<li><a class="sOutbox" title="" href="#">outbox</a></li>
+					<li><a class="sTrash" title="" href="#">trash</a></li>
+				</ul></li>
+			<li class="btn btn-inverse"><a title="" href="#"><i
+					class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
+			<li class="btn btn-inverse"><a title="" href="login.html"><i
+					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+		</ul>
+	</div>
 
-						<div class="btn-group" data-toggle="buttons-radio">
-							<button type="button" class="btn btn-primary">Male</button>
-							<button type="button" class="btn btn-primary">Female</button>
+	<div id="sidebar">
+		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
+			Wizard</a>
+		<ul>
+			<li><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li class="submenu active open"><a href="#"><i
+					class="icon icon-th-list"></i> <span>Form elements</span> <span
+					class="label">3</span></a>
+				<ul>
+					<li><a href="form-common.html">Common elements</a></li>
+					<li><a href="form-validation.html">Validation</a></li>
+					<li class="active"><a href="form-wizard.html">Wizard</a></li>
+				</ul></li>
+			<li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons
+						&amp; icons</span></a></li>
+			<li><a href="interface.html"><i class="icon icon-pencil"></i>
+					<span>Interface elements</span></a></li>
+			<li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
+			<li><a href="grid.html"><i class="icon icon-th-list"></i> <span>Grid
+						Layout</span></a></li>
+			<li class="submenu"><a href="#"><i class="icon icon-file"></i>
+					<span>Sample pages</span> <span class="label">4</span></a>
+				<ul>
+					<li><a href="invoice.html">Invoice</a></li>
+					<li><a href="chat.html">Support chat</a></li>
+					<li><a href="calendar.html">Calendar</a></li>
+					<li><a href="gallery.html">Gallery</a></li>
+				</ul></li>
+			<li><a href="charts.html"><i class="icon icon-signal"></i> <span>Charts
+						&amp; graphs</span></a></li>
+			<li><a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a>
+			</li>
+		</ul>
+
+	</div>
+
+	<div id="style-switcher">
+		<i class="icon-arrow-left icon-white"></i> <span>Style:</span> <a
+			href="#grey"
+			style="background-color: #555555; border-color: #aaaaaa;"></a> <a
+			href="#blue" style="background-color: #2D2F57;"></a> <a href="#red"
+			style="background-color: #673232;"></a>
+	</div>
+
+	<div id="content">
+		<div id="content-header">
+			<h1>Form wizard</h1>
+			<div class="btn-group">
+				<a class="btn btn-large tip-bottom" title="Manage Files"><i
+					class="icon-file"></i></a> <a class="btn btn-large tip-bottom"
+					title="Manage Users"><i class="icon-user"></i></a> <a
+					class="btn btn-large tip-bottom" title="Manage Comments"><i
+					class="icon-comment"></i><span class="label label-important">5</span></a>
+				<a class="btn btn-large tip-bottom" title="Manage Orders"><i
+					class="icon-shopping-cart"></i></a>
+			</div>
+		</div>
+		<div id="breadcrumb">
+			<a href="#" title="Go to Home" class="tip-bottom"><i
+				class="icon-home"></i> Home</a> <a href="#" class="current">Registraton
+				1</a>
+		</div>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="widget-box">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-pencil"></i>
+							</span>
+							<h5>Registration Page 1</h5>
 						</div>
+						<div class="widget-content nopadding">
+							<form id="form-wizard" class="form-horizontal" method="post">
+								<div id="form-wizard-1" class="step">
+									<div class="control-group">
+										<label class="control-label">First Name</label>
+										<div class="controls">
+											<input id="firstName" type="text" name="firstName" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Last Name</label>
+										<div class="controls">
+											<input id="lastName" type="text" name="lastName" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">E-Mail</label>
+										<div class="controls">
+											<input id="email" type="email" name="email" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Area Code</label>
+										<div class="controls">
+											<input id="areaCode" type="text" name="areaCode" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Username</label>
+										<div class="controls">
+											<input id="username" type="text" name="username" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Password</label>
+										<div class="controls">
+											<input id="password" type="password" name="password" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Confirm Password</label>
+										<div class="controls">
+											<input id="password2" type="password" name="password2" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Gender</label>
+										<div class="controls">
+											<label><input type="radio" name=" Male" />Male</label> <label><input
+												type="radio" name=" Female" /> Female</label>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Birthdate</label>
+										<div class="controls">
+											<select name="MonthDropdown">
+												<option value="0" selected="selected">Month</option>
+												<%
+													for (int i = 1; i <= 12; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
+										</div>
+										<div class="controls">
+											<select name="DayDropdown">
+												<option value="0" selected="selected">Day</option>
+												<%
+													for (int i = 1; i <= 31; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
+										</div>
+										<div class="controls">
+											<select name="YearDropdown">
+												<option value="0" selected="selected">Year</option>
+												<%
+													int year = Calendar.getInstance().get(Calendar.YEAR);
+													for (int i = 1900; i <= year; i++) {
+												%>
+												<option value=<%=i%>><%=i%></option>
+												<%
+													}
+												%>
+											</select>
+										</div>
+									</div>
 
-
+								</div>
+								<div class="form-actions">
+									<input id="back" class="btn btn-primary" type="reset"
+										value="Back" /> <input id="next" class="btn btn-primary"
+										type="submit" value="Next" />
+									<div id="status"></div>
+								</div>
+								<div id="submitted"></div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-			<p></p>
-			<div class="form-actions">
-				<span class="pull-left"><input type="button"
-					class="btn btn-inverse" value="Cancel" /></span><span class="pull-right"><input
-					type="submit" class="btn btn-inverse" value="Next" /></span>
+
+			<div class="row-fluid">
+				<div id="footer" class="span12">2012 &copy; Brought to you by
+					Unity Productions</div>
 			</div>
-		</form>
+		</div>
 	</div>
+
+
+
 	<script src="js/jquery.min.js"></script>
-	<script src="js/unicorn.register.js"></script>
+	<script src="js/jquery.ui.custom.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/jquery.wizard.js"></script>
+	<script src="js/unicorn.js"></script>
+	<script src="js/unicorn.wizard.js"></script>
 </body>
 </html>
+

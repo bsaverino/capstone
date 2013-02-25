@@ -105,8 +105,8 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Registration 1</a> <a
-				href="#" class="current">Registration 2</a>
+				class="icon-home"></i> Home</a> <a href="#">Registration 1</a> <a href="#">Registration 2</a><a
+				href="#" class="current">Registration 3</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
