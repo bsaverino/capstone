@@ -16,29 +16,21 @@
 
 		var NewCount = 0;
 
-		if (document.joe.dog.checked) {
+		if (document.reg3.nitrous.checked) {
 			NewCount = NewCount + 1;
 		}
 
-		if (document.joe.cat.checked) {
+		if (document.reg3.fi.checked) {
 			NewCount = NewCount + 1;
 		}
 
-		if (document.joe.pig.checked) {
-			NewCount = NewCount + 1;
-		}
-
-		if (document.joe.ferret.checked) {
-			NewCount = NewCount + 1;
-		}
-
-		if (document.joe.hampster.checked) {
+		if (document.reg3.na.checked) {
 			NewCount = NewCount + 1;
 		}
 
 		if (NewCount == 3) {
 			alert('Pick Just Two Please');
-			document.joe;
+			document.reg3;
 			return false;
 		}
 	}
@@ -104,18 +96,18 @@
 							<h5>Registration Page 3</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post">
+							<form name="reg3" id="form-wizard" class="form-horizontal" method="post">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">Is your car Naturally
 											Aspirate, Supercharged, Turbocharged, or does it use Nitrous?
 										</label>
 										<div class="controls">
-											<input type="checkbox" name="radios"
+											<label><input type="checkbox" name="nitrous"
 												onClick="return KeepCount()" /> Nitrous</label> <label><input
-												type="checkbox" name="radios" onClick="return KeepCount()" />
+												type="checkbox" name="fi" onClick="return KeepCount()" />
 												Supercharged/Turbocharged</label> <label><input
-												type="checkbox" name="radios" onClick="return KeepCount()" />
+												type="checkbox" name="na" onClick="return KeepCount()" />
 												Naturally Aspirated</label>
 										</div>
 									</div>
