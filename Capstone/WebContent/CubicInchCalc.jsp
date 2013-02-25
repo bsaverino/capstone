@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="java.util.Calendar"%>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
