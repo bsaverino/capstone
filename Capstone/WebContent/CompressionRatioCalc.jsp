@@ -14,6 +14,7 @@
 		var stroke = parseFloat(document.calc.stroke.value);
 		var pistonDeckHeight = parseFloat(document.calc.pistonDeckHeight.value);
 		var headCC = parseInt(document.calc.headCC.value);
+		var pistonCC = parseInt(document.calc.pistonCC.value);
 		var pistonType="test";
 		if(document.calc.pistonType.value=="pistonTypeDome")
 			pistonType = "dome";
@@ -23,7 +24,13 @@
 			alert('Select a Piston Type');
 		var headGasketThickness = parseFloat(document.calc.headGasketThickness.value);
 		var headGasketBore = parseFloat(document.calc.headGasketBore.value);
-		var total = bore+stroke+pistonDeckHeight+headCC+headGasketThickness+headGasketBore;
+		
+		var CYV = 0.7853982 * Math.pow(bore,2) * stroke;
+		var CLV = 0.7853982 * Math.pow(bore,2) * pistonDeckHeight;
+		var PCC = pistonCC * 0.0610237; //Have to edit this based on the Piston Type (- or +)
+		var HG = 0.7853982 * Math.pow(headGasketBore,2) *headGasketThickness;
+		var HCC = 0.0610237 * headCC;
+		var total = (CYV+CLV+PCC+HG+HCC)/(CLV+PCC+HG+HCC);
 		document.calc.compressionRatioTotal.value =total;
 	}
 </script>
@@ -115,6 +122,13 @@
 									<div class="controls">
 										<label><input type="radio" id="pistonTypeDome" name="pistonType" value="pistonTypeDome" /> Dome</label> 
 										<label><input type="radio" id="pistonTypeDish" name="pistonType" value="pistonTypeDish" /> Dish</label>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Piston CC</label>
+									<div class="controls">
+										<input type="text" id="pistonCC"
+											name="pistonCC">
 									</div>
 								</div>
 								<div class="control-group">
