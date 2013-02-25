@@ -100,15 +100,24 @@
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">Is your car Naturally
-											Aspirate, Supercharged, Turbocharged, or does it use Nitrous?
+											Aspirate, Boosted, or does it use Nitrous?
 										</label>
 										<div class="controls">
 											<label><input type="checkbox" name="nitrous"
 												onClick="return KeepCount()" /> Nitrous</label> <label><input
 												type="checkbox" name="fi" onClick="return KeepCount()" />
-												Supercharged/Turbocharged</label> <label><input
+												Boosted (Superchared or Turbocharged)</label> <label><input
 												type="checkbox" name="na" onClick="return KeepCount()" />
-												Naturally Aspirated</label>
+												Naturally Aspirated (All motor, no power adders)</label>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Is your nitrous system wet or dry?</label>
+										<div class="controls">
+											<label><input type="radio" name="radios" value="1" />
+												Wet</label> <label><input type="radio" name="radios"
+												value="2" /> Dry</label><label><input type="radio" name="radios"
+												value="0" /> I don't have Nitrous</label>
 										</div>
 									</div>
 									<div class="control-group">
