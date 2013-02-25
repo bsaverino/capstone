@@ -109,8 +109,8 @@
 									<div class="control-group">
 										<label class="control-label">Gender</label>
 										<div class="controls">
-											<label><input type="radio" name=" Male" />Male</label> <label><input
-												type="radio" name=" Female" /> Female</label>
+											<label><input type="radio" name="sex" value="male"/> Male</label> <label><input
+												type="radio" name="sex" value="female"/> Female</label>
 										</div>
 									</div>
 									<div class="control-group">
