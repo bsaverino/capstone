@@ -50,8 +50,8 @@
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li class="active"><a href="FuelInjectorCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Fuel Injector Calc</a></li>
+					<li class="active"><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>

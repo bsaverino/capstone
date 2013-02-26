@@ -46,8 +46,8 @@
 					<a href="#"><i class="icon icon-th-list"></i> <span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li class="active"><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="FuelInjectorCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Fuel Injector Calc</a></li>
+					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
