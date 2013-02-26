@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
-<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
+<link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
 <script>
 	function KeepCount() {
 
@@ -47,10 +47,11 @@
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-			<li class="btn btn-inverse"><a title="" href="#"><i
-					class="icon icon-user"></i> <span class="text">Profile</span></a></li>
 			<li class="btn btn-inverse"><a title="" href="login.html"><i
-					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+					class="icon icon-share-alt"></i> <span class="text">Login</span></a></li>
+			<li class="btn btn-inverse"><a title=""
+				href="RegistrationPageStage1.jsp"><i
+					class="icon icon-align-left"></i> <span class="text">Register</span></a></li>
 		</ul>
 	</div>
 

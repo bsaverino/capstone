@@ -29,9 +29,8 @@
 			<li class="btn btn-inverse"><a title="" href="login.html"><i
 					class="icon icon-share-alt"></i> <span class="text">Login</span></a></li>
 			<li class="btn btn-inverse"><a title=""
-				href="RegistrationPageStage2.jsp"><i
+				href="RegistrationPageStage1.jsp"><i
 					class="icon icon-align-left"></i> <span class="text">Register</span></a></li>
-
 		</ul>
 	</div>
 
