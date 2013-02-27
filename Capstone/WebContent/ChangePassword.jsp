@@ -38,7 +38,7 @@
 		<ul>
 			<li class="active"><a href="index.html"><i
 					class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li><a href="buttons.html"><i class="icon-road"></i> <span>Performance</span></a></li>
+			<li><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
 			<li><a href="interface.html"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>

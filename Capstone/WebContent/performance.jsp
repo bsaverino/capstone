@@ -25,7 +25,7 @@
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-			<li class="btn btn-inverse"><a title="" href="#"><i
+			<li class="btn btn-inverse"><a title="" href="profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
 			<li class="btn btn-inverse"><a title="" href="login.html"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
@@ -37,7 +37,7 @@
 			Home</a>
 		<ul>
 			<li><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li class="active"><a href="buttons.html"><i
+			<li class="active"><a href="performance.jsp"><i
 					class="icon-road"></i> <span>Performance</span></a></li>
 			<li><a href="interface.html"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
