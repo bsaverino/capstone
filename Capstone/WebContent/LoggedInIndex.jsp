@@ -44,9 +44,10 @@
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="invoice.html">Cubic Inch Cal</a></li>
-					<li><a href="chat.html">Compression Ratio Cal</a></li>
-					<li><a href="calendar.html">Fuel Injector Cal</a></li>
+					<li><a href="CubicInchCalc.jsp">Cubic Inch Cal</a></li>
+					<li><a href="CompressionRatioCalc.jsp">Compression Ratio
+							Cal</a></li>
+					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Cal</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -69,7 +70,7 @@
 								<span>524.23</span>
 							</div>
 							<div class="right">
-								<strong>WHP</strong> 
+								<strong>WHP</strong>
 							</div>
 						</li>
 						<li>
@@ -85,7 +86,7 @@
 								<span>504.12</span>
 							</div>
 							<div class="right">
-								<strong>WTQ</strong> 
+								<strong>WTQ</strong>
 							</div>
 						</li>
 					</ul>
@@ -94,7 +95,8 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="alert alert-info">
-						Welcome to <strong>rCal Tracer</strong>.<a href="#" data-dismiss="alert" class="close">Welcome!</a>
+						Welcome to <strong>rCal Tracer</strong>.<a href="#"
+							data-dismiss="alert" class="close">Welcome!</a>
 					</div>
 				</div>
 			</div>
@@ -108,15 +110,9 @@
 						</div>
 						<div class="widget-content nopadding">
 							<ul class="recent-posts">
-								<li>
-									Race time here:
-								</li>
-								<li>
-									Race time 2 here:
-								</li>
-								<li>
-									Race time 3 here:
-								</li>
+								<li>Race time here:</li>
+								<li>Race time 2 here:</li>
+								<li>Race time 3 here:</li>
 								<li class="viewall"><a title="View all posts"
 									class="tip-top" href="#"> + View all + </a></li>
 							</ul>
@@ -132,15 +128,9 @@
 						</div>
 						<div class="widget-content nopadding">
 							<ul class="recent-comments">
-								<li>
-									Headers   Kooks Custom Headers P3245 $1200
-								</li>
-								<li>
-									Cam 234/238 112+7LSA .610/.622Lift $399.00
-								</li>
-								<li>
-									Toque Converter 3200Stall Pricision Industries
-								</li>
+								<li>Headers Kooks Custom Headers P3245 $1200</li>
+								<li>Cam 234/238 112+7LSA .610/.622Lift $399.00</li>
+								<li>Toque Converter 3200Stall Pricision Industries</li>
 								<li class="viewall"><a title="View all comments"
 									class="tip-top" href="#"> + View all + </a></li>
 							</ul>
