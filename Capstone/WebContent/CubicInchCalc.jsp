@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
-<link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
+<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
 <script>
 	function doCalcTotal() {
 		var bore = parseFloat(document.calc.bore.value);
@@ -28,24 +28,27 @@
 		</h1>
 	</div>
 
+
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-			<li class="btn btn-inverse"><a title="" href="#"><i
-					class="icon icon-user"></i> <span class="text">Profile</span></a></li>
+			<li class="btn btn-inverse"><a title="" href="profile.jsp"><i
+					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
 			<li class="btn btn-inverse"><a title="" href="login.html"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>
 
 	<div id="sidebar">
-		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
-			rCal Tracer</a>
+		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
+			Home</a>
 		<ul>
-			<li><a href="LoggedOutIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li class="submenu active open">
-					<a href="#"><i class="icon icon-th-list"></i> <span>Calculators</span> <span class="label">3</span></a>
+			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
+			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
+					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li class="active"><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
+					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
 					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
 					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>

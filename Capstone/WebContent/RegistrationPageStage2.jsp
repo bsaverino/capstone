@@ -21,7 +21,7 @@
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-			<li class="btn btn-inverse"><a title="" href="login.html"><i
+			<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
 					class="icon icon-share-alt"></i> <span class="text">Login</span></a></li>
 			<li class="btn btn-inverse"><a title=""
 				href="RegistrationPageStage1.jsp"><i
@@ -33,13 +33,14 @@
 		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
 			rCal Tracer</a>
 		<ul>
-			<li><a href="#"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li><a href="#"><i class="icon icon-th-list"></i> <span>Calculators</span>
-					<span class="label">3</span></a>
+			<li><a href="LoggedOutIndex.jsp"><i class="icon icon-home"></i>
+					<span>Dashboard</span></a></li>
+			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
+					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="form-common.html">Cubic Inch Cal</a></li>
-					<li><a href="form-validation.html">Compression Ratio Cal</a></li>
-					<li><a href="form-wizard.html">Fuel Injector Cal</a></li>
+					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
+					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
