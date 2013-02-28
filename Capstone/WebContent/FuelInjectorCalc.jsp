@@ -16,7 +16,7 @@
 		else
 			var dutyCycle = parseFloat(document.calc.dutyCycle.value);
 		var cylinders = parseInt(document.calc.cylinders.value);
-		var bsfc = parseInt(document.calc.bsfc.value);
+		var bsfc = parseFloat(document.calc.bsfc.value);
 		var total = ((hp*bsfc)/(cylinders*dutyCycle)).toPrecision(3);
 		document.calc.fuelInjectorTotal.value = total;
 	}
