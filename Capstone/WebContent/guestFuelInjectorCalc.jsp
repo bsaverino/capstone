@@ -52,7 +52,7 @@
 				<ul>
 					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
 					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li class="active"><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>

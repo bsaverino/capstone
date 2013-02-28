@@ -26,7 +26,7 @@
 
 		var CYV = 0.7853982 * Math.pow(bore, 2) * stroke;
 		var CLV = 0.7853982 * Math.pow(bore, 2) * pistonDeckHeight;
-		var PCC = (pistonType * pistonCC) * 0.0610237; //Have to edit this based on the Piston Type (- or +)
+		var PCC = (pistonType * pistonCC) * 0.0610237; 
 		var HG = 0.7853982 * Math.pow(headGasketBore, 2) * headGasketThickness;
 		var HCC = 0.0610237 * headCC;
 		var total = (CYV + CLV + PCC + HG + HCC) / (CLV + PCC + HG + HCC);
@@ -73,11 +73,11 @@
 			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
 			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
-			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
+			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li class="active"><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
 					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>

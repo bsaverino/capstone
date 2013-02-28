@@ -48,12 +48,12 @@
 			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
 			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
-			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
+			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
 					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li class="active"><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
