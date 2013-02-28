@@ -35,7 +35,7 @@
 		<ul>
 			<li><a href="LoggedOutIndex.jsp"><i class="icon icon-home"></i>
 					<span>Dashboard</span></a></li>
-			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
+			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
