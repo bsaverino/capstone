@@ -118,7 +118,6 @@
 				Unity Productions</div>
 		</div>
 	</div>
-	</div>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.ui.custom.js"></script>
