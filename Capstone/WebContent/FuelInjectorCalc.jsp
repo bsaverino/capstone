@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
-<script language="JavaScript">
+<script>
 	function doCalcTotal() {
 		var hp = parseInt(document.calc.hp.value);
 		if (document.calc.dutyCycle.value == "")

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
-<script language="JavaScript">
+<script>
 	function doCalcTotal() {
 		var bore = parseFloat(document.calc.bore.value);
 		var stroke = parseFloat(document.calc.stroke.value);
