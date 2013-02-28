@@ -36,10 +36,10 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li class="active"><a href="performance.jsp"><i
 					class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="interface.html"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
@@ -54,7 +54,7 @@
 
 	<div id="content">
 		<div id="content-header">
-			<h1>Dashboard</h1>
+			<h1>Performance</h1>
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
@@ -75,8 +75,8 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="#">Add Time</a></li>
-									<li><a href="#">Edit Time</a></li>
+									<li><a href="racingTimeAdd.jsp">Add Time</a></li>
+									<li><a href="racingTimeEdit.jsp">Edit Time</a></li>
 									<li><a href="#">Delete Time</a></li>
 								</ul>
 							</div>
@@ -154,8 +154,8 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="#">Add Time</a></li>
-									<li><a href="#">Edit Time</a></li>
+									<li><a href="modificationAdd.jsp">Add Time</a></li>
+									<li><a href="modificationEdit.jsp">Edit Time</a></li>
 									<li><a href="#">Delete Time</a></li>
 								</ul>
 							</div>

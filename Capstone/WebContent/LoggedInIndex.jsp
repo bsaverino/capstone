@@ -28,7 +28,7 @@
 		<ul class="nav btn-group">
 			<li class="btn btn-inverse"><a title="" href="profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-			<li class="btn btn-inverse"><a title="" href="login.html"><i
+			<li class="btn btn-inverse"><a title="" href="LoggedOutIndex.jsp"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>
@@ -37,10 +37,10 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li class="active"><a href="index.html"><i
+			<li class="active"><a href="LoggedInIndex.jsp"><i
 					class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="interface.html"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>

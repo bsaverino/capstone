@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>rCal Add a Time</title>
+<title>rCal Edit a Service</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -35,8 +35,9 @@
 			Home</a>
 		<ul>
 			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li class="active"><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="performance.jsp"><i
+					class="icon-road"></i> <span>Performance</span></a></li>
+			<li class="active"><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
@@ -49,11 +50,12 @@
 
 	<div id="content">
 		<div id="content-header">
-			<h1>Performance</h1>
+			<h1>Profile</h1>
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#" class="current">Add Time</a>
+				class="icon-home"></i> Home</a> <a href="#">Maintenance</a><a href="#"
+				class="current">Edit Service</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -62,32 +64,34 @@
 						<div class="widget-title">
 							<span class="icon"> <i class="icon-pencil"></i>
 							</span>
-							<h5>Add your race time!</h5>
+							<h5>Add a new service to be performed!</h5>
 						</div>
 						<div class="widget-content nopadding">
 							<form name="calc" id="form-wizard" class="form-horizontal">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">Race Type</label>
+										<label class="control-label">Service</label>
 										<div class="controls">
-											<input type="text" id="hp" name="hp">
+											<select name="Trans">
+												<option value="0" selected="selected">Oil Change</option>
+											</select>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Time</label>
+										<label class="control-label">Mileage</label>
 										<div class="controls">
 											<input type="text" id="cylinders" name="cylinders">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Speed</label>
+										<label class="control-label">Cost ($)</label>
 										<div class="controls">
 											<input type="text" id="dutyCycle" name="dutyCycle">
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">60 Foot</label>
+									<label class="control-label">Date</label>
 									<div class="controls">
 										<input type="text" id="bsfc" name="bsfc">
 									</div>

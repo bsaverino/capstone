@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>rCal Add a Time</title>
+<title>rCal Edit a Modification</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -53,7 +53,7 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#" class="current">Add Time</a>
+				class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#" class="current">Edit Mod</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -62,39 +62,45 @@
 						<div class="widget-title">
 							<span class="icon"> <i class="icon-pencil"></i>
 							</span>
-							<h5>Add your race time!</h5>
+							<h5>Add your modification!</h5>
 						</div>
 						<div class="widget-content nopadding">
 							<form name="calc" id="form-wizard" class="form-horizontal">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">Race Type</label>
+										<label class="control-label">Type of Modification</label>
 										<div class="controls">
 											<input type="text" id="hp" name="hp">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Time</label>
+										<label class="control-label">Part Name</label>
 										<div class="controls">
 											<input type="text" id="cylinders" name="cylinders">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Speed</label>
+										<label class="control-label">Brand</label>
 										<div class="controls">
 											<input type="text" id="dutyCycle" name="dutyCycle">
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">60 Foot</label>
+									<label class="control-label">Part Number</label>
+									<div class="controls">
+										<input type="text" id="bsfc" name="bsfc">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Price ($)</label>
 									<div class="controls">
 										<input type="text" id="bsfc" name="bsfc">
 									</div>
 								</div>
 								<div class="form-actions">
 									<input id="calc" class="btn btn-primary" type="button"
-										value="Add" onClick="doCalcTotal()" />
+										value="Edit" onClick="doCalcTotal()" />
 									<div id="status"></div>
 								</div>
 								<div id="submitted"></div>

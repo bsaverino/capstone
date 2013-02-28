@@ -26,7 +26,7 @@
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-			<li class="btn btn-inverse"><a title="" href="login.html"><i
+			<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
 					class="icon icon-share-alt"></i> <span class="text">Login</span></a></li>
 			<li class="btn btn-inverse"><a title=""
 				href="RegistrationPageStage1.jsp"><i
@@ -38,14 +38,14 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li class="active"><a href="index.html"><i
+			<li class="active"><a href="LoggedOutIndex"><i
 					class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="invoice.html">Cubic Inch Cal</a></li>
-					<li><a href="chat.html">Compression Ratio Cal</a></li>
-					<li><a href="calendar.html">Fuel Injector Cal</a></li>
+					<li><a href="CubicInchCalc.jsp">Cubic Inch Cal</a></li>
+					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Cal</a></li>
+					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Cal</a></li>
 				</ul></li>
 		</ul>
 

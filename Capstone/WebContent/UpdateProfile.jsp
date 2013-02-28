@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>rCal Home</title>
+<title>rCal Update Profile</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
@@ -38,8 +38,7 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li class="active"><a href="index.html"><i
-					class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li><a href="performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
 			<li><a href="interface.html"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
@@ -64,133 +63,135 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12 center" style="text-align: center;">
-					<ul class="quick-actions">
-						<li><a href="UpdateProfile.jsp"> <i class="icon-user"></i>
-								Update User Profile
-						</a></li>
-						<li><a href="ChangePassword.jsp"> <i class="icon-lock"></i>
-								Change Password
-						</a></li>
-						<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
-								Add Vehicle
-						</a></li>
-						<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
-								Delete Vehicle
-						</a></li>
-						<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
-								Update Vehicle
-						</a></li>
-					</ul>
+					<div class="widget-box">
+						<ul class="quick-actions">
+							<li><a href="UpdateProfile.jsp"> <i class="icon-user"></i>
+									Update User Profile
+							</a></li>
+							<li><a href="ChangePassword.jsp"> <i class="icon-lock"></i>
+									Change Password
+							</a></li>
+							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
+									Add Vehicle
+							</a></li>
+							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
+									Delete Vehicle
+							</a></li>
+							<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
+									Update Vehicle
+							</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
 
-			<div class="container-fluid">
-				<div class="row-fluid">
-					<div class="span12">
-						<div class="widget-box">
-							<div class="widget-title">
-								<span class="icon"> <i class="icon-pencil"></i>
-								</span>
-								<h5>Registration Page 1</h5>
-							</div>
-							<div class="widget-content nopadding">
-								<form id="form-wizard" class="form-horizontal" method="post">
-									<div id="form-wizard-1" class="step">
-										<div class="control-group">
-											<label class="control-label">First Name</label>
-											<div class="controls">
-												<input id="firstName" type="text" name="firstName" />
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="widget-box">
+								<div class="widget-title">
+									<span class="icon"> <i class="icon-pencil"></i>
+									</span>
+									<h5>Update Info</h5>
+								</div>
+								<div class="widget-content nopadding">
+									<form id="form-wizard" class="form-horizontal" method="post">
+										<div id="form-wizard-1" class="step">
+											<div class="control-group">
+												<label class="control-label">First Name</label>
+												<div class="controls">
+													<input id="firstName" type="text" name="firstName" />
+												</div>
 											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">Last Name</label>
-											<div class="controls">
-												<input id="lastName" type="text" name="lastName" />
+											<div class="control-group">
+												<label class="control-label">Last Name</label>
+												<div class="controls">
+													<input id="lastName" type="text" name="lastName" />
+												</div>
 											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">E-Mail</label>
-											<div class="controls">
-												<input id="email" type="email" name="email" />
+											<div class="control-group">
+												<label class="control-label">E-Mail</label>
+												<div class="controls">
+													<input id="email" type="email" name="email" />
+												</div>
 											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">Area Code</label>
-											<div class="controls">
-												<input id="areaCode" type="text" name="areaCode" />
+											<div class="control-group">
+												<label class="control-label">Area Code</label>
+												<div class="controls">
+													<input id="areaCode" type="text" name="areaCode" />
+												</div>
 											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">Username</label>
-											<div class="controls">
-												<input id="username" type="text" name="username" disabled />
+											<div class="control-group">
+												<label class="control-label">Username</label>
+												<div class="controls">
+													<input id="username" type="text" name="username" disabled />
+												</div>
 											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">Gender</label>
-											<div class="controls">
-												<label><input type="radio" name="sex" value="male" />
-													Male</label> <label><input type="radio" name="sex"
-													value="female" /> Female</label>
+											<div class="control-group">
+												<label class="control-label">Gender</label>
+												<div class="controls">
+													<label><input type="radio" name="sex" value="male" />
+														Male</label> <label><input type="radio" name="sex"
+														value="female" /> Female</label>
+												</div>
 											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label">Birthdate</label>
-											<div class="controls">
-												<select name="MonthDropdown">
-													<option value="0" selected="selected">Month</option>
-													<%
-														for (int i = 1; i <= 12; i++) {
-													%>
-													<option value=<%=i%>><%=i%></option>
-													<%
-														}
-													%>
-												</select>
+											<div class="control-group">
+												<label class="control-label">Birthdate</label>
+												<div class="controls">
+													<select name="MonthDropdown">
+														<option value="0" selected="selected">Month</option>
+														<%
+															for (int i = 1; i <= 12; i++) {
+														%>
+														<option value=<%=i%>><%=i%></option>
+														<%
+															}
+														%>
+													</select>
+												</div>
+												<div class="controls">
+													<select name="DayDropdown">
+														<option value="0" selected="selected">Day</option>
+														<%
+															for (int i = 1; i <= 31; i++) {
+														%>
+														<option value=<%=i%>><%=i%></option>
+														<%
+															}
+														%>
+													</select>
+												</div>
+												<div class="controls">
+													<select name="YearDropdown">
+														<option value="0" selected="selected">Year</option>
+														<%
+															int year = Calendar.getInstance().get(Calendar.YEAR);
+															for (int i = 1900; i <= year; i++) {
+														%>
+														<option value=<%=i%>><%=i%></option>
+														<%
+															}
+														%>
+													</select>
+												</div>
 											</div>
-											<div class="controls">
-												<select name="DayDropdown">
-													<option value="0" selected="selected">Day</option>
-													<%
-														for (int i = 1; i <= 31; i++) {
-													%>
-													<option value=<%=i%>><%=i%></option>
-													<%
-														}
-													%>
-												</select>
-											</div>
-											<div class="controls">
-												<select name="YearDropdown">
-													<option value="0" selected="selected">Year</option>
-													<%
-														int year = Calendar.getInstance().get(Calendar.YEAR);
-														for (int i = 1900; i <= year; i++) {
-													%>
-													<option value=<%=i%>><%=i%></option>
-													<%
-														}
-													%>
-												</select>
-											</div>
-										</div>
 
-									</div>
-									<div class="form-actions">
-										<a href="RegistrationPageStage2.jsp"><input
-											class="btn btn-primary" type="submit" value="Submit" /></a>
-										<div id="status"></div>
-									</div>
-									<div id="submitted"></div>
-								</form>
+										</div>
+										<div class="form-actions">
+											<a href="RegistrationPageStage2.jsp"><input
+												class="btn btn-primary" type="submit" value="Submit" /></a>
+											<div id="status"></div>
+										</div>
+										<div id="submitted"></div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row-fluid">
-				<div id="footer" class="span12">2012 &copy; Brought to you by
-					Unity Productions</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">2012 &copy; Brought to you by
+						Unity Productions</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -200,7 +201,6 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.ui.custom.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.gritter.min.js"></script>
 	<script src="js/jquery.peity.min.js"></script>
 	<script src="js/unicorn.js"></script>
 	<script src="js/unicorn.interface.js"></script>
