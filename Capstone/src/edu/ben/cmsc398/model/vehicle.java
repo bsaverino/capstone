@@ -1,4 +1,4 @@
-package edu.ben.cmscc398.model;
+package edu.ben.cmsc398.model;
 
 public class vehicle {
 	private int year;

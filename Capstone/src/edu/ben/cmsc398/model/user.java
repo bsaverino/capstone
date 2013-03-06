@@ -1,4 +1,4 @@
-package edu.ben.cmscc398.model;
+package edu.ben.cmsc398.model;
 
 import java.util.*;
 
@@ -12,10 +12,11 @@ public class user {
 	private int areacode;
 	private String gender;
 	private Date birthday;
-
+	private  ArrayList <Integer> vehicleList = new ArrayList();
+	
 	public user(String firstName, String lastName, String username,
 			String password, String email, int areacode, String gender,
-			Date birthday) {
+			Date birthday, ArrayList<Integer> vehicleList) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -25,70 +26,61 @@ public class user {
 		this.areacode = areacode;
 		this.gender = gender;
 		this.birthday = birthday;
+		this.vehicleList = vehicleList;
 	}
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public int getAreacode() {
 		return areacode;
 	}
-
 	public void setAreacode(int areacode) {
 		this.areacode = areacode;
 	}
-
 	public String getGender() {
 		return gender;
 	}
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 	public Date getBirthday() {
 		return birthday;
 	}
-
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+	public ArrayList<Integer> getVehicleList() {
+		return vehicleList;
+	}
+	public void setVehicleList(ArrayList<Integer> vehicleList) {
+		this.vehicleList = vehicleList;
 	}
 
 }
