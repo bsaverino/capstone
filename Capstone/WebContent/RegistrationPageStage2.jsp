@@ -70,7 +70,7 @@
 									<div class="control-group">
 										<label class="control-label">Year</label>
 										<div class="controls">
-											<select name="Year">
+											<select id="year" name="year">
 												<option value="0" selected="selected">Year</option>
 											</select>
 										</div>
@@ -78,7 +78,7 @@
 									<div class="control-group">
 										<label class="control-label">Make</label>
 										<div class="controls">
-											<select name="Make">
+											<select id="make" name="make">
 												<option value="0" selected="selected">Make</option>
 											</select>
 										</div>
@@ -86,7 +86,7 @@
 									<div class="control-group">
 										<label class="control-label">Model</label>
 										<div class="controls">
-											<select name="Model">
+											<select id="model" name="model">
 												<option value="0" selected="selected">Model</option>
 											</select>
 										</div>
@@ -94,7 +94,7 @@
 									<div class="control-group">
 										<label class="control-label">Trim</label>
 										<div class="controls">
-											<select name="Trim">
+											<select id="trim" name="trim">
 												<option value="0" selected="selected">Trim</option>
 											</select>
 										</div>
@@ -102,7 +102,7 @@
 									<div class="control-group">
 										<label class="control-label">Engine</label>
 										<div class="controls">
-											<select name="Engine">
+											<select id="engine" name="engine">
 												<option value="0" selected="selected">Engine</option>
 											</select>
 										</div>
@@ -110,7 +110,7 @@
 									<div class="control-group">
 										<label class="control-label">Transmission</label>
 										<div class="controls">
-											<select name="Trans">
+											<select id="trans" name="trans">
 												<option value="0" selected="selected">Trans</option>
 											</select>
 										</div>

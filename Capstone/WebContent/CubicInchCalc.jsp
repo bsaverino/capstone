@@ -86,7 +86,7 @@
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="strokes" name="stroke">
+											<input type="text" id="stroke" name="stroke">
 										</div>
 									</div>
 									<div class="control-group">

@@ -134,9 +134,9 @@
 								<div class="control-group">
 									<label class="control-label">Piston Type</label>
 									<div class="controls">
-										<label><input type="radio" id="pistonTypeDome"
+										<label><input type="radio" id="pistonType"
 											name="pistonType" onClick="return getValue()" value="1"/>
-											Dome</label> <label><input type="radio" id="pistonTypeDish"
+											Dome</label> <label><input type="radio" id="pistonType"
 											name="pistonType" onClick="return getValue()" value="-1"/> Dish</label>
 									</div>
 								</div>

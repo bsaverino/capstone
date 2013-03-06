@@ -100,7 +100,7 @@
 										<label class="control-label">Is your car Naturally
 											Aspirate, Boosted, or does it use Nitrous? </label>
 										<div class="controls">
-											<label><input type="checkbox" name="nitrous"
+											<label><input type="checkbox" id="name="nitrous"
 												onClick="return KeepCount()" /> Nitrous</label> <label><input
 												type="checkbox" name="fi" onClick="return KeepCount()" />
 												Boosted (Superchared or Turbocharged)</label> <label><input
@@ -121,8 +121,8 @@
 									<div class="control-group">
 										<label class="control-label">Do you use Synthetic Oil?</label>
 										<div class="controls">
-											<label><input type="radio" name="radios" value="yes" />
-												Yes</label> <label><input type="radio" name="radios"
+											<label><input type="radio" name="syntheticOil" value="yes" />
+												Yes</label> <label><input type="radio" name="syntheticOil"
 												value="no" /> No</label>
 										</div>
 									</div>
@@ -131,7 +131,7 @@
 											use?</label>
 										<div class="controls">
 											<select>
-												<option value="0" selected="selected">Octane</option>
+												<option value="0" name="octane" id="octane" selected="selected">Octane</option>
 											</select>
 										</div>
 									</div>
@@ -140,7 +140,7 @@
 											your motor have? </label>
 										<div class="controls">
 											<select>
-												<option value="0" selected="selected">Cylinders</option>
+												<option name="cylinders" id="cylinders" value="0" selected="selected">Cylinders</option>
 												<%
 													for (int i = 1; i <= 16; i++) {
 												%>
@@ -155,7 +155,7 @@
 										<label class="control-label">How much Horespower does
 											your motor have at the wheel?</label>
 										<div class="controls">
-											<input id="horsepower" type="text" name="horsepower" />
+											<input id="hp" type="text" name="hp" />
 										</div>
 									</div>
 									<div class="control-group">
@@ -169,7 +169,7 @@
 										<label class="control-label">What is the bore of your
 											cylinders? </label>
 										<div class="controls">
-											<input id="pistonBore" type="text" name="pistonBore" />
+											<input id="bore" type="text" name="bore" />
 										</div>
 									</div>
 									<div class="control-group">
@@ -184,8 +184,8 @@
 										<label class="control-label">Are your pistons Domed or
 											Dished?</label>
 										<div class="controls">
-											<label><input type="radio" name="radios"
-												value="domed" /> Domed</label> <label><input type="radio"
+											<label><input type="radio" id="pistonType" name="pistonType"
+												value="domed" /> Domed</label> <label><input type="radio" id="pistonType"
 												name="radios" value="dished" /> Dished</label>
 										</div>
 									</div>

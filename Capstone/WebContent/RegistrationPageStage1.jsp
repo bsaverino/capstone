@@ -87,7 +87,7 @@
 									<div class="control-group">
 										<label class="control-label">Area Code</label>
 										<div class="controls">
-											<input id="areaCode" type="text" name="areaCode" />
+											<input id="areacode" type="text" name="areacode" />
 										</div>
 									</div>
 									<div class="control-group">
@@ -111,14 +111,14 @@
 									<div class="control-group">
 										<label class="control-label">Gender</label>
 										<div class="controls">
-											<label><input type="radio" name="sex" value="male"/> Male</label> <label><input
-												type="radio" name="sex" value="female"/> Female</label>
+											<label><input type="radio" id="gender" name="gender" value="male"/> Male</label> <label><input
+												type="radio" id="gender" name="gender" value="female"/> Female</label>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Birthdate</label>
 										<div class="controls">
-											<select name="MonthDropdown">
+											<select id="month" name="month">
 												<option value="0" selected="selected">Month</option>
 												<%
 													for (int i = 1; i <= 12; i++) {
@@ -130,7 +130,7 @@
 											</select>
 										</div>
 										<div class="controls">
-											<select name="DayDropdown">
+											<select id="day" name="day">
 												<option value="0" selected="selected">Day</option>
 												<%
 													for (int i = 1; i <= 31; i++) {
@@ -142,7 +142,7 @@
 											</select>
 										</div>
 										<div class="controls">
-											<select name="YearDropdown">
+											<select id="year" name="year">
 												<option value="0" selected="selected">Year</option>
 												<%
 													int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -158,8 +158,8 @@
 
 								</div>
 								<div class="form-actions">
-									<input id="back" class="btn btn-primary" type="reset"
-										value="Back" /> <a href="RegistrationPageStage2.jsp"><input id="next" class="btn btn-primary"
+									<input id="clear" class="btn btn-primary" type="reset"
+										value="Clear" /> <a href="RegistrationPageStage2.jsp"><input id="next" class="btn btn-primary"
 										type="submit" value="Next" /></a>
 									<div id="status"></div>
 								</div>
