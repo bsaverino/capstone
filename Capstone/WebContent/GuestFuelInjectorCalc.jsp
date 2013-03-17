@@ -1,15 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>rCal Edit a Modification</title>
+<title>rCal Tracer</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
-<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
+<link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
+<script>
+	function doCalcTotal() {
+		var hp = parseInt(document.calc.hp.value);
+		if (document.calc.dutyCycle.value == "")
+			var dutyCycle = .8;
+		else
+			var dutyCycle = parseFloat(document.calc.dutyCycle.value);
+		var cylinders = parseInt(document.calc.cylinders.value);
+		var bsfc = parseFloat(document.calc.bsfc.value);
+		var total = ((hp*bsfc)/(cylinders*dutyCycle)).toPrecision(3);
+		document.calc.fuelInjectorTotal.value = total;
+	}
+</script>
 </head>
 <body>
 
@@ -20,42 +31,41 @@
 		</h1>
 	</div>
 
-
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-			<li class="btn btn-inverse"><a title="" href="profile.jsp"><i
-					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
 			<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
-					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+					class="icon icon-share-alt"></i> <span class="text">Login</span></a></li>
+			<li class="btn btn-inverse"><a title=""
+				href="RegistrationPageStage1.jsp"><i
+					class="icon icon-align-left"></i> <span class="text">Register</span></a></li>
 		</ul>
 	</div>
 
 	<div id="sidebar">
-		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
-			Home</a>
+		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
+			rCal Tracer</a>
 		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
-			<li class="active"><a href="performance.jsp"><i
-					class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
-			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
+			<li><a href="LoggedOutIndex.jsp"><i class="icon icon-home"></i>
+					<span>Dashboard</span></a></li>
+			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio
-							Calc</a></li>
-					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
+					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li class="active"><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
 
+
 	<div id="content">
 		<div id="content-header">
-			<h1>Performance</h1>
+			<h1>Fuel Injector Calculator</h1>
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#" class="current">Edit Mod</a>
+				class="icon-home"></i> Home</a> <a href="#">Calculators</a><a href="#"
+				class="current">Fuel Injector Calculator</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -64,45 +74,45 @@
 						<div class="widget-title">
 							<span class="icon"> <i class="icon-pencil"></i>
 							</span>
-							<h5>Add your modification!</h5>
+							<h5>Fuel Injector Calculator</h5>
 						</div>
 						<div class="widget-content nopadding">
 							<form name="calc" id="form-wizard" class="form-horizontal">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">Type of Modification</label>
+										<label class="control-label">Horsepower at rear wheels</label>
 										<div class="controls">
 											<input type="text" id="hp" name="hp">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Part Name</label>
+										<label class="control-label">Cylinders</label>
 										<div class="controls">
 											<input type="text" id="cylinders" name="cylinders">
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Brand</label>
+										<label class="control-label">Duty Cycle</label>
 										<div class="controls">
 											<input type="text" id="dutyCycle" name="dutyCycle">
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Part Number</label>
+									<label class="control-label">BSFC</label>
 									<div class="controls">
 										<input type="text" id="bsfc" name="bsfc">
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Price ($)</label>
+									<label class="control-label">Fuel Injector</label>
 									<div class="controls">
-										<input type="text" id="bsfc" name="bsfc">
+										<input type="text" id="fuelInjectorTotal" name="fuelInjectorTotal" disabled>
 									</div>
 								</div>
 								<div class="form-actions">
 									<input id="calc" class="btn btn-primary" type="button"
-										value="Edit" onClick="doCalcTotal()" />
+										value="Calculate" onClick="doCalcTotal()" />
 									<div id="status"></div>
 								</div>
 								<div id="submitted"></div>
@@ -127,3 +137,4 @@
 	<script src="js/unicorn.wizard.js"></script>
 </body>
 </html>
+
