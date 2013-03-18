@@ -23,11 +23,15 @@
 		var total = ((hp*bsfc)/(cylinders*dutyCycle)).toPrecision(3);
 		document.calc.fuelInjectorTotal.value = total;
 	}
+	function dutyCycle(){
+		if (vehicle.getDutyCycle() == 0)
+			document.calc.dutyCycle.value = "0.8";
+	}
 </script>
 </head>
 <body>
 <%VehicleSpecDao aDao= new VehicleSpecDao();
-	VehicleSpecs vehicle = aDao.getVehicleSpec(2); %>
+	VehicleSpecs vehicle = aDao.getVehicleSpec(3); %>
 
 	<div id="header">
 		<h1>
@@ -99,7 +103,7 @@
 									<div class="control-group">
 										<label class="control-label">Duty Cycle</label>
 										<div class="controls">
-											<input type="text" id="dutyCycle" name="dutyCycle" value=<%=vehicle.getDutyCycle() %>>
+											<input type="text" id="dutyCycle" name="dutyCycle" onload="dutyCycle()">
 										</div>
 									</div>
 								</div>
