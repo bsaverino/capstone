@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ page import="edu.ben.cmsc398.dao.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
@@ -8,7 +11,7 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
-<script>
+<script type="text/javascript">
 	function doCalcTotal() {
 		var pistonType = 0;
 		var bore = parseFloat(document.calc.bore.value);
@@ -45,11 +48,23 @@
 		}
 
 	}
+	function getChecked(){
+		if(vehicle.getPistonType() == 1){
+			document.all.dish.checked=true;
+			System.out.println("true");}
+		else if(vehicle.getPistonType() == 2){
+			document.all.dome.checked=true;
+			System.out.println("false");}
+		else
+			System.out.Println("error");
+	}
 </script>
-</head>
-<body>
-	getValue();
 
+</head>
+<body onload="getChecked();">
+	getValue();
+	<%VehicleSpecDao aDao= new VehicleSpecDao();
+	VehicleSpecs vehicle = aDao.getVehicleSpec(2); %>
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -108,55 +123,55 @@
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore">
+											<input type="text" id="bore" name="bore" value=<%=vehicle.getBore() %>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke">
+											<input type="text" id="stroke" name="stroke" value=<%=vehicle.getStroke() %>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Piston Deck Height</label>
 										<div class="controls">
 											<input type="text" id="pistonDeckHeight"
-												name="pistonDeckHeight">
+												name="pistonDeckHeight" value=<%=vehicle.getHeadGasketThickness() %>>
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head CC</label>
 									<div class="controls">
-										<input type="text" id="headCC" name="headCC">
+										<input type="text" id="headCC" name="headCC" value=<%=vehicle.getHeadCC() %>>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Piston Type</label>
 									<div class="controls">
-										<label><input type="radio" id="pistonType"
-											name="pistonType" onClick="return getValue()" value="1"/>
-											Dome</label> <label><input type="radio" id="pistonType"
+										<label><input type="radio" id="dish"
+											name="pistonType" onClick="return getValue()" value="1" />
+											Dome</label> <label><input type="radio" id="dome"
 											name="pistonType" onClick="return getValue()" value="-1"/> Dish</label>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Piston CC</label>
 									<div class="controls">
-										<input type="text" id="pistonCC" name="pistonCC">
+										<input type="text" id="pistonCC" name="pistonCC" value=<%=vehicle.getPistonCC() %>>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head Gasket Thickness</label>
 									<div class="controls">
 										<input type="text" id="headGasketThickness"
-											name="headGasketThickness">
+											name="headGasketThickness" value=<%=vehicle.getHeadGasketThickness() %>>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head Gasket Bore</label>
 									<div class="controls">
-										<input type="text" id="headGasketBore" name="headGasketBore">
+										<input type="text" id="headGasketBore" name="headGasketBore" value=<%=vehicle.getHeadGasketBore() %>>
 									</div>
 								</div>
 								<div class="control-group">

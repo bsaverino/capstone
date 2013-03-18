@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ page import="edu.ben.cmsc398.dao.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
@@ -11,7 +14,7 @@
 <script>
 	function doCalcTotal() {
 		var hp = parseInt(document.calc.hp.value);
-		if (document.calc.dutyCycle.value == "")
+		if (document.calc.dutyCycle.value == "0.0")
 			var dutyCycle = .8;
 		else
 			var dutyCycle = parseFloat(document.calc.dutyCycle.value);
@@ -23,7 +26,8 @@
 </script>
 </head>
 <body>
-
+<%VehicleSpecDao aDao= new VehicleSpecDao();
+	VehicleSpecs vehicle = aDao.getVehicleSpec(2); %>
 
 	<div id="header">
 		<h1>
@@ -83,26 +87,26 @@
 									<div class="control-group">
 										<label class="control-label">Horsepower at rear wheels</label>
 										<div class="controls">
-											<input type="text" id="hp" name="hp">
+											<input type="text" id="hp" name="hp" value=<%=vehicle.getHp() %>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders">
+											<input type="text" id="cylinders" name="cylinders" value=<%=vehicle.getCylinders() %>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Duty Cycle</label>
 										<div class="controls">
-											<input type="text" id="dutyCycle" name="dutyCycle">
+											<input type="text" id="dutyCycle" name="dutyCycle" value=<%=vehicle.getDutyCycle() %>>
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">BSFC</label>
 									<div class="controls">
-										<input type="text" id="bsfc" name="bsfc">
+										<input type="text" id="bsfc" name="bsfc" value=<%=vehicle.getBsfc() %>>
 									</div>
 								</div>
 								<div class="control-group">

@@ -1,13 +1,13 @@
 package edu.ben.cmsc398.model;
 
 public class VehicleSpecs {
-	private int vehicleId, pwrAdder, octane, cylinders, pistonType, headCC;
+	private int vehicleId, pwrAdder, octane, cylinders, pistonType, headCC, pistonCC;
 	private Boolean syntheticOil;
-	private float hp, torque, bore, stroke, headGasketThickness, headGasketBore;
+	private float hp, torque, bore, stroke, headGasketThickness, headGasketBore, dutyCycle, bsfc;
 	public VehicleSpecs(int vehicleId, int pwrAdder, int octane, int cylinders,
-			int pistonType, int headCC, Boolean syntheticOil, float hp,
+			int pistonType, int headCC, int pistonCC, Boolean syntheticOil, float hp,
 			float torque, float bore, float stroke, float headGasketThickness,
-			float headGasketBore) {
+			float headGasketBore, float dutyCycle, float bsfc) {
 		super();
 		this.vehicleId = vehicleId;
 		this.pwrAdder = pwrAdder;
@@ -15,6 +15,7 @@ public class VehicleSpecs {
 		this.cylinders = cylinders;
 		this.pistonType = pistonType;
 		this.headCC = headCC;
+		this.pistonCC = pistonCC;
 		this.syntheticOil = syntheticOil;
 		this.hp = hp;
 		this.torque = torque;
@@ -22,6 +23,8 @@ public class VehicleSpecs {
 		this.stroke = stroke;
 		this.headGasketThickness = headGasketThickness;
 		this.headGasketBore = headGasketBore;
+		this.dutyCycle = dutyCycle;
+		this.bsfc = bsfc;
 	}
 	public int getPwrAdder() {
 		return pwrAdder;
@@ -52,6 +55,12 @@ public class VehicleSpecs {
 	}
 	public void setHeadCC(int headCC) {
 		this.headCC = headCC;
+	}
+	public int getPistonCC() {
+		return pistonCC;
+	}
+	public void setPistonCC(int pistonCC) {
+		this.pistonCC = pistonCC;
 	}
 	public Boolean getSyntheticOil() {
 		return syntheticOil;
@@ -97,6 +106,18 @@ public class VehicleSpecs {
 	}
 	public int getVehicleId() {
 		return vehicleId;
+	}
+	public float getDutyCycle() {
+		return dutyCycle;
+	}
+	public void setDutyCycle(float dutyCycle) {
+		this.dutyCycle = dutyCycle;
+	}
+	public float getBsfc() {
+		return bsfc;
+	}
+	public void setBsfc(float bsfc) {
+		this.bsfc = bsfc;
 	}
 	@Override
 	public String toString() {

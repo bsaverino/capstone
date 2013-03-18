@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+    pageEncoding="US-ASCII"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="edu.ben.cmsc398.dao.*"%>
 <%@ page import="edu.ben.cmsc398.model.*"%>
 <%@ page import="java.util.*"%>
@@ -23,16 +25,16 @@
 </script>
 </head>
 <body>
-<% 
-VehicleSpecDao aDao= new VehicleSpecDao();
-VehicleSpecs vehicle = aDao.getVehicleSpec(2);
-%>
+
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
 		</h1>
 	</div>
-
+<% 
+VehicleSpecDao aDao= new VehicleSpecDao();
+VehicleSpecs vehicle = aDao.getVehicleSpec(2);
+%>
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
@@ -85,19 +87,19 @@ VehicleSpecs vehicle = aDao.getVehicleSpec(2);
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore" value=<%vehicle.getBore();%>>
+											<input type="text" id="bore" name="bore" value=<%=vehicle.getBore()%>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke" value=<%vehicle.getStroke(); %>>
+											<input type="text" id="stroke" name="stroke" value=<%=vehicle.getStroke()%>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders" value=<%vehicle.getCylinders(); %>>
+											<input type="text" id="cylinders" name="cylinders" value=<%=vehicle.getCylinders()%>>
 										</div>
 									</div>
 									<div class="control-group">
