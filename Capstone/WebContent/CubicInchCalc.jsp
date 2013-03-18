@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@ page import="edu.ben.cmsc398.dao.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
@@ -20,8 +23,10 @@
 </script>
 </head>
 <body>
-
-
+<% 
+VehicleSpecDao aDao= new VehicleSpecDao();
+VehicleSpecs vehicle = aDao.getVehicleSpec(2);
+%>
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -80,19 +85,19 @@
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore">
+											<input type="text" id="bore" name="bore" value=<%vehicle.getBore();%>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke">
+											<input type="text" id="stroke" name="stroke" value=<%vehicle.getStroke(); %>>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders">
+											<input type="text" id="cylinders" name="cylinders" value=<%vehicle.getCylinders(); %>>
 										</div>
 									</div>
 									<div class="control-group">
