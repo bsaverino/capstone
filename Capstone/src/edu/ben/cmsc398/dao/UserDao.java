@@ -64,4 +64,17 @@ public class UserDao extends DBConnector {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 	}
+	
+	public int getUserId(String username) throws SQLException{
+		String sql = "select user_id from user where username='"+username+"';";	
+		int userId = 0;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				userId  = rs.getInt("user_id");
+			}
+		}
+		return userId;
+	}
 }

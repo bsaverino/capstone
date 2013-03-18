@@ -1,10 +1,10 @@
 package edu.ben.cmsc398.model;
 
 public class Vehicle {
-	private String make, model, trim, trans, engine, color;
-	private int year, vehicleId;
+	private String make, model, trim, trans, color;
+	private int engine, year, vehicleId, userId;
 	public Vehicle(String make, String model, String trim, String trans,
-			String engine, String color, int year, int vehicleId) {
+			int engine, String color, int year, int vehicleId, int userId) {
 		super();
 		this.make = make;
 		this.model = model;
@@ -14,6 +14,7 @@ public class Vehicle {
 		this.color = color;
 		this.year = year;
 		this.vehicleId = vehicleId;
+		this.userId = userId;
 	}
 	public String getMake() {
 		return make;
@@ -39,10 +40,10 @@ public class Vehicle {
 	public void setTrans(String trans) {
 		this.trans = trans;
 	}
-	public String getEngine() {
+	public int getEngine() {
 		return engine;
 	}
-	public void setEngine(String engine) {
+	public void setEngine(int engine) {
 		this.engine = engine;
 	}
 	public String getColor() {
@@ -62,6 +63,12 @@ public class Vehicle {
 	}
 	public void setVehicleId(int vehicleId) {
 		this.vehicleId = vehicleId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	@Override
 	public String toString() {
