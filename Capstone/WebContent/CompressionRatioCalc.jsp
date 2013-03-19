@@ -48,23 +48,15 @@
 		}
 
 	}
-	function getChecked(){
-		if(vehicle.getPistonType() == 1){
-			document.all.dish.checked=true;
-			System.out.println("true");}
-		else if(vehicle.getPistonType() == 2){
-			document.all.dome.checked=true;
-			System.out.println("false");}
-		else
-			System.out.Println("error");
-	}
 </script>
 
 </head>
-<body onload="getChecked();">
+<body>
 	getValue();
-	<%VehicleSpecDao aDao= new VehicleSpecDao();
-	VehicleSpecs vehicle = aDao.getVehicleSpec(2); %>
+	<%
+	VehicleSpecDao aDao= new VehicleSpecDao();
+	VehicleSpecs vehicle = aDao.getVehicleSpec(2); 
+%>
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -149,10 +141,25 @@
 								<div class="control-group">
 									<label class="control-label">Piston Type</label>
 									<div class="controls">
-										<label><input type="radio" id="dish"
-											name="pistonType" onClick="return getValue()" value="1" />
-											Dome</label> <label><input type="radio" id="dome"
-											name="pistonType" onClick="return getValue()" value="-1"/> Dish</label>
+										<label><input type="radio" id="dome"
+											name="pistonType" onClick="return getValue()" value="1"/>
+											Dome</label> <label><input type="radio" id="dish"
+											name="pistonType" onClick="return getValue()" value="-1" /> Dish</label>
+											<script type="text/javascript" defer="defer">
+											<!-- 
+											if(document.getElementById){
+											if (<%=vehicle.getPistonType()%> == 1){
+											document.getElementById('dome').checked = true;
+											document.getElementById('dish').checked = false;
+											}
+											else if (<%=vehicle.getPistonType()%> == 2){
+											// Radiobutton "Yes" should be selected.
+											document.getElementById('dome').checked = false;
+											document.getElementById('dish').checked = true;
+											}
+											}
+											// -->
+											</script>
 									</div>
 								</div>
 								<div class="control-group">
@@ -198,7 +205,6 @@
 				Unity Productions</div>
 		</div>
 	</div>
-
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.ui.custom.js"></script>
 	<script src="js/bootstrap.min.js"></script>
