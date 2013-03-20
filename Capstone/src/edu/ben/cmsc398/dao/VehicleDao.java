@@ -45,4 +45,16 @@ public class VehicleDao extends DBConnector{
 		ps.executeUpdate();
 	}
 
+	public int getNewVehicleId() throws SQLException{
+		String sql = "select Max(vehicle_id) as vehicle_id from vehicle;";	
+		int vehicleId = 0;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				vehicleId  = rs.getInt("vehicle_id");
+			}
+		}
+		return vehicleId+1;
+	}
 }

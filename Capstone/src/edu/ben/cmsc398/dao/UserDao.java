@@ -77,4 +77,16 @@ public class UserDao extends DBConnector {
 		}
 		return userId;
 	}
+	public int getNewUserId() throws SQLException{
+		String sql = "select Max(user_id) as user_id from user;";	
+		int userId = 0;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				userId  = rs.getInt("user_id");
+			}
+		}
+		return userId;
+	}
 }

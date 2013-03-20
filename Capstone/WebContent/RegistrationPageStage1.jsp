@@ -64,7 +64,7 @@
 							<h5>Registration Page 1</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post">
+							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">First Name</label>
@@ -111,8 +111,8 @@
 									<div class="control-group">
 										<label class="control-label">Gender</label>
 										<div class="controls">
-											<label><input type="radio" id="gender" name="gender" value="male"/> Male</label> <label><input
-												type="radio" id="gender" name="gender" value="female"/> Female</label>
+											<label><input type="radio" id="genderMale" name="gender" value="male"/> Male</label> <label><input
+												type="radio" id="genderFemale" name="gender" value="female"/> Female</label>
 										</div>
 									</div>
 									<div class="control-group">
@@ -159,8 +159,8 @@
 								</div>
 								<div class="form-actions">
 									<input id="clear" class="btn btn-primary" type="reset"
-										value="Clear" /> <a href="RegistrationPageStage2.jsp"><input id="next" class="btn btn-primary"
-										type="submit" value="Next" /></a>
+										value="Clear" /><input id="next" class="btn btn-primary"
+										type="submit" value="Next" />
 									<div id="status"></div>
 								</div>
 								<div id="submitted"></div>

@@ -74,7 +74,7 @@ public class Vehicle {
 	public String toString() {
 		return "Vehicle [make=" + make + ", model=" + model + ", trim=" + trim
 				+ ", trans=" + trans + ", engine=" + engine + ", color="
-				+ color + ", year=" + year + ", vehicleId=" + vehicleId + "]";
+				+ color + ", year=" + year + ", vehicleId=" + vehicleId + ", userId=" + userId +"]";
 	}
 	
 	
