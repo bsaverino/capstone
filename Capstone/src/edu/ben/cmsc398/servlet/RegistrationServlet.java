@@ -2,6 +2,9 @@ package edu.ben.cmsc398.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -19,117 +22,97 @@ import edu.ben.cmsc398.model.*;
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RegistrationServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public RegistrationServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-/*	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String email = request.getParameter("email");
-		int areacode = Integer.parseInt(request.getParameter("areacode"));
-		String month = request.getParameter("month");
-		String day = request.getParameter("day");
-		String year = request.getParameter("year");
-		String birthdate = year+"-"+month+"-"+day;
-		int gender = 0;
-		if (request.getParameter("gender").equals("male"))
-			gender = 1;
-		else if(request.getParameter("gender").equals("female"))
-			gender = 2;
-		String password = request.getParameter("password");
-		
-		//Can't get Date to work properly
-		System.out.println(birthdate);
-		Date birthday = new Date(birthdate);
-		User user = new User(firstName,lastName,username,password,email,areacode,gender,birthday);
-		System.out.println(user.toString());
-		UserDao uDao = new UserDao();
-		try {
-			uDao.insertUser(user);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-/*	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String make = request.getParameter("make");
-		String model = request.getParameter("model");
-		String trim = request.getParameter("trim");
-		String trans = request.getParameter("trans");
-		int engine = Integer.parseInt(request.getParameter("engine"));
-		String color = request.getParameter("color");
-		int year = Integer.parseInt(request.getParameter("year"));
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String action = (String) request.getParameter("action");
+		String id = request.getParameter("id");
+		System.out.println("Action is: " + action);
+		System.out.println("ID is: " + id);
 		UserDao uDao = new UserDao();
 		VehicleDao vDao = new VehicleDao();
-		int userId =0;
-		try {
-			userId = uDao.getNewUserId();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int vehicleId=0;
-		try {
-			vehicleId = vDao.getNewVehicleId();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Vehicle vehicle = new Vehicle(make,model,trim,trans,engine,color,year,vehicleId,userId);
-		try {
-			vDao.addVehicle(vehicle);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String make = request.getParameter("make");
-		String model = request.getParameter("model");
-		String trim = request.getParameter("trim");
-		String trans = request.getParameter("trans");
-		int engine = Integer.parseInt(request.getParameter("engine"));
-		String color = request.getParameter("color");
-		int year = Integer.parseInt(request.getParameter("year"));
-		UserDao uDao = new UserDao();
-		VehicleDao vDao = new VehicleDao();
-		int userId =0;
-		try {
-			userId = uDao.getNewUserId();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int vehicleId=0;
-		try {
-			vehicleId = vDao.getNewVehicleId();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Vehicle vehicle = new Vehicle(make,model,trim,trans,engine,color,year,vehicleId,userId);
-		try {
-			vDao.addVehicle(vehicle);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		if (action.equals("registerUser")) {
+			try {
+				String username = request.getParameter("username");
+				String firstName = request.getParameter("firstName");
+				String lastName = request.getParameter("lastName");
+				String email = request.getParameter("email");
+				String month = request.getParameter("month");
+				String day = request.getParameter("day");
+				String year = request.getParameter("year");
+				String password = request.getParameter("password");
+				String birthdate = year + "-" + month + "-" + day;
+				int gender = 2;
+				int areacode = Integer.parseInt(request
+						.getParameter("areacode"));
+				if (request.getParameter("gender").equals("male"))
+					gender = 1;
+				else if (request.getParameter("gender").equals("female"))
+					gender = 1;
+
+				DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				Date startDate;
+				startDate = df.parse(birthdate);
+				String newDateString = df.format(startDate);
+				System.out.println(newDateString);
+
+				// Can't get Date to work properly
+				System.out.println(birthdate);
+				User user = new User(firstName, lastName, username, password,
+						email, areacode, gender, startDate);
+				System.out.println(user.toString());
+				uDao.insertUser(user);
+			} catch (ParseException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (action.equals("registerVehicle")) {
+			try {
+
+				String make = request.getParameter("make");
+				String model = request.getParameter("model");
+				String trim = request.getParameter("trim");
+				String trans = request.getParameter("trans");
+				String color = request.getParameter("color");
+				int year = Integer.parseInt(request.getParameter("year"));
+				int userId = 0;
+				int vehicleId = 0;
+				int engine = Integer.parseInt(request.getParameter("engine"));
+				userId = uDao.getNewUserId();
+
+				vehicleId = vDao.getNewVehicleId();
+				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
+						color, year, vehicleId, userId);
+				vDao.addVehicle(vehicle);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
+
 }

@@ -65,7 +65,7 @@
 							<h5>Registration Page 2</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet">
+							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet?action=registerVehicle">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">Year</label>

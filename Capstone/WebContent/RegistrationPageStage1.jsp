@@ -64,7 +64,7 @@
 							<h5>Registration Page 1</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet">
+							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet?action=registerUser">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">First Name</label>
