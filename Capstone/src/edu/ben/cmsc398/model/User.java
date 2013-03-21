@@ -5,12 +5,13 @@ import java.util.*;
 public class User {
 
 	private String firstName, lastName, username, password, email;
-	private int areacode, gender;
+	private int id, areacode, gender;
 	private Date birthday;
-	public User(String firstName, String lastName, String username,
+	public User(int id, String firstName, String lastName, String username,
 			String password, String email, int areacode, int gender,
 			Date birthday) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
@@ -19,6 +20,9 @@ public class User {
 		this.areacode = areacode;
 		this.gender = gender;
 		this.birthday = birthday;
+	}
+	public int getId() {
+		return id;
 	}
 	public String getFirstName() {
 		return firstName;

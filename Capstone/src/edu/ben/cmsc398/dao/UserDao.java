@@ -3,8 +3,9 @@ package edu.ben.cmsc398.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
-import edu.ben.cmsc398.dao.*;
+
 import edu.ben.cmsc398.model.*;
 
 public class UserDao extends DBConnector {
@@ -23,7 +24,7 @@ public class UserDao extends DBConnector {
 				int gender = rs.getInt("sex");
 				String password = rs.getString("password");
 				
-				user = new User(firstName,lastName,username,password,email,areacode,gender,birthday);
+				user = new User(' ', firstName,lastName,username,password,email,areacode,gender,birthday);
 			}
 		}
 		return user;
@@ -88,5 +89,34 @@ public class UserDao extends DBConnector {
 			}
 		}
 		return userId;
+	}
+	public ArrayList<User> getAllUsers() throws SQLException{
+		String sql = "select * from user";
+		ArrayList<User> users = new ArrayList<User>();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		if (rs != null) {
+			while (rs.next()) {
+				int id = rs.getInt("user_id");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int areaCode = rs.getInt("area_code");
+				Date birthdate = rs.getDate("birth_date");
+				int gender = rs.getInt("sex");
+				User s = new User(id, firstName, lastName, username, password, email, areaCode, gender, birthdate);
+				//System.out.println(s);
+				users.add(s);
+
+			}
+			conn.close();
+			return users;
+		}
+		conn.close();
+		return null;
+		
 	}
 }

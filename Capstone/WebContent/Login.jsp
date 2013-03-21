@@ -15,7 +15,7 @@
             <img src="img/rCal Logo.png" alt="" />
         </div>
         <div id="loginbox">            
-            <form id="loginform" class="form-vertical" action="index.html">
+            <form id="loginform" class="form-vertical" action="RegistrationServlet?action=login">
 				<p>Enter username and password to continue.</p>
                 <div class="control-group">
                     <div class="controls">

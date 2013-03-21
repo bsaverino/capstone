@@ -23,6 +23,13 @@ public class VehicleDao extends DBConnector{
 		ps.executeUpdate();
 	}
 	
+//	public ArrayList<Vehicle> getUsersVehicles(int userId){
+//		String sql = "select vehicle_id from vehicle where user_id =" + userId +";";
+//		
+//		
+//		
+//	}
+	
 	public void updateVehicle(Vehicle vehicle) throws SQLException {
 		int userId = vehicle.getUserId();
 		String make = vehicle.getMake();

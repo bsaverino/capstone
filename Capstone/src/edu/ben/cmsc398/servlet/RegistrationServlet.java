@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.ben.cmsc398.dao.*;
 import edu.ben.cmsc398.model.*;
@@ -37,6 +38,11 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		String action = (String) request.getParameter("action");
+		String id = request.getParameter("id");
+		UserDao uDao = new UserDao();
+		VehicleDao vDao = new VehicleDao();
 		// TODO Auto-generated method stub
 	}
 
@@ -46,10 +52,11 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String id = request.getParameter("id");
-		System.out.println("Action is: " + action);
-		System.out.println("ID is: " + id);
+		//System.out.println("Action is: " + action);
+		//System.out.println("ID is: " + id);
 		UserDao uDao = new UserDao();
 		VehicleDao vDao = new VehicleDao();
 
@@ -80,7 +87,7 @@ public class RegistrationServlet extends HttpServlet {
 
 				// Can't get Date to work properly
 				System.out.println(birthdate);
-				User user = new User(firstName, lastName, username, password,
+				User user = new User(' ',firstName, lastName, username, password,
 						email, areacode, gender, startDate);
 				System.out.println(user.toString());
 				uDao.insertUser(user);
@@ -112,6 +119,31 @@ public class RegistrationServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
+		}else if(action.equals("login")) {
+			String currentUsername = request.getParameter("currentUsername");
+			String password = request.getParameter("password");
+			try {
+				ArrayList<User> list = uDao.getAllUsers();
+//				ArrayList<Vehicle> singleVehicle = vDao.
+				for(User user: list) {
+//					System.out.println(user.getUsername());
+//					System.out.println(user.getPassword());
+//					System.out.println(currentUsername);
+//					System.out.println(password);
+					if (currentUsername.equalsIgnoreCase(user.getUsername())) { 
+						
+						if (password.equals(user.getPassword())) {
+							//session.setAttribute(String userId, user.getId());
+							//session.setAttribute(arg0, arg1)
+							response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
+							
+						}
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 
