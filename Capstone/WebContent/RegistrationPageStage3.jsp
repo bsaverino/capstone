@@ -93,14 +93,14 @@
 							<h5>Registration Page 3</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form name="reg3" id="form-wizard" class="form-horizontal"
+							<form name="reg3" id="form-wizard" class="form-horizontal" action="RegistrationServlet?action=addVehicleSpec"
 								method="post">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">Is your car Naturally
 											Aspirate, Boosted, or does it use Nitrous? </label>
 										<div class="controls">
-											<label><input type="checkbox" id="name="nitrous"
+											<label><input type="checkbox" name="nitrous"
 												onClick="return KeepCount()" /> Nitrous</label> <label><input
 												type="checkbox" name="fi" onClick="return KeepCount()" />
 												Boosted (Superchared or Turbocharged)</label> <label><input
@@ -185,8 +185,8 @@
 											Dished?</label>
 										<div class="controls">
 											<label><input type="radio" id="pistonType" name="pistonType"
-												value="domed" /> Domed</label> <label><input type="radio" id="pistonType"
-												name="radios" value="dished" /> Dished</label>
+												value="dome" /> Domed</label> <label><input type="radio" id="pistonType"
+												name="radios" value="dish" /> Dished</label>
 										</div>
 									</div>
 									<div class="control-group">

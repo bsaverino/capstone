@@ -97,7 +97,6 @@ public class RegistrationServlet extends HttpServlet {
 			}
 		} else if (action.equals("registerVehicle")) {
 			try {
-
 				String make = request.getParameter("make");
 				String model = request.getParameter("model");
 				String trim = request.getParameter("trim");
@@ -136,13 +135,14 @@ public class RegistrationServlet extends HttpServlet {
 							//session.setAttribute(String userId, user.getId());
 							//session.setAttribute(arg0, arg1)
 							response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
-							
 						}
 					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}
+			}	
+		}
+		else if(action.equals("addVehicleSpec")){
 			
 		}
 	}

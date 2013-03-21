@@ -16,6 +16,7 @@ public class UserDao extends DBConnector {
 		ResultSet rs = ps.executeQuery();
 		if (rs != null) {
 			while (rs.next()) {
+				int userId = rs.getInt("user_id");
 				String firstName = rs.getString("first_name");
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
@@ -24,7 +25,28 @@ public class UserDao extends DBConnector {
 				int gender = rs.getInt("sex");
 				String password = rs.getString("password");
 				
-				user = new User(' ', firstName,lastName,username,password,email,areacode,gender,birthday);
+				user = new User(userId, firstName,lastName,username,password,email,areacode,gender,birthday);
+			}
+		}
+		return user;
+	}
+	public User getUser(int userId) throws SQLException {
+		String sql = "select * from user where user_id='"+userId+"';";
+		User user = null;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String email = rs.getString("email");
+				int areacode = rs.getInt("area_code");
+				Date birthday = rs.getDate("birth_date");
+				int gender = rs.getInt("sex");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				
+				user = new User(userId, firstName,lastName,username,password,email,areacode,gender,birthday);
 			}
 		}
 		return user;
