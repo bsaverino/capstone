@@ -15,19 +15,19 @@
             <img src="img/rCal Logo.png" alt="" />
         </div>
         <div id="loginbox">            
-            <form id="loginform" class="form-vertical" action="RegistrationServlet?action=login">
+            <form id="loginform" class="form-vertical" method='post' action='RegistrationServlet?action=login'>
 				<p>Enter username and password to continue.</p>
                 <div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span><input type="text" placeholder="Username" />
+                            <span class="add-on"><i class="icon-user"></i></span><input type="text" placeholder="Username" name="username" />
                         </div>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" placeholder="Password" />
+                            <span class="add-on"><i class="icon-lock"></i></span><input type="password" placeholder="Password" name="password" />
                         </div>
                     </div>
                 </div>

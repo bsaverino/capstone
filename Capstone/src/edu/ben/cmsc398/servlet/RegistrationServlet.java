@@ -116,15 +116,17 @@ public class RegistrationServlet extends HttpServlet {
 			}
 
 		}else if(action.equals("login")) {
-			String currentUsername = request.getParameter("currentUsername");
+			String currentUsername = request.getParameter("username");
 			String password = request.getParameter("password");
 			try {
 				ArrayList<User> list = uDao.getAllUsers();
 				
 				for(User user: list) {
 					if (currentUsername.equalsIgnoreCase(user.getUsername())) { 
+						System.out.println("I have a username");
 						
 						if (password.equals(user.getPassword())) {
+							System.out.println("I have a password");
 //							ArrayList<Vehicle> singleVehicle = vDao.getAllVehicleByUser(user.getId());
 //							int count = vDao.getVehiclesCount(user.getId());
 //							int i = 0;
@@ -137,7 +139,11 @@ public class RegistrationServlet extends HttpServlet {
 							String userId = String.valueOf(user.getId());
 							session.setAttribute(userId, user.getId());
 							response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
+						}else {
+							System.out.println("bad password");
 						}
+					}else {
+						System.out.println("bad username");
 					}
 				}
 			} catch (SQLException e) {
