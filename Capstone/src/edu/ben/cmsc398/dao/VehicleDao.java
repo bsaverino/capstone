@@ -2,6 +2,7 @@ package edu.ben.cmsc398.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -33,14 +34,6 @@ public class VehicleDao extends DBConnector {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 	}
-
-	// public ArrayList<Vehicle> getUsersVehicles(int userId){
-	// String sql = "select vehicle_id from vehicle where user_id =" + userId
-	// +";";
-	//
-	//
-	//
-	// }
 
 	public void updateVehicle(Vehicle vehicle) throws SQLException {
 		int userId = vehicle.getUserId();
@@ -80,7 +73,7 @@ public class VehicleDao extends DBConnector {
 		return vehicleId + 1;
 	}
 
-	public ArrayList<Vehicle> getAllVehicle(int userId) throws SQLException {
+	public ArrayList<Vehicle> getAllVehicleByUser(int userId) throws SQLException {
 		String sql = "select * from vehicle where user_id='" + userId + "';";
 		Vehicle vehicle = null;
 		ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
@@ -102,5 +95,21 @@ public class VehicleDao extends DBConnector {
 			}
 		}
 		return vehicleList;
+	}
+	
+	public int getVehiclesCount(int userId) {
+		String sql = "SELECT COUNT(*) FROM vehicle WHERE user_id='" + userId + "';";
+		try {
+		PreparedStatement ps;
+		ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		ResultSetMetaData rsMetaData = rs.getMetaData();
+		int count = rsMetaData.getColumnCount();
+		return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+		
 	}
 }

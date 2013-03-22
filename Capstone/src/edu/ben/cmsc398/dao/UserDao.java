@@ -21,11 +21,13 @@ public class UserDao extends DBConnector {
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
 				int areacode = rs.getInt("area_code");
-				Date birthday = rs.getDate("birth_date");
+				String year = rs.getString("year");
+				String day = rs.getString("day");
+				String month = rs.getString("month");
 				int gender = rs.getInt("sex");
 				String password = rs.getString("password");
 				
-				user = new User(userId, firstName,lastName,username,password,email,areacode,gender,birthday);
+				user = new User(userId, firstName,lastName,username,password,email,areacode,gender,year, month,day);
 			}
 		}
 		return user;
@@ -41,12 +43,14 @@ public class UserDao extends DBConnector {
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
 				int areacode = rs.getInt("area_code");
-				Date birthday = rs.getDate("birth_date");
+				String year = rs.getString("year");
+				String day = rs.getString("day");
+				String month = rs.getString("month");
 				int gender = rs.getInt("sex");
 				String username = rs.getString("username");
 				String password = rs.getString("password");
 				
-				user = new User(userId, firstName,lastName,username,password,email,areacode,gender,birthday);
+				user = new User(userId, firstName,lastName,username,password,email,areacode,gender, year, month, day);
 			}
 		}
 		return user;
@@ -58,11 +62,13 @@ public class UserDao extends DBConnector {
 		String lastName = user.getLastName();
 		String email = user.getEmail();
 		int areacode = user.getAreacode();
-		Date birthday = user.getBirthday();
+		String year = user.getYear();
+		String day = user.getMonth();
+		String month = user.getDay();
 		int gender = user.getGender();
 		String password = user.getPassword();
 		
-		String sql = "update user set first_name='"+firstName+"', last_name='"+lastName+"', email='"+email+"', area_code="+areacode+",birth_date='"+birthday+"',sex="+gender+",password='"+password+"' where username='"+username+"';";		
+		String sql = "update user set first_name='"+firstName+"', last_name='"+lastName+"', email='"+email+"', area_code="+areacode+",year='"+year+"',month='"+month+"',day='"+day+"',sex="+gender+",password='"+password+"' where username='"+username+"';";		
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 	}
@@ -73,11 +79,13 @@ public class UserDao extends DBConnector {
 		String lastName = user.getLastName();
 		String email = user.getEmail();
 		int areacode = user.getAreacode();
-		Date birthday = user.getBirthday();
+		String year = user.getYear();
+		String day = user.getMonth();
+		String month = user.getDay();
 		int gender = user.getGender();
 		String password = user.getPassword();
 		
-		String sql = "insert into user (first_name, last_name, birth_date, email, area_code,sex,username,password) values ('"+firstName+"','"+lastName+"','"+birthday+"','"+email+"',"+areacode+","+gender+",'"+username+"','"+password+"');";		
+		String sql = "insert into user (first_name, last_name, year, month, day, email, area_code,sex,username,password) values ('"+firstName+"','"+lastName+"','"+year+"','"+month+"','"+day+"','"+email+"',"+areacode+","+gender+",'"+username+"','"+password+"');";		
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 	}
@@ -127,9 +135,11 @@ public class UserDao extends DBConnector {
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
 				int areaCode = rs.getInt("area_code");
-				Date birthdate = rs.getDate("birth_date");
+				String year = rs.getString("year");
+				String day = rs.getString("day");
+				String month = rs.getString("month");
 				int gender = rs.getInt("sex");
-				User s = new User(id, firstName, lastName, username, password, email, areaCode, gender, birthdate);
+				User s = new User(id, firstName, lastName, username, password, email, areaCode, gender, year, month, day);
 				//System.out.println(s);
 				users.add(s);
 

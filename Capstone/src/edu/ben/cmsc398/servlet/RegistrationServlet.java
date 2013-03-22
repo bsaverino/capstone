@@ -70,29 +70,21 @@ public class RegistrationServlet extends HttpServlet {
 				String day = request.getParameter("day");
 				String year = request.getParameter("year");
 				String password = request.getParameter("password");
-				String birthdate = year + "-" + month + "-" + day;
 				int gender = 2;
-				int areacode = Integer.parseInt(request
-						.getParameter("areacode"));
+				int areacode = Integer.parseInt(request.getParameter("areacode"));
 				if (request.getParameter("gender").equals("male"))
 					gender = 1;
 				else if (request.getParameter("gender").equals("female"))
 					gender = 1;
 
-				DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				Date startDate;
-				startDate = df.parse(birthdate);
-				String newDateString = df.format(startDate);
-				System.out.println(newDateString);
+
 
 				// Can't get Date to work properly
-				System.out.println(birthdate);
 				User user = new User(' ',firstName, lastName, username, password,
-						email, areacode, gender, startDate);
+						email, areacode, gender, year, month, day);
 				System.out.println(user.toString());
 				uDao.insertUser(user);
-			} catch (ParseException | SQLException e) {
-				// TODO Auto-generated catch block
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else if (action.equals("registerVehicle")) {
@@ -114,7 +106,6 @@ public class RegistrationServlet extends HttpServlet {
 				vDao.addVehicle(vehicle);
 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -123,17 +114,22 @@ public class RegistrationServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			try {
 				ArrayList<User> list = uDao.getAllUsers();
-//				ArrayList<Vehicle> singleVehicle = vDao.
+				
 				for(User user: list) {
-//					System.out.println(user.getUsername());
-//					System.out.println(user.getPassword());
-//					System.out.println(currentUsername);
-//					System.out.println(password);
 					if (currentUsername.equalsIgnoreCase(user.getUsername())) { 
 						
 						if (password.equals(user.getPassword())) {
-							//session.setAttribute(String userId, user.getId());
-							//session.setAttribute(arg0, arg1)
+//							ArrayList<Vehicle> singleVehicle = vDao.getAllVehicleByUser(user.getId());
+//							int count = vDao.getVehiclesCount(user.getId());
+//							int i = 0;
+//							String [] vehicles;
+//							vehicles = new String[count-1];
+//							for(Vehicle car: singleVehicle) {
+//								vehicles[i] = String.valueOf(car.getVehicleId()); 
+//								
+//							}
+							String userId = String.valueOf(user.getId());
+							session.setAttribute(userId, user.getId());
 							response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
 						}
 					}
