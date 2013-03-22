@@ -54,7 +54,7 @@ public class VehicleDao extends DBConnector {
 	}
 
 	public void deleteVehicle(int vehicleID) throws SQLException {
-		String sql = "Delete from vehicle where vehicleID=" + vehicleID + ";";
+		String sql = "Delete from vehicle where vehicle_id=" + vehicleID + ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 	}

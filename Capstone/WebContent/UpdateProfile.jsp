@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="java.util.Calendar"%>
+<%@ page import="edu.ben.cmsc398.dao.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +18,11 @@
 	class="skin-color" />
 </head>
 <body>
-
+	<%
+	UserDao uDao = new UserDao();
+	//User user = uDao.getUser(Integer.parseInt(session.getId()));
+	User user = uDao.getUser(2);
+	%>
 
 	<div id="header">
 		<h1>
@@ -94,54 +100,73 @@
 									<h5>Update Info</h5>
 								</div>
 								<div class="widget-content nopadding">
-									<form id="form-wizard" class="form-horizontal" method="post">
+									<form id="form-wizard" class="form-horizontal" method="post" action="UpdateServlet?action=updateUser">
 										<div id="form-wizard-1" class="step">
 											<div class="control-group">
 												<label class="control-label">First Name</label>
 												<div class="controls">
-													<input id="firstName" type="text" name="firstName" />
+													<input id="firstName" type="text" name="firstName" value="<%=user.getFirstName() %>"/>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Last Name</label>
 												<div class="controls">
-													<input id="lastName" type="text" name="lastName" />
+													<input id="lastName" type="text" name="lastName" value="<%=user.getLastName() %>"/>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">E-Mail</label>
 												<div class="controls">
-													<input id="email" type="email" name="email" />
+													<input id="email" type="email" name="email" value="<%=user.getEmail() %>" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Area Code</label>
 												<div class="controls">
-													<input id="areaCode" type="text" name="areaCode" />
+													<input id="areaCode" type="text" name="areaCode" value="<%=user.getAreacode() %>"/>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Username</label>
 												<div class="controls">
-													<input id="username" type="text" name="username" disabled />
+													<input id="username" type="text" name="username" disabled value="<%=user.getUsername() %>"/>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Gender</label>
 												<div class="controls">
-													<label><input type="radio" name="sex" value="male" />
-														Male</label> <label><input type="radio" name="sex"
+													<label><input type="radio" name="sex" id="male" value="male" />
+														Male</label> <label><input type="radio" name="sex" id="female"
 														value="female" /> Female</label>
+														<script type="text/javascript" defer="defer">
+														<!-- 
+														if(document.getElementById){
+														if (value=<%=user.getGender() %> == 1){
+														document.getElementById('male').checked = true;
+														document.getElementById('female').checked = false;
+														}
+														else if (<%=user.getGender()%> == 0){
+														// Radiobutton "Yes" should be selected.
+														document.getElementById('male').checked = false;
+														document.getElementById('female').checked = true;
+														}
+														}
+														// -->
+														</script>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Birthdate</label>
 												<div class="controls">
 													<select name="MonthDropdown">
-														<option value="0" selected="selected">Month</option>
+														<option value="0" >Month</option>
 														<%
+															int month = Integer.parseInt(user.getMonth());
 															for (int i = 1; i <= 12; i++) {
 														%>
+														<%if(i == month){ %>
+														  <option selected value=<%=i%>><%=i%></option>
+														  <%}%>
 														<option value=<%=i%>><%=i%></option>
 														<%
 															}
@@ -150,10 +175,14 @@
 												</div>
 												<div class="controls">
 													<select name="DayDropdown">
-														<option value="0" selected="selected">Day</option>
+														<option value="0">Day</option>
 														<%
+															int day = Integer.parseInt(user.getDay());
 															for (int i = 1; i <= 31; i++) {
 														%>
+														<%if(i == day){ %>
+														  <option selected value=<%=i%>><%=i%></option>
+														  <%}%>
 														<option value=<%=i%>><%=i%></option>
 														<%
 															}
@@ -162,11 +191,15 @@
 												</div>
 												<div class="controls">
 													<select name="YearDropdown">
-														<option value="0" selected="selected">Year</option>
+														<option value="0">Year</option>
 														<%
+															int selectedYear = Integer.parseInt(user.getYear());
 															int year = Calendar.getInstance().get(Calendar.YEAR);
 															for (int i = 1900; i <= year; i++) {
 														%>
+														<%if(i == selectedYear){ %>
+														  <option selected value=<%=i%>><%=i%></option>
+														  <%}%>
 														<option value=<%=i%>><%=i%></option>
 														<%
 															}
