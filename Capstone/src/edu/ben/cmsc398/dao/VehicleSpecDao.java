@@ -3,6 +3,7 @@ package edu.ben.cmsc398.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import edu.ben.cmsc398.model.*;
@@ -13,8 +14,29 @@ public class VehicleSpecDao extends DBConnector {
 
 	}
 
-	public void getFuelType() {
+	public ArrayList<FuelType> getFuelType() {
 
+		try {
+			String sql = "SELECT * FROM fuel_lookup;";
+			ArrayList<FuelType> fuel = new ArrayList<FuelType>();
+			FuelType gas = null;
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					int fuelId = rs.getInt("fuel_type_id");
+					String fuelType = rs.getString("fuel_type");
+					gas = new FuelType(fuelId, fuelType);
+					fuel.add(gas);
+				}
+				return fuel;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 	public void getOilType() {
@@ -53,7 +75,7 @@ public class VehicleSpecDao extends DBConnector {
 		int pistonType = vehicleSpecs.getPistonType();
 		int headCC = vehicleSpecs.getHeadCC();
 		int pistonCC = vehicleSpecs.getPistonCC();
-		Boolean syntheticOil = vehicleSpecs.getSyntheticOil();		
+		Boolean syntheticOil = vehicleSpecs.getSyntheticOil();
 		float hp = vehicleSpecs.getHp();
 		float torque = vehicleSpecs.getTorque();
 		float bore = vehicleSpecs.getBore();
@@ -63,13 +85,35 @@ public class VehicleSpecDao extends DBConnector {
 		float dutyCycle = vehicleSpecs.getDutyCycle();
 		float bsfc = vehicleSpecs.getBsfc();
 		int oilType = 2;
-		if(syntheticOil)
+		if (syntheticOil)
 			oilType = 1;
 		String sql = "insert into vehicle_specs (vehicle_id, bore, stroke, number_cylinders, piston_deck_height, head_cc, piston_type_id, piston_cc, head_gasket_bore, horse_power, duty_cycle, bsfc, fuel_type_id, oil_type_id, torque) values ("
-				+ vehicleId + "," + bore + ",'" + stroke + "','" + cylinders + "','"
-				+ headGasketThickness + "," + headCC + ",'" + pistonType + "','" + pistonCC + "','"
-				+ headGasketBore + "','"+ hp + "','" + dutyCycle + "'," + bsfc + ",'" 
-				+ octane + "','"+ oilType + "," + torque + "');";
+				+ vehicleId
+				+ ","
+				+ bore
+				+ ",'"
+				+ stroke
+				+ "','"
+				+ cylinders
+				+ "','"
+				+ headGasketThickness
+				+ ","
+				+ headCC
+				+ ",'"
+				+ pistonType
+				+ "','"
+				+ pistonCC
+				+ "','"
+				+ headGasketBore
+				+ "','"
+				+ hp
+				+ "','"
+				+ dutyCycle
+				+ "',"
+				+ bsfc
+				+ ",'"
+				+ octane
+				+ "','" + oilType + "," + torque + "');";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 
@@ -114,7 +158,8 @@ public class VehicleSpecDao extends DBConnector {
 	public void deleteVehicleSpecs() {
 
 	}
-	public static void main(String[]args) throws SQLException{
+
+	public static void main(String[] args) throws SQLException {
 		VehicleSpecDao test = new VehicleSpecDao();
 		VehicleSpecs v = test.getVehicleSpec(1);
 		test.addVehicleSpecs(v);

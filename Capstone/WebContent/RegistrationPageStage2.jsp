@@ -70,49 +70,37 @@
 									<div class="control-group">
 										<label class="control-label">Year</label>
 										<div class="controls">
-											<select id="year" name="year">
-												<option value="0" selected="selected">Year</option>
-											</select>
+											<input id="year" type="text" name="year" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Make</label>
 										<div class="controls">
-											<select id="make" name="make">
-												<option value="0" selected="selected">Make</option>
-											</select>
+											<input id="make" type="text" name="make" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Model</label>
 										<div class="controls">
-											<select id="model" name="model">
-												<option value="0" selected="selected">Model</option>
-											</select>
+											<input id="model" type="text" name="model" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Trim</label>
 										<div class="controls">
-											<select id="trim" name="trim">
-												<option value="0" selected="selected">Trim</option>
-											</select>
+											<input id="trim" type="text" name="trim" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Engine</label>
 										<div class="controls">
-											<select id="engine" name="engine">
-												<option value="0" selected="selected">Engine</option>
-											</select>
+											<input id="engine" type="text" name="engine" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Transmission</label>
 										<div class="controls">
-											<select id="trans" name="trans">
-												<option value="0" selected="selected">Trans</option>
-											</select>
+											<input id="trans" type="text" name="trans" />
 										</div>
 									</div>
 									<div class="control-group">

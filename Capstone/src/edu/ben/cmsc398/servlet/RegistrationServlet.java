@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,6 +60,7 @@ public class RegistrationServlet extends HttpServlet {
 		//System.out.println("ID is: " + id);
 		UserDao uDao = new UserDao();
 		VehicleDao vDao = new VehicleDao();
+		VehicleSpecDao vsDao = new VehicleSpecDao();
 
 		if (action.equals("registerUser")) {
 			try {
@@ -84,6 +86,7 @@ public class RegistrationServlet extends HttpServlet {
 						email, areacode, gender, year, month, day);
 				System.out.println(user.toString());
 				uDao.insertUser(user);
+				response.setHeader("Refresh", "0; URL=RegistrationPageStage2.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -96,15 +99,18 @@ public class RegistrationServlet extends HttpServlet {
 				String color = request.getParameter("color");
 				int year = Integer.parseInt(request.getParameter("year"));
 				int userId = 0;
-				int vehicleId = 0;
 				int engine = Integer.parseInt(request.getParameter("engine"));
 				userId = uDao.getNewUserId();
 
-				vehicleId = vDao.getNewVehicleId();
 				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
-						color, year, vehicleId, userId);
+						color, year, ' ', userId);
 				vDao.addVehicle(vehicle);
-
+				
+				/* This is grabing the fuel type and passing it into the registraton page 3 */
+				ArrayList<FuelType> fuel = vsDao.getFuelType();
+				request.setAttribute("fuelList", fuel); // respond
+				RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationPageStage3.jsp");
+				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

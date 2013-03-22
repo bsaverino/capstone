@@ -6,7 +6,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import edu.ben.cmsc398.dao.*;
 import edu.ben.cmsc398.model.*;
 
 public class VehicleDao extends DBConnector {
