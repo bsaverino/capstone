@@ -114,7 +114,7 @@
 									<h5>Add Vehicle</h5>
 								</div>
 								<div class="widget-content nopadding">
-									<form id="form-wizard" class="form-horizontal" method="post">
+									<form id="form-wizard" class="form-horizontal" method="post" action="UpdateServlet?action=addVehicle">
 										<div id="form-wizard-1" class="step">
 											<div class="control-group">
 												<label class="control-label">Year</label>

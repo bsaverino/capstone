@@ -61,29 +61,18 @@ public class UpdateServlet extends HttpServlet {
 				String day = request.getParameter("day");
 				String year = request.getParameter("year");
 				String password = request.getParameter("password");
-				String birthdate = year + "-" + month + "-" + day;
 				int gender = 2;
-				int areacode = Integer.parseInt(request
-						.getParameter("areacode"));
+				int areacode = Integer.parseInt(request.getParameter("areacode"));
 				if (request.getParameter("gender").equals("male"))
 					gender = 1;
 				else if (request.getParameter("gender").equals("female"))
 					gender = 1;
-
-				DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-				Date startDate;
-				startDate = df.parse(birthdate);
-				String newDateString = df.format(startDate);
-				System.out.println(newDateString);
-
 				// Can't get Date to work properly
-				System.out.println(birthdate);
 				User user = new User(' ',firstName, lastName, username, password,
-						email, areacode, gender, startDate);
+						email, areacode, gender, year, month, day);
 				System.out.println(user.toString());
-				uDao.updateUser(user);
-			} catch (ParseException | SQLException e) {
-				// TODO Auto-generated catch block
+				uDao.insertUser(user);
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -125,6 +114,19 @@ public class UpdateServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		else if(action.equalsIgnoreCase("deleteVehicle")){
+			int vehicleId = Integer.parseInt(request.getParameter("Vehicle"));
+			String check = request.getParameter("delete");
+
+			if (check.equals("on"))
+				try {
+					vDao.deleteVehicle(vehicleId);
+					System.out.println("deleted");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
 

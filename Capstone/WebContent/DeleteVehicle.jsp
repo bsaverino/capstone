@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
+<%@ page import="edu.ben.cmsc398.dao.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,10 @@
 <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
 </head>
 <body>
-
+	<%
+	VehicleDao vDao= new VehicleDao();
+	ArrayList<Vehicle>vehicleList = vDao.getAllVehicleByUser(2); 
+%>
 
 	<div id="header">
 		<h1>
@@ -90,13 +96,17 @@
 								<h5>Delete Vehicle</h5>
 							</div>
 							<div class="widget-content nopadding">
-								<form id="form-wizard" class="form-horizontal" method="post">
+								<form id="form-wizard" class="form-horizontal" method="post" action="UpdateServlet?action=deleteVehicle">
 									<div id="form-wizard-1" class="step">
 										<div class="control-group">
 											<label class="control-label">Vehicle</label>
 											<div class="controls">
 												<select name="Vehicle">
-													<option value="0" selected="selected">Vehicle</option>
+													<%
+														for(Vehicle vehicle:vehicleList){
+													%>
+														  <option value=<%=vehicle.getVehicleId() %>><%=vehicle.getVehicleId() + " - "+ vehicle.getMake()+"" %></option>
+													<%}%>
 												</select>
 											</div>
 										</div>

@@ -92,7 +92,7 @@
 									<h5>Change Password</h5>
 								</div>
 								<div class="widget-content nopadding">
-									<form class="form-horizontal" method="post" action="#"
+									<form class="form-horizontal" method="post" action="UpdateServlet?action=changePassword"
 										name="password_validate" id="password_validate"
 										novalidate="novalidate">
 										<div class="control-group">
