@@ -1,6 +1,7 @@
 package edu.ben.cmsc398.model;
 
 public class Vehicle {
+	
 	private String make, model, trim, trans, color;
 	private int engine, year, vehicleId, userId;
 	public Vehicle(String make, String model, String trim, String trans,

@@ -1,14 +1,12 @@
 package edu.ben.cmsc398.model;
 
-import java.util.*;
-
 public class User {
 
-	private String firstName, lastName, username, password, email, year, month, day;
-	private int id, areacode, gender;
+	private String firstName, lastName, username, password, email;
+	private int id, areacode, gender, year, month, day;
 	public User(int id, String firstName, String lastName, String username,
 			String password, String email, int areacode, int gender,
-			String year, String month, String day) {
+			int year, int month, int day) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -67,22 +65,22 @@ public class User {
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
-	public String getMonth() {
+	public int getMonth() {
 		return month;
 	}
-	public void setMonth(String month) {
+	public void setMonth(int month) {
 		this.month = month;
 	}
-	public String getDay() {
+	public int getDay() {
 		return day;
 	}
-	public void setDay(String day) {
+	public void setDay(int day) {
 		this.day = day;
 	}
 	@Override

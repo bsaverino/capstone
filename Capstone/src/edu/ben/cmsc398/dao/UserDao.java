@@ -21,9 +21,9 @@ public class UserDao extends DBConnector {
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
 				int areacode = rs.getInt("area_code");
-				String year = rs.getString("year");
-				String day = rs.getString("day");
-				String month = rs.getString("month");
+				int year = rs.getInt("year");
+				int day = rs.getInt("day");
+				int month = rs.getInt("month");
 				int gender = rs.getInt("sex");
 				String password = rs.getString("password");
 				
@@ -43,9 +43,9 @@ public class UserDao extends DBConnector {
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
 				int areacode = rs.getInt("area_code");
-				String year = rs.getString("year");
-				String day = rs.getString("day");
-				String month = rs.getString("month");
+				int year = rs.getInt("year");
+				int day = rs.getInt("day");
+				int month = rs.getInt("month");
 				int gender = rs.getInt("sex");
 				String username = rs.getString("username");
 				String password = rs.getString("password");
@@ -62,9 +62,9 @@ public class UserDao extends DBConnector {
 		String lastName = user.getLastName();
 		String email = user.getEmail();
 		int areacode = user.getAreacode();
-		String year = user.getYear();
-		String day = user.getMonth();
-		String month = user.getDay();
+		int year = user.getYear();
+		int day = user.getDay();
+		int month = user.getMonth();
 		int gender = user.getGender();
 		String password = user.getPassword();
 		
@@ -79,9 +79,9 @@ public class UserDao extends DBConnector {
 		String lastName = user.getLastName();
 		String email = user.getEmail();
 		int areacode = user.getAreacode();
-		String year = user.getYear();
-		String day = user.getMonth();
-		String month = user.getDay();
+		int year = user.getYear();
+		int day = user.getDay();
+		int month = user.getMonth();
 		int gender = user.getGender();
 		String password = user.getPassword();
 		
@@ -135,9 +135,9 @@ public class UserDao extends DBConnector {
 				String lastName = rs.getString("last_name");
 				String email = rs.getString("email");
 				int areaCode = rs.getInt("area_code");
-				String year = rs.getString("year");
-				String day = rs.getString("day");
-				String month = rs.getString("month");
+				int year = rs.getInt("year");
+				int day = rs.getInt("day");
+				int month = rs.getInt("month");
 				int gender = rs.getInt("sex");
 				User s = new User(id, firstName, lastName, username, password, email, areaCode, gender, year, month, day);
 				//System.out.println(s);

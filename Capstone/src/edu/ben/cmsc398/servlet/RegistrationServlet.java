@@ -2,9 +2,6 @@ package edu.ben.cmsc398.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ben.cmsc398.dao.*;
-import edu.ben.cmsc398.model.*;
+import edu.ben.cmsc398.model.User;
+import edu.ben.cmsc398.model.Vehicle;
+import edu.ben.cmsc398.model.VehicleSpecs;
+import edu.ben.cmsc398.model.FuelType;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -68,9 +68,9 @@ public class RegistrationServlet extends HttpServlet {
 				String firstName = request.getParameter("firstName");
 				String lastName = request.getParameter("lastName");
 				String email = request.getParameter("email");
-				String month = request.getParameter("month");
-				String day = request.getParameter("day");
-				String year = request.getParameter("year");
+				int month = Integer.parseInt(request.getParameter("month"));
+				int day = Integer.parseInt(request.getParameter("day"));
+				int year = Integer.parseInt(request.getParameter("year"));
 				String password = request.getParameter("password");
 				int gender = 2;
 				int areacode = Integer.parseInt(request.getParameter("areacode"));
@@ -78,9 +78,7 @@ public class RegistrationServlet extends HttpServlet {
 					gender = 1;
 				else if (request.getParameter("gender").equals("female"))
 					gender = 1;
-
-
-
+				
 				// Can't get Date to work properly
 				User user = new User(' ',firstName, lastName, username, password,
 						email, areacode, gender, year, month, day);
@@ -102,8 +100,7 @@ public class RegistrationServlet extends HttpServlet {
 				int engine = Integer.parseInt(request.getParameter("engine"));
 				userId = uDao.getNewUserId();
 
-				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
-						color, year, ' ', userId);
+				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine, color, year, ' ', userId);
 				vDao.addVehicle(vehicle);
 				
 				/* This is grabing the fuel type and passing it into the registraton page 3 */
