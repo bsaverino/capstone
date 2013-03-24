@@ -56,8 +56,8 @@ public class RegistrationServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String id = request.getParameter("id");
-		//System.out.println("Action is: " + action);
-		//System.out.println("ID is: " + id);
+		// System.out.println("Action is: " + action);
+		// System.out.println("ID is: " + id);
 		UserDao uDao = new UserDao();
 		VehicleDao vDao = new VehicleDao();
 		VehicleSpecDao vsDao = new VehicleSpecDao();
@@ -73,18 +73,20 @@ public class RegistrationServlet extends HttpServlet {
 				int year = Integer.parseInt(request.getParameter("year"));
 				String password = request.getParameter("password");
 				int gender = 2;
-				int areacode = Integer.parseInt(request.getParameter("areacode"));
+				int areacode = Integer.parseInt(request
+						.getParameter("areacode"));
 				if (request.getParameter("gender").equals("male"))
 					gender = 1;
 				else if (request.getParameter("gender").equals("female"))
 					gender = 1;
-				
+
 				// Can't get Date to work properly
-				User user = new User(' ',firstName, lastName, username, password,
-						email, areacode, gender, year, month, day);
+				User user = new User(' ', firstName, lastName, username,
+						password, email, areacode, gender, year, month, day);
 				System.out.println(user.toString());
 				uDao.insertUser(user);
-				response.setHeader("Refresh", "0; URL=RegistrationPageStage2.jsp");
+				response.setHeader("Refresh",
+						"0; URL=RegistrationPageStage2.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -100,56 +102,110 @@ public class RegistrationServlet extends HttpServlet {
 				int engine = Integer.parseInt(request.getParameter("engine"));
 				userId = uDao.getNewUserId();
 
-				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine, color, year, ' ', userId);
+				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
+						color, year, ' ', userId);
 				vDao.addVehicle(vehicle);
-				
-				/* This is grabing the fuel type and passing it into the registraton page 3 */
+
+				/*
+				 * This is grabing the fuel type and passing it into the
+				 * registraton page 3
+				 */
 				ArrayList<FuelType> fuel = vsDao.getFuelType();
 				request.setAttribute("fuelList", fuel); // respond
-				RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationPageStage3.jsp");
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("RegistrationPageStage3.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
-		}else if(action.equals("login")) {
+		} else if (action.equals("addVehicleSpec")) {
+			int vehicleId = 0;
+			try {
+				float bsfc = 0;
+				int pistonType = 0;
+				int syntheticOil = 0;
+				int octane = Integer.parseInt(request.getParameter("fuel"));;
+				int cylinders = Integer.parseInt(request.getParameter("cylinders"));
+				int headCC = Integer.parseInt(request.getParameter("headCC"));
+				int pistonCC = Integer.parseInt(request.getParameter("pistonCC"));
+				float hp = Integer.parseInt(request.getParameter("hp"));
+				float torque = Integer.parseInt(request.getParameter("torque"));
+				float bore = Integer.parseInt(request.getParameter("bore"));
+				float stroke = Integer.parseInt(request.getParameter("stroke"));
+				float headGasketThickness = Integer.parseInt(request.getParameter("headGasketThickness"));
+				float headGasketBore = Integer.parseInt(request.getParameter("headGasketBore"));
+				float dutyCycle = (float) .80;
+				
+				if(request.getParameter("nitrous").equals("nitrous")) {
+					bsfc = (float).65;
+				}else if(request.getParameter("fi").equals("fi")) {
+					bsfc = (float).65;
+				}else if(request.getParameter("na").equals("na")) {
+					bsfc = (float).55;
+				}
+				
+				if(request.getParameter("pistonType").equals("dome")) {
+					pistonType = 1;
+				}else if(request.getParameter("pistonType").equals("dish")) {
+					pistonType = -1;
+				}
+				
+				if(request.getParameter("syntheticOil").equals("yes")) {
+					syntheticOil = 1;
+				}else if(request.getParameter("syntheticOil").equals("no")) {
+					syntheticOil = 2;
+				}
+
+				vehicleId = vDao.getNewVehicleId();
+			
+
+			VehicleSpecs vehicle = new VehicleSpecs(vehicleId, octane, cylinders, pistonType, headCC, pistonCC,
+					syntheticOil, hp, torque, bore, stroke,
+					headGasketThickness, headGasketBore, dutyCycle, bsfc);
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else if (action.equals("login")) {
 			String currentUsername = request.getParameter("username");
 			String password = request.getParameter("password");
 			try {
 				ArrayList<User> list = uDao.getAllUsers();
-				
-				for(User user: list) {
-					if (currentUsername.equalsIgnoreCase(user.getUsername())) { 
+
+				for (User user : list) {
+					if (currentUsername.equalsIgnoreCase(user.getUsername())) {
 						System.out.println("I have a username");
-						
+
 						if (password.equals(user.getPassword())) {
 							System.out.println("I have a password");
-//							ArrayList<Vehicle> singleVehicle = vDao.getAllVehicleByUser(user.getId());
-//							int count = vDao.getVehiclesCount(user.getId());
-//							int i = 0;
-//							String [] vehicles;
-//							vehicles = new String[count-1];
-//							for(Vehicle car: singleVehicle) {
-//								vehicles[i] = String.valueOf(car.getVehicleId()); 
-//								
-//							}
+							// ArrayList<Vehicle> singleVehicle =
+							// vDao.getAllVehicleByUser(user.getId());
+							// int count = vDao.getVehiclesCount(user.getId());
+							// int i = 0;
+							// String [] vehicles;
+							// vehicles = new String[count-1];
+							// for(Vehicle car: singleVehicle) {
+							// vehicles[i] = String.valueOf(car.getVehicleId());
+							//
+							// }
 							String userId = String.valueOf(user.getId());
 							session.setAttribute(userId, user.getId());
-							response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
-						}else {
+							response.setHeader("Refresh",
+									"0; URL=LoggedInIndex.jsp");
+						} else {
 							System.out.println("bad password");
 						}
-					}else {
+					} else {
 						System.out.println("bad username");
 					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}	
-		}
-		else if(action.equals("addVehicleSpec")){
-			
+			}
+		} else if (action.equals("addVehicleSpec")) {
+
 		}
 	}
-
 }

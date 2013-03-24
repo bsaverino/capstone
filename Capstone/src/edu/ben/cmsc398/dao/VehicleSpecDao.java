@@ -36,7 +36,7 @@ public class VehicleSpecDao extends DBConnector {
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
 
 	public void getOilType() {
@@ -69,13 +69,12 @@ public class VehicleSpecDao extends DBConnector {
 
 	public void addVehicleSpecs(VehicleSpecs vehicleSpecs) throws SQLException {
 		int vehicleId = vehicleSpecs.getVehicleId();
-		int pwrAdder = vehicleSpecs.getPwrAdder();
 		int octane = vehicleSpecs.getOctane();
 		int cylinders = vehicleSpecs.getCylinders();
 		int pistonType = vehicleSpecs.getPistonType();
 		int headCC = vehicleSpecs.getHeadCC();
 		int pistonCC = vehicleSpecs.getPistonCC();
-		Boolean syntheticOil = vehicleSpecs.getSyntheticOil();
+		int syntheticOil = vehicleSpecs.getSyntheticOil();
 		float hp = vehicleSpecs.getHp();
 		float torque = vehicleSpecs.getTorque();
 		float bore = vehicleSpecs.getBore();
@@ -85,8 +84,7 @@ public class VehicleSpecDao extends DBConnector {
 		float dutyCycle = vehicleSpecs.getDutyCycle();
 		float bsfc = vehicleSpecs.getBsfc();
 		int oilType = 2;
-		if (syntheticOil)
-			oilType = 1;
+
 		String sql = "insert into vehicle_specs (vehicle_id, bore, stroke, number_cylinders, piston_deck_height, head_cc, piston_type_id, piston_cc, head_gasket_bore, horse_power, duty_cycle, bsfc, fuel_type_id, oil_type_id, torque) values ("
 				+ vehicleId
 				+ ","
@@ -133,7 +131,7 @@ public class VehicleSpecDao extends DBConnector {
 				int pistonType = rs.getInt("piston_type_id");
 				int headCC = rs.getInt("head_cc");
 				int pistonCC = rs.getInt("piston_cc");
-				Boolean syntheticOil = rs.getBoolean("oil_type_id");
+				int syntheticOil = rs.getInt("oil_type_id");
 				float hp = rs.getFloat("horse_power");
 				float torque = rs.getFloat("torque");
 				float bore = rs.getFloat("bore");
@@ -142,10 +140,10 @@ public class VehicleSpecDao extends DBConnector {
 				float headGasketBore = rs.getFloat("head_gasket_bore");
 				float dutyCycle = rs.getFloat("duty_cycle");
 				float bsfc = rs.getFloat("bsfc");
-				vehicle = new VehicleSpecs(vehicleId, pwrAdder, octane,
-						cylinders, pistonType, headCC, pistonCC, syntheticOil,
-						hp, torque, bore, stroke, headGasketThickness,
-						headGasketBore, dutyCycle, bsfc);
+				vehicle = new VehicleSpecs(vehicleId, octane, cylinders,
+						pistonType, headCC, pistonCC, syntheticOil, hp, torque,
+						bore, stroke, headGasketThickness, headGasketBore,
+						dutyCycle, bsfc);
 			}
 		}
 		return vehicle;

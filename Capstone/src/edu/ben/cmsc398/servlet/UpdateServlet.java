@@ -57,9 +57,9 @@ public class UpdateServlet extends HttpServlet {
 				String firstName = request.getParameter("firstName");
 				String lastName = request.getParameter("lastName");
 				String email = request.getParameter("email");
-				String month = request.getParameter("month");
-				String day = request.getParameter("day");
-				String year = request.getParameter("year");
+				int month = Integer.parseInt(request.getParameter("month"));
+				int day = Integer.parseInt(request.getParameter("day"));
+				int year = Integer.parseInt(request.getParameter("year"));
 				String password = request.getParameter("password");
 				int gender = 2;
 				int areacode = Integer.parseInt(request.getParameter("areacode"));

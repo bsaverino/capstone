@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="java.util.Calendar"%>
+<%@ page import="edu.ben.cmsc398.model.FuelType,java.util.*"%>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
@@ -93,18 +93,18 @@
 							<h5>Registration Page 3</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form name="reg3" id="form-wizard" class="form-horizontal" action="RegistrationServlet?action=addVehicleSpec"
-								method="post">
+							<form name="reg3" id="form-wizard" class="form-horizontal"
+								action="RegistrationServlet?action=addVehicleSpec" method="post">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">Is your car Naturally
 											Aspirate, Boosted, or does it use Nitrous? </label>
 										<div class="controls">
-											<label><input type="checkbox" name="nitrous"
-												onClick="return KeepCount()" /> Nitrous</label> <label><input
-												type="checkbox" name="fi" onClick="return KeepCount()" />
-												Boosted (Superchared or Turbocharged)</label> <label><input
-												type="checkbox" name="na" onClick="return KeepCount()" />
+											<label><input type="checkbox" name="nitrous" value="nitrous" onClick="return KeepCount()" /> 
+												Nitrous</label> 
+												<label><input type="checkbox" name="fi" value="fi" onClick="return KeepCount()" />
+												Boosted (Superchared or Turbocharged)</label> 
+												<label><input type="checkbox" name="na" value="na" onClick="return KeepCount()" />
 												Naturally Aspirated (All motor, no power adders)</label>
 										</div>
 									</div>
@@ -121,17 +121,28 @@
 									<div class="control-group">
 										<label class="control-label">Do you use Synthetic Oil?</label>
 										<div class="controls">
-											<label><input type="radio" name="syntheticOil" value="yes" />
-												Yes</label> <label><input type="radio" name="syntheticOil"
-												value="no" /> No</label>
+											<label><input type="radio" name="syntheticOil"
+												value="yes" /> Yes</label> <label><input type="radio"
+												name="syntheticOil" value="no" /> No</label>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What Octane fuel do you
 											use?</label>
 										<div class="controls">
-											<select>
-												<option value="0" name="octane" id="octane" selected="selected">Octane</option>
+											<select id="fuel" name="fuel">
+												<%
+													ArrayList<FuelType> fuel = (ArrayList<FuelType>) request.getAttribute("fuelList");
+												
+												for (FuelType fuelType : fuel) {
+												%>
+												<option value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
+												<%
+													}
+												%>
+												
+												<option value="0" name="octane" id="octane"
+													selected="selected">Octane</option>
 											</select>
 										</div>
 									</div>
@@ -139,8 +150,8 @@
 										<label class="control-label">How many cylinders does
 											your motor have? </label>
 										<div class="controls">
-											<select>
-												<option name="cylinders" id="cylinders" value="0" selected="selected">Cylinders</option>
+											<select id="cylinders" name="cylinders">
+												<option value="0" selected="selected">Cylinders</option>
 												<%
 													for (int i = 1; i <= 16; i++) {
 												%>
@@ -184,9 +195,10 @@
 										<label class="control-label">Are your pistons Domed or
 											Dished?</label>
 										<div class="controls">
-											<label><input type="radio" id="pistonType" name="pistonType"
-												value="dome" /> Domed</label> <label><input type="radio" id="pistonType"
-												name="radios" value="dish" /> Dished</label>
+											<label><input type="radio" id="pistonType"
+												name="pistonType" value="dome" /> Domed</label> <label><input
+												type="radio" id="pistonType" name="radios" value="dish" />
+												Dished</label>
 										</div>
 									</div>
 									<div class="control-group">
@@ -194,6 +206,13 @@
 											piston? </label>
 										<div class="controls">
 											<input id="pistonCC" type="text" name="pistonCC" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">What is the cc of your
+											heads? </label>
+										<div class="controls">
+											<input id="headCC" type="text" name="headCC" />
 										</div>
 									</div>
 									<div class="control-group">
