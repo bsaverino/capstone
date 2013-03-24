@@ -34,6 +34,7 @@ public class CalculatorServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// testing pull and commit. reinstalled windows so setting it up again 
 	}
 
 }
