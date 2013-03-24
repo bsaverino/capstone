@@ -83,9 +83,16 @@ public class VehicleSpecDao extends DBConnector {
 		float headGasketBore = vehicleSpecs.getHeadGasketBore();
 		float dutyCycle = vehicleSpecs.getDutyCycle();
 		float bsfc = vehicleSpecs.getBsfc();
+		float pistonDeckHeight = vehicleSpecs.getPistonDeckHeight();
+		float resultCubicInch = vehicleSpecs.getResultCubicInch();
+		float resultCompressionRatio = vehicleSpecs.getResultCompressionRatio();
+		float resultFuelInjector = vehicleSpecs.getResultFuelInjector();
 		int oilType = 2;
 
-		String sql = "insert into vehicle_specs (vehicle_id, bore, stroke, number_cylinders, piston_deck_height, head_cc, piston_type_id, piston_cc, head_gasket_bore, horse_power, duty_cycle, bsfc, fuel_type_id, oil_type_id, torque) values ("
+		String sql = "insert into vehicle_specs (vehicle_id, bore, stroke, number_cylinders, piston_deck_height, head_cc, "
+				+ "piston_type_id, piston_cc, head_gasket_bore, horse_power, duty_cycle, bsfc, fuel_type_id, oil_type_id, "
+				+ "torque, piston_deck_height, result_ci, result_cr, result_fi) "
+				+ "values ("
 				+ vehicleId
 				+ ","
 				+ bore
@@ -111,7 +118,18 @@ public class VehicleSpecDao extends DBConnector {
 				+ bsfc
 				+ ",'"
 				+ octane
-				+ "','" + oilType + "," + torque + "');";
+				+ "','"
+				+ oilType
+				+ ","
+				+ torque
+				+ ","
+				+ pistonDeckHeight
+				+ ","
+				+ resultCubicInch
+				+ ","
+				+ resultCompressionRatio
+				+ ","
+				+ resultFuelInjector + "');";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 
@@ -136,14 +154,18 @@ public class VehicleSpecDao extends DBConnector {
 				float torque = rs.getFloat("torque");
 				float bore = rs.getFloat("bore");
 				float stroke = rs.getFloat("stroke");
-				float headGasketThickness = rs.getFloat("piston_deck_height");
+				float headGasketThickness = rs.getFloat("head_gasket_thickness");
 				float headGasketBore = rs.getFloat("head_gasket_bore");
 				float dutyCycle = rs.getFloat("duty_cycle");
 				float bsfc = rs.getFloat("bsfc");
+				float pistonDeckHeight = rs.getFloat("piston_deck_height");
+				float resultCubicInch = rs.getFloat("result_ci");
+				float resultCompressionRatio = rs.getFloat("result_cr");
+				float resultFuelInjector = rs.getFloat("result_fi");
 				vehicle = new VehicleSpecs(vehicleId, octane, cylinders,
 						pistonType, headCC, pistonCC, syntheticOil, hp, torque,
 						bore, stroke, headGasketThickness, headGasketBore,
-						dutyCycle, bsfc);
+						dutyCycle, bsfc, pistonDeckHeight, resultCubicInch, resultCompressionRatio, resultFuelInjector);
 			}
 		}
 		return vehicle;

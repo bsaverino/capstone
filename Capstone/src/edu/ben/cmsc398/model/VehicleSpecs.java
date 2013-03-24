@@ -2,11 +2,12 @@ package edu.ben.cmsc398.model;
 
 public class VehicleSpecs {
 	private int vehicleId, octane, cylinders, pistonType, headCC, pistonCC, syntheticOil;
-	private float hp, torque, bore, stroke, headGasketThickness, headGasketBore, dutyCycle, bsfc;
+	private float hp, torque, bore, stroke, headGasketThickness, headGasketBore, dutyCycle, bsfc, pistonDeckHeight;
+	private float resultCubicInch, resultCompressionRatio, resultFuelInjector;
 	public VehicleSpecs(int vehicleId, int octane, int cylinders,
 			int pistonType, int headCC, int pistonCC, int syntheticOil, float hp,
 			float torque, float bore, float stroke, float headGasketThickness,
-			float headGasketBore, float dutyCycle, float bsfc) {
+			float headGasketBore, float dutyCycle, float bsfc, float pistonDeckHeight, float resultCubicInch, float resultCompressionRatio, float resultFuelInjector) {
 		super();
 		this.vehicleId = vehicleId;
 		this.octane = octane;
@@ -23,6 +24,10 @@ public class VehicleSpecs {
 		this.headGasketBore = headGasketBore;
 		this.dutyCycle = dutyCycle;
 		this.bsfc = bsfc;
+		this.pistonDeckHeight = pistonDeckHeight;
+		this.resultCubicInch = resultCubicInch;
+		this.resultCompressionRatio = resultCompressionRatio;
+		this.resultFuelInjector = resultFuelInjector;
 	}
 	public int getOctane() {
 		return octane;
@@ -111,14 +116,44 @@ public class VehicleSpecs {
 	public void setBsfc(float bsfc) {
 		this.bsfc = bsfc;
 	}
+	public float getPistonDeckHeight() {
+		return pistonDeckHeight;
+	}
+	public void setPistonDeckHeight(float pistonDeckHeight) {
+		this.pistonDeckHeight = pistonDeckHeight;
+	}
+	public float getResultCubicInch() {
+		return resultCubicInch;
+	}
+	public void setResultCubicInch(float resultCubicInch) {
+		this.resultCubicInch = resultCubicInch;
+	}
+	public float getResultCompressionRatio() {
+		return resultCompressionRatio;
+	}
+	public void setResultCompressionRatio(float resultCompressionRatio) {
+		this.resultCompressionRatio = resultCompressionRatio;
+	}
+	public float getResultFuelInjector() {
+		return resultFuelInjector;
+	}
+	public void setResultFuelInjector(float resultFuelInjector) {
+		this.resultFuelInjector = resultFuelInjector;
+	}
 	@Override
 	public String toString() {
-		return "VehicleSpecs [vehicleId=" + vehicleId + ", octane=" + octane + ", cylinders=" + cylinders
-				+ ", pistonType=" + pistonType + ", headCC=" + headCC
+		return "VehicleSpecs [vehicleId=" + vehicleId + ", octane=" + octane
+				+ ", cylinders=" + cylinders + ", pistonType=" + pistonType
+				+ ", headCC=" + headCC + ", pistonCC=" + pistonCC
 				+ ", syntheticOil=" + syntheticOil + ", hp=" + hp + ", torque="
 				+ torque + ", bore=" + bore + ", stroke=" + stroke
 				+ ", headGasketThickness=" + headGasketThickness
-				+ ", headGasketBore=" + headGasketBore + "]";
+				+ ", headGasketBore=" + headGasketBore + ", dutyCycle="
+				+ dutyCycle + ", bsfc=" + bsfc + ", pistonDeckHeight="
+				+ pistonDeckHeight + ", resultCubicInch=" + resultCubicInch
+				+ ", resultCompressionRatio=" + resultCompressionRatio
+				+ ", resultFuelInjector=" + resultFuelInjector + "]";
 	}
+	
 
 }

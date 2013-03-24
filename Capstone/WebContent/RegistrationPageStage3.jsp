@@ -237,6 +237,12 @@
 											<input id="headCC" type="text" name="headCC" />
 										</div>
 									</div>
+									<div class="control-group">
+										<label class="control-label">What is the piston deck heeight?</label>
+										<div class="controls">
+											<input id="pistonDeckHeight" type="text" name="pistonDeckHeight" />
+										</div>
+									</div>
 
 								</div>
 								<div class="form-actions">

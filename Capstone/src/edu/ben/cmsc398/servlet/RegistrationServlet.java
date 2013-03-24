@@ -120,21 +120,22 @@ public class RegistrationServlet extends HttpServlet {
 			}
 
 		} else if (action.equals("addVehicleSpec")) {
-			int vehicleId = 0;
+			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
+			int pistonType, syntheticOil, vehicleId;
 			try {
-				float bsfc = 0;
-				int pistonType = 0;
-				int syntheticOil = 0;
+				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
+				pistonType = syntheticOil = vehicleId = 0;
 				int octane = Integer.parseInt(request.getParameter("fuel"));;
 				int cylinders = Integer.parseInt(request.getParameter("cylinders"));
 				int headCC = Integer.parseInt(request.getParameter("headCC"));
 				int pistonCC = Integer.parseInt(request.getParameter("pistonCC"));
-				float hp = Integer.parseInt(request.getParameter("hp"));
-				float torque = Integer.parseInt(request.getParameter("torque"));
-				float bore = Integer.parseInt(request.getParameter("bore"));
-				float stroke = Integer.parseInt(request.getParameter("stroke"));
-				float headGasketThickness = Integer.parseInt(request.getParameter("headGasketThickness"));
-				float headGasketBore = Integer.parseInt(request.getParameter("headGasketBore"));
+				float hp = Float.parseFloat(request.getParameter("hp"));
+				float torque = Float.parseFloat(request.getParameter("torque"));
+				float bore = Float.parseFloat(request.getParameter("bore"));
+				float stroke = Float.parseFloat(request.getParameter("stroke"));
+				float headGasketThickness = Float.parseFloat(request.getParameter("headGasketThickness"));
+				float headGasketBore = Float.parseFloat(request.getParameter("headGasketBore"));
+				float pistonDeckHeight = Float.parseFloat(request.getParameter("pistonDeckHeight`"));
 				float dutyCycle = (float) .80;
 				
 				if(request.getParameter("nitrous").equals("nitrous")) {
@@ -158,11 +159,12 @@ public class RegistrationServlet extends HttpServlet {
 				}
 
 				vehicleId = vDao.getNewVehicleId();
+				
 			
 
 			VehicleSpecs vehicle = new VehicleSpecs(vehicleId, octane, cylinders, pistonType, headCC, pistonCC,
-					syntheticOil, hp, torque, bore, stroke,
-					headGasketThickness, headGasketBore, dutyCycle, bsfc);
+					syntheticOil, hp, torque, bore, stroke, headGasketThickness, headGasketBore, dutyCycle, bsfc, 
+					pistonDeckHeight, resultCubicInch, resultCompressionRatio, resultFuelInjector);
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
