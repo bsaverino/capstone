@@ -59,7 +59,6 @@ public class UpdateServlet extends HttpServlet {
 			int month = Integer.parseInt(request.getParameter("month"));
 			int day = Integer.parseInt(request.getParameter("day"));
 			int year = Integer.parseInt(request.getParameter("year"));
-			String password = request.getParameter("password");
 			int gender = 1;
 			int areacode = Integer.parseInt(request
 					.getParameter("areacode"));
@@ -69,9 +68,27 @@ public class UpdateServlet extends HttpServlet {
 				gender = 0;
 
 			// Can't get Date to work properly
-			User user = new User(' ', firstName, lastName, username,
-					password, email, areacode, gender, year, month, day);
-			System.out.println(user.toString());
+			User user = null;
+			try {
+				user = uDao.getUser(username);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user.setAreacode(areacode);
+			user.setDay(day);
+			user.setEmail(email);
+			user.setFirstName(firstName);
+			user.setGender(gender);
+			user.setLastName(lastName);
+			user.setMonth(month);
+			user.setYear(year);
+			try {
+				uDao.updateUser(user);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(action.equals("changePassword")){
 			String currentPassword = request.getParameter("currentPassword");

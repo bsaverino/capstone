@@ -178,7 +178,6 @@ public class RegistrationServlet extends HttpServlet {
 				for (User user : list) {
 					if (currentUsername.equalsIgnoreCase(user.getUsername())) {
 						System.out.println("I have a username");
-
 						if (password.equals(user.getPassword())) {
 							System.out.println("I have a password");
 							// ArrayList<Vehicle> singleVehicle =
@@ -192,9 +191,11 @@ public class RegistrationServlet extends HttpServlet {
 							//
 							// }
 							String userId = String.valueOf(user.getId());
-							session.setAttribute(userId, user.getId());
+							session.setAttribute("userId", user.getId());
+							System.out.println(userId);
 							response.setHeader("Refresh",
 									"0; URL=LoggedInIndex.jsp");
+							break;
 						} else {
 							System.out.println("bad password");
 						}

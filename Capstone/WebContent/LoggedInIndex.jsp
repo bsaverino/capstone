@@ -15,7 +15,10 @@
 	class="skin-color" />
 </head>
 <body>
+<%System.out.println("loggedin index session userID "+session.getAttribute("userId")); 
+System.out.println("session id "+session.getId());
 
+%>
 
 	<div id="header">
 		<h1>

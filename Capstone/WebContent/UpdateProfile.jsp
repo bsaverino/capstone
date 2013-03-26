@@ -20,8 +20,9 @@
 <body>
 	<%
 	UserDao uDao = new UserDao();
-	//User user = uDao.getUser(Integer.parseInt(session.getId()));
-	User user = uDao.getUser(2);
+	System.out.println(session.getAttribute("userId"));
+	User user = uDao.getUser(Integer.parseInt(session.getAttribute("userId").toString()));
+	//User user = uDao.getUser(2);
 	%>
 
 	<div id="header">
