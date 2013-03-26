@@ -52,29 +52,26 @@ public class UpdateServlet extends HttpServlet {
 		VehicleDao vDao = new VehicleDao();
 		
 		if (action.equals("updateUser")) {
-			try {
-				String username = request.getParameter("username");
-				String firstName = request.getParameter("firstName");
-				String lastName = request.getParameter("lastName");
-				String email = request.getParameter("email");
-				int month = Integer.parseInt(request.getParameter("month"));
-				int day = Integer.parseInt(request.getParameter("day"));
-				int year = Integer.parseInt(request.getParameter("year"));
-				String password = request.getParameter("password");
-				int gender = 2;
-				int areacode = Integer.parseInt(request.getParameter("areacode"));
-				if (request.getParameter("gender").equals("male"))
-					gender = 1;
-				else if (request.getParameter("gender").equals("female"))
-					gender = 1;
-				// Can't get Date to work properly
-				User user = new User(' ',firstName, lastName, username, password,
-						email, areacode, gender, year, month, day);
-				System.out.println(user.toString());
-				uDao.insertUser(user);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			String username = request.getParameter("username");
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String email = request.getParameter("email");
+			int month = Integer.parseInt(request.getParameter("month"));
+			int day = Integer.parseInt(request.getParameter("day"));
+			int year = Integer.parseInt(request.getParameter("year"));
+			String password = request.getParameter("password");
+			int gender = 1;
+			int areacode = Integer.parseInt(request
+					.getParameter("areacode"));
+			if (request.getParameter("gender").equals("male"))
+				gender = 1;
+			else if (request.getParameter("gender").equals("female"))
+				gender = 0;
+
+			// Can't get Date to work properly
+			User user = new User(' ', firstName, lastName, username,
+					password, email, areacode, gender, year, month, day);
+			System.out.println(user.toString());
 		}
 		else if(action.equals("changePassword")){
 			String currentPassword = request.getParameter("currentPassword");

@@ -72,18 +72,17 @@ public class RegistrationServlet extends HttpServlet {
 				int day = Integer.parseInt(request.getParameter("day"));
 				int year = Integer.parseInt(request.getParameter("year"));
 				String password = request.getParameter("password");
-				int gender = 2;
+				int gender = 1;
 				int areacode = Integer.parseInt(request
 						.getParameter("areacode"));
 				if (request.getParameter("gender").equals("male"))
 					gender = 1;
 				else if (request.getParameter("gender").equals("female"))
-					gender = 1;
+					gender = 0;
 
 				// Can't get Date to work properly
 				User user = new User(' ', firstName, lastName, username,
 						password, email, areacode, gender, year, month, day);
-				System.out.println(user.toString());
 				uDao.insertUser(user);
 				response.setHeader("Refresh",
 						"0; URL=RegistrationPageStage2.jsp");

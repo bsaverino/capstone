@@ -123,20 +123,20 @@
 											<div class="control-group">
 												<label class="control-label">Area Code</label>
 												<div class="controls">
-													<input id="areaCode" type="text" name="areaCode" value="<%=user.getAreacode() %>"/>
+													<input id="areacode" type="text" name="areacode" value="<%=user.getAreacode() %>"/>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Username</label>
 												<div class="controls">
-													<input id="username" type="text" name="username" disabled value="<%=user.getUsername() %>"/>
+													<input id="username" type="text" name="username" readonly value="<%=user.getUsername() %>"/>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Gender</label>
 												<div class="controls">
-													<label><input type="radio" name="sex" id="male" value="male" />
-														Male</label> <label><input type="radio" name="sex" id="female"
+													<label><input type="radio" name="gender" id="male" value="male" />
+														Male</label> <label><input type="radio" name="gender" id="female"
 														value="female" /> Female</label>
 														<script type="text/javascript" defer="defer">
 														<!-- 
@@ -158,10 +158,10 @@
 											<div class="control-group">
 												<label class="control-label">Birthdate</label>
 												<div class="controls">
-													<select name="MonthDropdown">
+													<select name="month" id="month">
 														<option value="0" >Month</option>
 														<%
-															int month = Integer.parseInt(user.getMonth());
+															int month = user.getMonth();
 															for (int i = 1; i <= 12; i++) {
 														%>
 														<%if(i == month){ %>
@@ -174,10 +174,10 @@
 													</select>
 												</div>
 												<div class="controls">
-													<select name="DayDropdown">
+													<select name="day" id="day">
 														<option value="0">Day</option>
 														<%
-															int day = Integer.parseInt(user.getDay());
+															int day = user.getDay();
 															for (int i = 1; i <= 31; i++) {
 														%>
 														<%if(i == day){ %>
@@ -190,10 +190,10 @@
 													</select>
 												</div>
 												<div class="controls">
-													<select name="YearDropdown">
+													<select name="year" id="year">
 														<option value="0">Year</option>
 														<%
-															int selectedYear = Integer.parseInt(user.getYear());
+															int selectedYear = user.getYear();
 															int year = Calendar.getInstance().get(Calendar.YEAR);
 															for (int i = 1900; i <= year; i++) {
 														%>
