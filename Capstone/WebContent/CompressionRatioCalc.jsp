@@ -54,8 +54,9 @@
 <body>
 	getValue();
 	<%
+	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
 	VehicleSpecDao aDao= new VehicleSpecDao();
-	VehicleSpecs vehicle = aDao.getVehicleSpec(2); 
+	VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
 %>
 	<div id="header">
 		<h1>

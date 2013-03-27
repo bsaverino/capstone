@@ -34,8 +34,10 @@
 </script>
 </head>
 <body>
-<%VehicleSpecDao aDao= new VehicleSpecDao();
-	VehicleSpecs vehicle = aDao.getVehicleSpec(2);
+<%
+int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
+VehicleSpecDao aDao= new VehicleSpecDao();
+VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
 	if (vehicle.getDutyCycle() == 0){
 		vehicle.setDutyCycle(0.8f);
 	}

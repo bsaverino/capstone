@@ -190,9 +190,8 @@ public class RegistrationServlet extends HttpServlet {
 							// vehicles[i] = String.valueOf(car.getVehicleId());
 							//
 							// }
-							String userId = String.valueOf(user.getId());
 							session.setAttribute("userId", user.getId());
-							System.out.println(userId);
+							session.setAttribute("vehicleId", vDao.getDefaultVehicleId(user.getId()));
 							response.setHeader("Refresh",
 									"0; URL=LoggedInIndex.jsp");
 							break;

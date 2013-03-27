@@ -72,7 +72,8 @@ public class VehicleDao extends DBConnector {
 		return vehicleId + 1;
 	}
 
-	public ArrayList<Vehicle> getAllVehicleByUser(int userId) throws SQLException {
+	public ArrayList<Vehicle> getAllVehicleByUser(int userId)
+			throws SQLException {
 		String sql = "select * from vehicle where user_id='" + userId + "';";
 		Vehicle vehicle = null;
 		ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
@@ -95,20 +96,60 @@ public class VehicleDao extends DBConnector {
 		}
 		return vehicleList;
 	}
-	
+
 	public int getVehiclesCount(int userId) {
-		String sql = "SELECT COUNT(*) FROM vehicle WHERE user_id='" + userId + "';";
+		String sql = "SELECT COUNT(*) FROM vehicle WHERE user_id='" + userId
+				+ "';";
 		try {
-		PreparedStatement ps;
-		ps = conn.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		ResultSetMetaData rsMetaData = rs.getMetaData();
-		int count = rsMetaData.getColumnCount();
-		return count;
+			PreparedStatement ps;
+			ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			ResultSetMetaData rsMetaData = rs.getMetaData();
+			int count = rsMetaData.getColumnCount();
+			return count;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
-		
+	}
+
+	public Vehicle getVehicle(int vehicleId) throws SQLException {
+		String sql = "select * from vehicle where vehicle_id='" + vehicleId
+				+ "';";
+		Vehicle vehicle = null;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				String make = rs.getString("make");
+				String model = rs.getString("model");
+				String trim = rs.getString("trim");
+				String trans = rs.getString("trans");
+				int engine = rs.getInt("engine_size");
+				String color = rs.getString("color");
+				int year = rs.getInt("year");
+				int userId = rs.getInt("user_id");
+				vehicle = new Vehicle(make, model, trim, trans, engine, color,
+						year, vehicleId, userId);
+			}
+		}
+		return vehicle;
+	}
+	
+	public int getDefaultVehicleId(int userId) throws SQLException {
+		String sql = "select vehicle_id from vehicle where user_id='" + userId
+				+ "' Limit 1;";
+		Vehicle vehicle = null;
+		int vehicleId = 0;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+
+				vehicleId = rs.getInt("vehicle_id");
+
+			}
+		}
+		return vehicleId;
 	}
 }

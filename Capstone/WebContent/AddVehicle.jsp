@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
+<%@ page import="edu.ben.cmsc398.dao.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +39,11 @@
 </script>
 </head>
 <body>
-
+	<%
+	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
+	VehicleSpecDao aDao= new VehicleSpecDao();
+	VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
+%>
 
 	<div id="header">
 		<h1>

@@ -31,9 +31,10 @@
 			<a href="./dashboard.html">rCal Tracer</a>
 		</h1>
 	</div>
-<% 
-VehicleSpecDao aDao= new VehicleSpecDao();
-VehicleSpecs vehicle = aDao.getVehicleSpec(2);
+<%
+	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
+	VehicleSpecDao aDao= new VehicleSpecDao();
+	VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
 %>
 
 	<div id="user-nav" class="navbar navbar-inverse">

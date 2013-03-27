@@ -20,7 +20,8 @@
 <body>
 	<%
 	UserDao uDao = new UserDao();
-	System.out.println(session.getAttribute("userId"));
+	System.out.println("user id " +session.getAttribute("userId"));
+	System.out.println("vehicle id "+session.getAttribute("vehicleId"));
 	User user = uDao.getUser(Integer.parseInt(session.getAttribute("userId").toString()));
 	//User user = uDao.getUser(2);
 	%>

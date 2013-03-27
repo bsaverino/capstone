@@ -85,6 +85,8 @@ public class UpdateServlet extends HttpServlet {
 			user.setYear(year);
 			try {
 				uDao.updateUser(user);
+				response.setHeader("Refresh",
+						"0; URL=Profile.jsp");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,11 +97,13 @@ public class UpdateServlet extends HttpServlet {
 			String newPassword = request.getParameter("newPassword");
 			String newPassword2 = request.getParameter("newPassword2");
 			try {
-				User user = uDao.getUser(Integer.parseInt(session.getId()));
+				User user = uDao.getUser(Integer.parseInt(session.getAttribute("userId").toString()));
 				if(user.getPassword().equals(currentPassword))
 					if(newPassword.equals(newPassword2)){
 						user.setPassword(newPassword);
 						uDao.updateUser(user);
+						response.setHeader("Refresh",
+								"0; URL=Profile.jsp");
 					}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
