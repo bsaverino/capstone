@@ -16,8 +16,9 @@
 </head>
 <body>
 	<%
+	int userId = Integer.parseInt(session.getAttribute("userId").toString());
 	VehicleDao vDao= new VehicleDao();
-	ArrayList<Vehicle>vehicleList = vDao.getAllVehicleByUser(2); 
+	ArrayList<Vehicle>vehicleList = vDao.getAllVehicleByUser(userId);
 %>
 
 	<div id="header">

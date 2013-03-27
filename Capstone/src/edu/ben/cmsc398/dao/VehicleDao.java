@@ -69,7 +69,7 @@ public class VehicleDao extends DBConnector {
 				vehicleId = rs.getInt("vehicle_id");
 			}
 		}
-		return vehicleId + 1;
+		return vehicleId;
 	}
 
 	public ArrayList<Vehicle> getAllVehicleByUser(int userId)

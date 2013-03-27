@@ -87,24 +87,23 @@ public class VehicleSpecDao extends DBConnector {
 		float resultCubicInch = vehicleSpecs.getResultCubicInch();
 		float resultCompressionRatio = vehicleSpecs.getResultCompressionRatio();
 		float resultFuelInjector = vehicleSpecs.getResultFuelInjector();
-		int oilType = 2;
 
 		String sql = "insert into vehicle_specs (vehicle_id, bore, stroke, number_cylinders, piston_deck_height, head_cc, "
 				+ "piston_type_id, piston_cc, head_gasket_bore, horse_power, duty_cycle, bsfc, fuel_type_id, oil_type_id, "
-				+ "torque, piston_deck_height, result_ci, result_cr, result_fi) "
-				+ "values ("
+				+ "torque, result_ci, result_cr, result_fi, head_gasket_thickness) "
+				+ "values ('"
 				+ vehicleId
-				+ ","
+				+ "','"
 				+ bore
-				+ ",'"
+				+ "','"
 				+ stroke
 				+ "','"
 				+ cylinders
 				+ "','"
-				+ headGasketThickness
-				+ ","
+				+ pistonDeckHeight
+				+ "','"
 				+ headCC
-				+ ",'"
+				+ "','"
 				+ pistonType
 				+ "','"
 				+ pistonCC
@@ -114,22 +113,23 @@ public class VehicleSpecDao extends DBConnector {
 				+ hp
 				+ "','"
 				+ dutyCycle
-				+ "',"
+				+ "','"
 				+ bsfc
-				+ ",'"
+				+ "','"
 				+ octane
 				+ "','"
-				+ oilType
-				+ ","
+				+ syntheticOil
+				+ "','"
 				+ torque
-				+ ","
-				+ pistonDeckHeight
-				+ ","
+				+ "','"
 				+ resultCubicInch
-				+ ","
+				+ "','"
 				+ resultCompressionRatio
-				+ ","
-				+ resultFuelInjector + "');";
+				+ "','"
+				+ resultFuelInjector
+				+ "','"
+				+ headGasketThickness+ "');";
+		System.out.println(sql);
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 
