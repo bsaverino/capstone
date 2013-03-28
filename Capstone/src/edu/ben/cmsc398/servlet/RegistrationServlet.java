@@ -124,7 +124,7 @@ public class RegistrationServlet extends HttpServlet {
 			try {
 				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
 				pistonType = syntheticOil = vehicleId = 0;
-				int octane = Integer.parseInt(request.getParameter("fuel"));;
+				int octane = Integer.parseInt(request.getParameter("fuel"));
 				int cylinders = Integer.parseInt(request.getParameter("cylinders"));
 				int headCC = Integer.parseInt(request.getParameter("headCC"));
 				int pistonCC = Integer.parseInt(request.getParameter("pistonCC"));
@@ -134,7 +134,7 @@ public class RegistrationServlet extends HttpServlet {
 				float stroke = Float.parseFloat(request.getParameter("stroke"));
 				float headGasketThickness = Float.parseFloat(request.getParameter("headGasketThickness"));
 				float headGasketBore = Float.parseFloat(request.getParameter("headGasketBore"));
-				float pistonDeckHeight = Float.parseFloat(request.getParameter("pistonDeckHeight`"));
+				float pistonDeckHeight = Float.parseFloat(request.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 				
 				if(request.getParameter("nitrous").equals("nitrous")) {
@@ -159,12 +159,12 @@ public class RegistrationServlet extends HttpServlet {
 
 				vehicleId = vDao.getNewVehicleId();
 				
-			
-
-			VehicleSpecs vehicle = new VehicleSpecs(vehicleId, octane, cylinders, pistonType, headCC, pistonCC,
+			VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, octane, cylinders, pistonType, headCC, pistonCC,
 					syntheticOil, hp, torque, bore, stroke, headGasketThickness, headGasketBore, dutyCycle, bsfc, 
 					pistonDeckHeight, resultCubicInch, resultCompressionRatio, resultFuelInjector);
-			
+			vsDao.addVehicleSpecs(vehicleSpecs);
+			response.setHeader("Refresh",
+					"0; URL=LoggedInIndex.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
