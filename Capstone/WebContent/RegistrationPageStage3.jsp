@@ -112,18 +112,16 @@
 										<label class="control-label">Is your nitrous system
 											wet or dry?</label>
 										<div class="controls">
-											<label><input type="radio" name="radios" value="1" />
-												Wet</label> <label><input type="radio" name="radios"
-												value="2" /> Dry</label><label><input type="radio"
-												name="radios" value="0" /> I don't have Nitrous</label>
+											<label><input type="radio" name="radios" value="1" />Wet</label> 
+											<label><input type="radio" name="radios" value="2" /> Dry</label>
+											<label><input type="radio" name="radios" value="0" /> I don't have Nitrous</label>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Do you use Synthetic Oil?</label>
 										<div class="controls">
-											<label><input type="radio" name="syntheticOil"
-												value="yes" /> Yes</label> <label><input type="radio"
-												name="syntheticOil" value="no" /> No</label>
+											<label><input type="radio" name="syntheticOil" value="yes" /> Yes</label> 
+											<label><input type="radio" name="syntheticOil" value="no" /> No</label>
 										</div>
 									</div>
 									<div class="control-group">
@@ -166,28 +164,28 @@
 										<label class="control-label">How much Horespower does
 											your motor have at the wheel?</label>
 										<div class="controls">
-											<input id="hp" type="text" name="hp" />
+											<input id="hp" type="text" name="hp" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">How much Torque does your
 											motor have at the wheel?</label>
 										<div class="controls">
-											<input id="torque" type="text" name="torque" />
+											<input id="torque" type="text" name="torque" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the bore of your
 											cylinders? </label>
 										<div class="controls">
-											<input id="bore" type="text" name="bore" />
+											<input id="bore" type="text" name="bore" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the Stroke of
 											your motor? </label>
 										<div class="controls">
-											<input id="stroke" type="text" name="stroke" />
+											<input id="stroke" type="text" name="stroke" value=0/>
 										</div>
 									</div>
 
@@ -205,14 +203,14 @@
 										<label class="control-label">What is the cc of your
 											piston? </label>
 										<div class="controls">
-											<input id="pistonCC" type="text" name="pistonCC" />
+											<input id="pistonCC" type="text" name="pistonCC" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the cc of your
 											heads? </label>
 										<div class="controls">
-											<input id="headCC" type="text" name="headCC" />
+											<input id="headCC" type="text" name="headCC" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
@@ -220,27 +218,27 @@
 											gaskets?</label>
 										<div class="controls">
 											<input id="headGasketThickness" type="text"
-												name="headGasketThickness" />
+												name="headGasketThickness" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Bore of your head
 											gaskets?</label>
 										<div class="controls">
-											<input id="headGasketBore" type="text" name="headGasketBore" />
+											<input id="headGasketBore" type="text" name="headGasketBore" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the cc of your
 											heads?</label>
 										<div class="controls">
-											<input id="headCC" type="text" name="headCC" />
+											<input id="headCC" type="text" name="headCC" value=0/>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the piston deck heeight?</label>
 										<div class="controls">
-											<input id="pistonDeckHeight" type="text" name="pistonDeckHeight" />
+											<input id="pistonDeckHeight" type="text" name="pistonDeckHeight" value=0/>
 										</div>
 									</div>
 

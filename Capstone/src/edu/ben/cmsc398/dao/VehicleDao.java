@@ -10,28 +10,30 @@ import edu.ben.cmsc398.model.*;
 
 public class VehicleDao extends DBConnector {
 
-	public void addVehicle(Vehicle vehicle) throws SQLException {
-		String make = vehicle.getMake();
-		String model = vehicle.getModel();
-		String trim = vehicle.getTrim();
-		String trans = vehicle.getTrans();
-		int engine = vehicle.getEngine();
-		String color = vehicle.getColor();
-		int year = vehicle.getYear();
-		int userId = vehicle.getUserId();
-
-		String sql = "insert into vehicle (user_id, year, make, model, trim, trans, engine_size, color) values ("
-				+ userId
-				+ ","
-				+ year
-				+ ",'"
-				+ make
-				+ "','"
-				+ model
-				+ "','"
-				+ trim + "','" + trans + "'," + engine + ",'" + color + "');";
+	public int addVehicle(Vehicle vehicle) throws SQLException {
+		String sql = "insert into vehicle (user_id, year, make, model, trim, trans, engine_size, color) values (?,?,?,?,?,?,?,?);";
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.executeUpdate();
+		ResultSet rs = null;
+		int autoId = -1;
+		
+		ps.setString(3, vehicle.getMake());
+		ps.setString(4, vehicle.getModel());
+		ps.setString(5, vehicle.getTrim());
+		ps.setString(6, vehicle.getTrans());
+		ps.setInt(7, vehicle.getEngine());
+		ps.setString(8, vehicle.getColor());
+		ps.setInt(2, vehicle.getYear());
+		ps.setInt(1, vehicle.getUserId());
+		
+		ps.execute();
+		
+		ps = conn.prepareStatement("select last_insert_id()");
+		rs = ps.executeQuery();
+
+		if (rs.next())
+			autoId = rs.getInt(1);
+
+		return autoId;
 	}
 
 	public void updateVehicle(Vehicle vehicle) throws SQLException {
@@ -135,7 +137,7 @@ public class VehicleDao extends DBConnector {
 		}
 		return vehicle;
 	}
-	
+
 	public int getDefaultVehicleId(int userId) throws SQLException {
 		String sql = "select vehicle_id from vehicle where user_id='" + userId
 				+ "' Limit 1;";

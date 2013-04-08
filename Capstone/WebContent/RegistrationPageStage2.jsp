@@ -44,8 +44,7 @@
 				</ul></li>
 		</ul>
 	</div>
-
-
+	
 	<div id="content">
 		<div id="content-header">
 			<h1>Registration</h1>
@@ -107,6 +106,13 @@
 										<label class="control-label">Car Color</label>
 										<div class="controls">
 											<input id="color" type="text" name="color" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Is this the main vehicle you will be tracking?</label>
+										<div class="controls">
+											<label><input type="radio" name="default" value="1" />Yes</label> 
+											<label><input type="radio" name="default" value="0" /> No</label>
 										</div>
 									</div>
 
