@@ -254,9 +254,13 @@ public class RegistrationServlet extends HttpServlet {
 							break;
 						} else {
 							System.out.println("bad password");
+							response.setHeader("Refresh",
+									"0; URL=LoginPage.jsp");
 						}
 					} else {
 						System.out.println("bad username");
+						response.setHeader("Refresh",
+								"0; URL=LoginPage.jsp");
 					}
 				}
 			} catch (SQLException e) {

@@ -13,30 +13,6 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
-<script>
-	function KeepCount() {
-
-		var NewCount = 0;
-
-		if (document.reg3.nitrous.checked) {
-			NewCount = NewCount + 1;
-		}
-
-		if (document.reg3.fi.checked) {
-			NewCount = NewCount + 1;
-		}
-
-		if (document.reg3.na.checked) {
-			NewCount = NewCount + 1;
-		}
-
-		if (NewCount == 3) {
-			alert('Pick Just Two Please');
-			document.reg3;
-			return false;
-		}
-	}
-</script>
 </head>
 <body>
 	<%
@@ -101,11 +77,17 @@
 							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
 									Add Vehicle
 							</a></li>
+							<li><a href="AddVehicleSpec.jsp"> <i class="icon-database"></i>
+									Add Vehicle Spec
+							</a></li>
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
 							<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
 									Update Vehicle
+							</a></li>
+							<li><a href="UpdateVehicleSpec.jsp"> <i class="icon-survey"></i>
+									Update Vehicle Spec
 							</a></li>
 						</ul>
 					</div>
@@ -123,194 +105,65 @@
 								<div class="widget-content nopadding">
 									<form id="form-wizard" class="form-horizontal" method="post" action="UpdateServlet?action=addVehicle">
 										<div id="form-wizard-1" class="step">
-											<div class="control-group">
-												<label class="control-label">Year</label>
-												<div class="controls">
-													<select name="Year">
-														<option value="0" selected="selected">Year</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Make</label>
-												<div class="controls">
-													<select name="Make">
-														<option value="0" selected="selected">Make</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Model</label>
-												<div class="controls">
-													<select name="Model">
-														<option value="0" selected="selected">Model</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Trim</label>
-												<div class="controls">
-													<select name="Trim">
-														<option value="0" selected="selected">Trim</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Engine</label>
-												<div class="controls">
-													<select name="Engine">
-														<option value="0" selected="selected">Engine</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Transmission</label>
-												<div class="controls">
-													<select name="Trans">
-														<option value="0" selected="selected">Trans</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Car Color</label>
-												<div class="controls">
-													<input id="color" type="text" name="color" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Is your car Naturally
-													Aspirate, Boosted, or does it use Nitrous? </label>
-												<div class="controls">
-													<label><input type="checkbox" name="nitrous"
-														onClick="return KeepCount()" /> Nitrous</label> <label><input
-														type="checkbox" name="fi" onClick="return KeepCount()" />
-														Boosted (Superchared or Turbocharged)</label> <label><input
-														type="checkbox" name="na" onClick="return KeepCount()" />
-														Naturally Aspirated (All motor, no power adders)</label>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Is your nitrous system
-													wet or dry?</label>
-												<div class="controls">
-													<label><input type="radio" name="radios" value="1" />
-														Wet</label> <label><input type="radio" name="radios"
-														value="2" /> Dry</label><label><input type="radio"
-														name="radios" value="0" /> I don't have Nitrous</label>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Do you use Synthetic
-													Oil?</label>
-												<div class="controls">
-													<label><input type="radio" name="radios"
-														value="yes" /> Yes</label> <label><input type="radio"
-														name="radios" value="no" /> No</label>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">What Octane fuel do you
-													use?</label>
-												<div class="controls">
-													<select>
-														<option value="0" selected="selected">Octane</option>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">How many cylinders does
-													your motor have? </label>
-												<div class="controls">
-													<select>
-														<option value="0" selected="selected">Cylinders</option>
-														<%
-															for (int i = 1; i <= 16; i++) {
-														%>
-														<option value=<%=i%>><%=i%></option>
-														<%
-															}
-														%>
-													</select>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">How much Horespower
-													does your motor have at the wheel?</label>
-												<div class="controls">
-													<input id="horsepower" type="text" name="horsepower" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">How much Torque does
-													your motor have at the wheel?</label>
-												<div class="controls">
-													<input id="torque" type="text" name="torque" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">What is the bore of
-													your cylinders? </label>
-												<div class="controls">
-													<input id="pistonBore" type="text" name="pistonBore" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">What is the Stroke of
-													your motor? </label>
-												<div class="controls">
-													<input id="stroke" type="text" name="stroke" />
-												</div>
-											</div>
-
-											<div class="control-group">
-												<label class="control-label">Are your pistons Domed
-													or Dished?</label>
-												<div class="controls">
-													<label><input type="radio" name="radios"
-														value="domed" /> Domed</label> <label><input type="radio"
-														name="radios" value="dished" /> Dished</label>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">What is the cc of your
-													piston? </label>
-												<div class="controls">
-													<input id="pistonCC" type="text" name="pistonCC" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">How thick are your head
-													gaskets?</label>
-												<div class="controls">
-													<input id="headGasketThickness" type="text"
-														name="headGasketThickness" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Bore of your head
-													gaskets?</label>
-												<div class="controls">
-													<input id="headGasketBore" type="text"
-														name="headGasketBore" />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">What is the cc of your
-													heads?</label>
-												<div class="controls">
-													<input id="headCC" type="text" name="headCC" />
-												</div>
-											</div>
-
+									<div class="control-group">
+										<label class="control-label">Year</label>
+										<div class="controls">
+											<input id="year" type="text" name="year" />
 										</div>
-										<div class="form-actions">
-											<input id="back" class="btn btn-primary" type="reset"
-												value="Back" /> <input id="next" class="btn btn-primary"
-												type="submit" value="Next" />
-											<div id="status"></div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Make</label>
+										<div class="controls">
+											<input id="make" type="text" name="make" />
 										</div>
-										<div id="submitted"></div>
-									</form>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Model</label>
+										<div class="controls">
+											<input id="model" type="text" name="model" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Trim</label>
+										<div class="controls">
+											<input id="trim" type="text" name="trim" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Engine</label>
+										<div class="controls">
+											<input id="engine" type="text" name="engine" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Transmission</label>
+										<div class="controls">
+											<input id="trans" type="text" name="trans" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Car Color</label>
+										<div class="controls">
+											<input id="color" type="text" name="color" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Is this the main vehicle you will be tracking?</label>
+										<div class="controls">
+											<label><input type="radio" name="default" value="1" />Yes</label> 
+											<label><input type="radio" name="default" value="0" /> No</label>
+										</div>
+									</div>
+
+								</div>
+								<div class="form-actions">
+									<input id="back" class="btn btn-primary" type="reset"
+										value="Back" /> <input id="next" class="btn btn-primary"
+										type="submit" value="Next" />
+									<div id="status"></div>
+								</div>
+								<div id="submitted"></div>
+							</form>
 								</div>
 							</div>
 						</div>
