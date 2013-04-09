@@ -164,28 +164,28 @@
 										<label class="control-label">How much Horespower does
 											your motor have at the wheel?</label>
 										<div class="controls">
-											<input id="hp" type="text" name="hp" value=0/>
+											<input id="hp" type="text" name="hp" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">How much Torque does your
 											motor have at the wheel?</label>
 										<div class="controls">
-											<input id="torque" type="text" name="torque" value=0/>
+											<input id="torque" type="text" name="torque" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the bore of your
 											cylinders? </label>
 										<div class="controls">
-											<input id="bore" type="text" name="bore" value=0/>
+											<input id="bore" type="text" name="bore" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the Stroke of
 											your motor? </label>
 										<div class="controls">
-											<input id="stroke" type="text" name="stroke" value=0/>
+											<input id="stroke" type="text" name="stroke" value="0" />
 										</div>
 									</div>
 
@@ -193,24 +193,23 @@
 										<label class="control-label">Are your pistons Domed or
 											Dished?</label>
 										<div class="controls">
-											<label><input type="radio" id="pistonType"
-												name="pistonType" value="dome" /> Domed</label> <label><input
-												type="radio" id="pistonType" name="radios" value="dish" />
-												Dished</label>
+											<label><input type="radio" id="pistonType" name="pistonType" value="dome" /> Domed</label> 
+											<label><input type="radio" id="pistonType" name="pistonType"
+												value="dish" />Dished</label>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the cc of your
 											piston? </label>
 										<div class="controls">
-											<input id="pistonCC" type="text" name="pistonCC" value=0/>
+											<input id="pistonCC" type="text" name="pistonCC" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the cc of your
 											heads? </label>
 										<div class="controls">
-											<input id="headCC" type="text" name="headCC" value=0/>
+											<input id="headCC" type="text" name="headCC" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
@@ -218,27 +217,20 @@
 											gaskets?</label>
 										<div class="controls">
 											<input id="headGasketThickness" type="text"
-												name="headGasketThickness" value=0/>
+												name="headGasketThickness" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Bore of your head
 											gaskets?</label>
 										<div class="controls">
-											<input id="headGasketBore" type="text" name="headGasketBore" value=0/>
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label">What is the cc of your
-											heads?</label>
-										<div class="controls">
-											<input id="headCC" type="text" name="headCC" value=0/>
+											<input id="headGasketBore" type="text" name="headGasketBore" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">What is the piston deck heeight?</label>
 										<div class="controls">
-											<input id="pistonDeckHeight" type="text" name="pistonDeckHeight" value=0/>
+											<input id="pistonDeckHeight" type="text" name="pistonDeckHeight" value="0" />
 										</div>
 									</div>
 
