@@ -82,11 +82,17 @@
 							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
 									Add Vehicle
 							</a></li>
+							<li><a href="AddVehicleSpec.jsp"> <i class="icon-database"></i>
+									Add Vehicle Spec
+							</a></li>
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
 							<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
 									Update Vehicle
+							</a></li>
+							<li><a href="UpdateVehicleSpec.jsp"> <i class="icon-survey"></i>
+									Update Vehicle Spec
 							</a></li>
 						</ul>
 					</div>

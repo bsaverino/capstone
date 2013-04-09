@@ -23,34 +23,39 @@ import edu.ben.cmsc398.model.*;
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpdateServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String id = request.getParameter("id");
-		//System.out.println("Action is: " + action);
-		//System.out.println("ID is: " + id);
+		// System.out.println("Action is: " + action);
+		// System.out.println("ID is: " + id);
 		UserDao uDao = new UserDao();
 		VehicleDao vDao = new VehicleDao();
-		
+		VehicleSpecDao vsDao = new VehicleSpecDao();
+
 		if (action.equals("updateUser")) {
 			String username = request.getParameter("username");
 			String firstName = request.getParameter("firstName");
@@ -60,8 +65,7 @@ public class UpdateServlet extends HttpServlet {
 			int day = Integer.parseInt(request.getParameter("day"));
 			int year = Integer.parseInt(request.getParameter("year"));
 			int gender = 1;
-			int areacode = Integer.parseInt(request
-					.getParameter("areacode"));
+			int areacode = Integer.parseInt(request.getParameter("areacode"));
 			if (request.getParameter("gender").equals("male"))
 				gender = 1;
 			else if (request.getParameter("gender").equals("female"))
@@ -85,62 +89,154 @@ public class UpdateServlet extends HttpServlet {
 			user.setYear(year);
 			try {
 				uDao.updateUser(user);
-				response.setHeader("Refresh",
-						"0; URL=Profile.jsp");
+				response.setHeader("Refresh", "0; URL=Profile.jsp");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (action.equals("changePassword")) {
+			String currentPassword = request.getParameter("currentPassword");
+			String newPassword = request.getParameter("newPassword");
+			String newPassword2 = request.getParameter("newPassword2");
+			try {
+				User user = uDao.getUser(Integer.parseInt(session.getAttribute(
+						"userId").toString()));
+				if (user.getPassword().equals(currentPassword))
+					if (newPassword.equals(newPassword2)) {
+						user.setPassword(newPassword);
+						uDao.updateUser(user);
+						response.setHeader("Refresh", "0; URL=Profile.jsp");
+					}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		else if(action.equals("changePassword")){
-			String currentPassword = request.getParameter("currentPassword");
-			String newPassword = request.getParameter("newPassword");
-			String newPassword2 = request.getParameter("newPassword2");
-			try {
-				User user = uDao.getUser(Integer.parseInt(session.getAttribute("userId").toString()));
-				if(user.getPassword().equals(currentPassword))
-					if(newPassword.equals(newPassword2)){
-						user.setPassword(newPassword);
-						uDao.updateUser(user);
-						response.setHeader("Refresh",
-								"0; URL=Profile.jsp");
-					}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
-		}
 		// Need to add in the Vehicle Specs
-		else if(action.equals("addVehicle")){
+		else if (action.equals("addVehicle")) {
 			try {
-				// Don't know if it works in terms of getting session's id
+
 				String make = request.getParameter("make");
 				String model = request.getParameter("model");
 				String trim = request.getParameter("trim");
 				String trans = request.getParameter("trans");
 				String color = request.getParameter("color");
 				int year = Integer.parseInt(request.getParameter("year"));
-				int vehicleId = 0;
 				int engine = Integer.parseInt(request.getParameter("engine"));
+				int def = Integer.parseInt(request.getParameter("default"));
+				int userId = (int) session.getAttribute("userId");
+				User user = uDao.getUser(userId);
 
-				vehicleId = vDao.getNewVehicleId();
 				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
-						color, year, vehicleId, Integer.parseInt(session.getId()));
-				vDao.addVehicle(vehicle);
+						color, year, ' ', userId);
+				int vId = vDao.addVehicle(vehicle);
+
+				if (def == 1) {
+					user.setDefaultVehicle(vId);
+					uDao.updateUser(user);
+					session.setAttribute("vehicleId", vId);
+				}
+				response.setHeader("Refresh", "0; URL=Profile.jsp");
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		else if(action.equalsIgnoreCase("deleteVehicle")){
+		} else if (action.equals("addVehicleSpec")) {
+			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
+			int pistonType, syntheticOil, vehicleId;
+			try {
+				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
+				pistonType = syntheticOil = vehicleId = 0;
+				int octane = Integer.parseInt(request.getParameter("fuel"));
+				int cylinders = Integer.parseInt(request
+						.getParameter("cylinders"));
+				int headCC = Integer.parseInt(request.getParameter("headCC"));
+				int pistonCC = Integer.parseInt(request
+						.getParameter("pistonCC"));
+				float hp = Float.parseFloat(request.getParameter("hp"));
+				float torque = Float.parseFloat(request.getParameter("torque"));
+				float bore = Float.parseFloat(request.getParameter("bore"));
+				float stroke = Float.parseFloat(request.getParameter("stroke"));
+				float headGasketThickness = Float.parseFloat(request
+						.getParameter("headGasketThickness"));
+				float headGasketBore = Float.parseFloat(request
+						.getParameter("headGasketBore"));
+				float pistonDeckHeight = Float.parseFloat(request
+						.getParameter("pistonDeckHeight"));
+				float dutyCycle = (float) .80;
+
+				if (request.getParameter("nitrous").equals("nitrous"))
+					bsfc = (float) .65;
+				else if (request.getParameter("fi").equals("fi"))
+					bsfc = (float) .65;
+				else if (request.getParameter("na").equals("na"))
+					bsfc = (float) .55;
+				else
+					bsfc = (float) .55;
+
+				if (request.getParameter("pistonType").equals("dome"))
+					pistonType = 1;
+				else if (request.getParameter("pistonType").equals("dish"))
+					pistonType = -1;
+				else
+					pistonType = 0;
+
+				if (request.getParameter("syntheticOil").equals("yes"))
+					syntheticOil = 1;
+				else if (request.getParameter("syntheticOil").equals("no"))
+					syntheticOil = 2;
+				else
+					syntheticOil = 0;
+
+				// Change to whatever is selected in dropdown
+				vehicleId = vDao.getNewVehicleId();
+
+				// Gets Cubic Inch result for storage
+				if (bore != 0 && stroke != 0 && cylinders != 0) {
+					resultCubicInch = (float) ((bore * bore) * stroke
+							* 0.7853982 * cylinders);
+				}
+
+				// Gets Compression Ratio result for storage
+				if (bore != 0 && stroke != 0 && pistonType != 0
+						&& pistonDeckHeight != 0 && headCC != 0
+						&& pistonCC != 0 && headGasketThickness != 0
+						&& headGasketBore != 0) {
+					float CYV = (float) (0.7853982 * (bore * bore) * stroke);
+					float CLV = (float) (0.7853982 * (bore * bore) * pistonDeckHeight);
+					float PCC = (float) ((pistonType * pistonCC) * 0.0610237);
+					float HG = (float) (0.7853982 * Math.pow(headGasketBore, 2) * headGasketThickness);
+					float HCC = (float) (0.0610237 * headCC);
+					resultCompressionRatio = (CYV + CLV + PCC + HG + HCC)
+							/ (CLV + PCC + HG + HCC);
+				}
+
+				// Gets Fuel Injector size for storage
+				if (hp != 0 && bsfc != 0 && cylinders != 0) {
+					resultFuelInjector = (hp * bsfc) / (cylinders * dutyCycle);
+				}
+
+				VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, octane,
+						cylinders, pistonType, headCC, pistonCC, syntheticOil,
+						hp, torque, bore, stroke, headGasketThickness,
+						headGasketBore, dutyCycle, bsfc, pistonDeckHeight,
+						resultCubicInch, resultCompressionRatio,
+						resultFuelInjector);
+				vsDao.addVehicleSpecs(vehicleSpecs);
+				response.setHeader("Refresh", "0; URL=Profile.jsp");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}else if (action.equalsIgnoreCase("deleteVehicle")) {
 			int vehicleId = Integer.parseInt(request.getParameter("Vehicle"));
 			String check = request.getParameter("delete");
 
 			if (check.equals("on"))
 				try {
 					vDao.deleteVehicle(vehicleId);
-					System.out.println("deleted");
+					response.setHeader("Refresh", "0; URL=Profile.jsp");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
