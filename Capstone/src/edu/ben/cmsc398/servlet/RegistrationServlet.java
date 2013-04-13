@@ -86,7 +86,7 @@ public class RegistrationServlet extends HttpServlet {
 						' ');
 
 				int autoId = uDao.insertUser(user);
-				session.setAttribute("userId", autoId);
+				request.getSession().setAttribute("userId", autoId);
 
 				response.setHeader("Refresh",
 						"0; URL=RegistrationPageStage2.jsp");
@@ -105,8 +105,9 @@ public class RegistrationServlet extends HttpServlet {
 				int userId = 0;
 				int engine = Integer.parseInt(request.getParameter("engine"));
 				int def = Integer.parseInt(request.getParameter("default"));
-				userId = uDao.getNewUserId();
-//				int sessionId = session.getAttribute(arg0)
+				//userId = uDao.getNewUserId();
+				userId = (int) request.getSession().getAttribute("userId");
+				System.out.println(userId);
 
 				User user = uDao.getUser(userId);
 
