@@ -37,7 +37,7 @@
 		<ul>
 			<li class="active"><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="Maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="RegistrationServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>

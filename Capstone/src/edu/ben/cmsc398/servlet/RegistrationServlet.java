@@ -1,7 +1,6 @@
 package edu.ben.cmsc398.servlet;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -40,11 +39,11 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		String action = (String) request.getParameter("action");
-		String id = request.getParameter("id");
-		UserDao uDao = new UserDao();
-		VehicleDao vDao = new VehicleDao();
+		// HttpSession session = request.getSession(true);
+		// String action = (String) request.getParameter("action");
+		// String id = request.getParameter("id");
+		// UserDao uDao = new UserDao();
+		// VehicleDao vDao = new VehicleDao();
 		// TODO Auto-generated method stub
 	}
 
@@ -105,7 +104,7 @@ public class RegistrationServlet extends HttpServlet {
 				int userId = 0;
 				int engine = Integer.parseInt(request.getParameter("engine"));
 				int def = Integer.parseInt(request.getParameter("default"));
-				//userId = uDao.getNewUserId();
+				// userId = uDao.getNewUserId();
 				userId = (int) request.getSession().getAttribute("userId");
 				System.out.println(userId);
 
@@ -118,12 +117,12 @@ public class RegistrationServlet extends HttpServlet {
 				if (user.getDefaultVehicle() == 0) {
 					user.setDefaultVehicle(vId);
 					uDao.updateUser(user);
-					session.setAttribute("vehicleId", vId);
-				}else {
-					if(def == 1) {
+					request.getSession().setAttribute("vehicleId", vId);
+				} else {
+					if (def == 1) {
 						user.setDefaultVehicle(vId);
 						uDao.updateUser(user);
-						session.setAttribute("vehicleId", vId);
+						request.getSession().setAttribute("vehicleId", vId);
 					}
 				}
 
@@ -219,6 +218,11 @@ public class RegistrationServlet extends HttpServlet {
 						resultCubicInch, resultCompressionRatio,
 						resultFuelInjector);
 				vsDao.addVehicleSpecs(vehicleSpecs);
+				
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicle = (int) request.getSession().getAttribute("vehicleId");
+				
+				
 				response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -245,8 +249,9 @@ public class RegistrationServlet extends HttpServlet {
 							// vehicles[i] = String.valueOf(car.getVehicleId());
 							//
 							// }
-							session.setAttribute("userId", user.getId());
-							session.setAttribute("vehicleId",
+							request.getSession().setAttribute("userId",
+									user.getId());
+							request.getSession().setAttribute("vehicleId",
 									vDao.getDefaultVehicleId(user.getId()));
 							response.setHeader("Refresh",
 									"0; URL=LoggedInIndex.jsp");
@@ -258,8 +263,7 @@ public class RegistrationServlet extends HttpServlet {
 						}
 					} else {
 						System.out.println("bad username");
-						response.setHeader("Refresh",
-								"0; URL=LoginPage.jsp");
+						response.setHeader("Refresh", "0; URL=LoginPage.jsp");
 					}
 				}
 			} catch (SQLException e) {
