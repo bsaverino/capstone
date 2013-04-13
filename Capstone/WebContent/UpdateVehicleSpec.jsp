@@ -48,14 +48,9 @@
 <body>
 	<%
 		int userId = Integer.parseInt(session.getAttribute("userId")
-			.toString());
-			int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-			.toString());
-			VehicleDao vDao = new VehicleDao();
-			Vehicle defaultVehicle = vDao.getVehicle(vehicleId);
-			ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
-			int def = vDao.getDefaultVehicleId(userId);
-			System.out.println("vehicleId: "+vehicleId+" def: "+def);
+				.toString());
+		VehicleDao vDao = new VehicleDao();
+		ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
 	%>
 
 	<div id="header">
@@ -141,19 +136,73 @@
 									<h5>Update Vehicle</h5>
 								</div>
 								<div class="widget-content nopadding">
-									<form id="form-wizard" class="form-horizontal" method="post"
-										action="UpdateServlet?action=updateVehicle">
+									<form name="reg3" id="form-wizard" class="form-horizontal"
+										action="RegistrationServlet?action=addVehicleSpec"
+										method="post">
 										<div id="form-wizard-1" class="step">
-										<!-- Change so on click go to servlet, set new vehicleId in session and redirect back -->
 											<div class="control-group">
-												<label class="control-label">Select Vehicle</label>
+												<label class="control-label">Is your car Naturally
+													Aspirate, Boosted, or does it use Nitrous? </label>
 												<div class="controls">
-													<select onchange="selectVehicle()" name="Vehicle">
+													<label><input type="checkbox" name="nitrous"
+														value="nitrous" onClick="return KeepCount()" /> Nitrous</label> <label><input
+														type="checkbox" name="fi" value="fi"
+														onClick="return KeepCount()" /> Boosted (Superchared or
+														Turbocharged)</label> <label><input type="checkbox"
+														name="na" value="na" onClick="return KeepCount()" />
+														Naturally Aspirated (All motor, no power adders)</label>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">Is your nitrous system
+													wet or dry?</label>
+												<div class="controls">
+													<label><input type="radio" name="radios" value="1" />Wet</label>
+													<label><input type="radio" name="radios" value="2" />
+														Dry</label> <label><input type="radio" name="radios"
+														value="0" /> I don't have Nitrous</label>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">Do you use Synthetic
+													Oil?</label>
+												<div class="controls">
+													<label><input type="radio" name="syntheticOil"
+														value="yes" /> Yes</label> <label><input type="radio"
+														name="syntheticOil" value="no" /> No</label>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">What Octane fuel do you
+													use?</label>
+												<div class="controls">
+													<select id="fuel" name="fuel">
 														<%
-															for (Vehicle vehicle : vehicleList) {
+															ArrayList<FuelType> fuel = (ArrayList<FuelType>) request
+																	.getAttribute("fuelList");
+
+															for (FuelType fuelType : fuel) {
 														%>
-														<option value=<%=vehicle.getVehicleId()%>><%=vehicle.getVehicleId() + " - " + vehicle.getMake()
-						+ ""%></option>
+														<option value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
+														<%
+															}
+														%>
+
+														<option value="0" name="octane" id="octane"
+															selected="selected">Octane</option>
+													</select>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">How many cylinders does
+													your motor have? </label>
+												<div class="controls">
+													<select id="cylinders" name="cylinders">
+														<option value="0" selected="selected">Cylinders</option>
+														<%
+															for (int i = 1; i <= 16; i++) {
+														%>
+														<option value=<%=i%>><%=i%></option>
 														<%
 															}
 														%>
@@ -161,88 +210,90 @@
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Year</label>
+												<label class="control-label">How much Horespower
+													does your motor have at the wheel?</label>
 												<div class="controls">
-													<input id="year" type="text" name="year"
-														value=<%=defaultVehicle.getYear()%>>
+													<input id="hp" type="text" name="hp" value=0 />
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Make</label>
+												<label class="control-label">How much Torque does
+													your motor have at the wheel?</label>
 												<div class="controls">
-													<input id="make" type="text" name="make"
-														value=<%=defaultVehicle.getMake()%>>
+													<input id="torque" type="text" name="torque" value=0 />
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Model</label>
+												<label class="control-label">What is the bore of
+													your cylinders? </label>
 												<div class="controls">
-													<input id="model" type="text" name="model"
-														value=<%=defaultVehicle.getModel()%>>
+													<input id="bore" type="text" name="bore" value=0 />
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Trim</label>
+												<label class="control-label">What is the Stroke of
+													your motor? </label>
 												<div class="controls">
-													<input id="trim" type="text" name="trim"
-														value=<%=defaultVehicle.getTrim()%>>
+													<input id="stroke" type="text" name="stroke" value=0 />
+												</div>
+											</div>
+
+											<div class="control-group">
+												<label class="control-label">Are your pistons Domed
+													or Dished?</label>
+												<div class="controls">
+													<label><input type="radio" id="pistonType"
+														name="pistonType" value="dome" /> Domed</label> <label><input
+														type="radio" id="pistonType" name="radios" value="dish" />
+														Dished</label>
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Engine</label>
+												<label class="control-label">What is the cc of your
+													piston? </label>
 												<div class="controls">
-													<input id="engine" type="text" name="engine"
-														value=<%=defaultVehicle.getEngine()%>>
+													<input id="pistonCC" type="text" name="pistonCC" value=0 />
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Transmission</label>
+												<label class="control-label">What is the cc of your
+													heads? </label>
 												<div class="controls">
-													<input id="trans" type="text" name="trans"
-														value=<%=defaultVehicle.getTrans()%>>
+													<input id="headCC" type="text" name="headCC" value=0 />
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label">Car Color</label>
+												<label class="control-label">How thick are your head
+													gaskets?</label>
 												<div class="controls">
-													<input id="color" type="text" name="color"
-														value=<%=defaultVehicle.getColor()%>>
+													<input id="headGasketThickness" type="text"
+														name="headGasketThickness" value=0 />
 												</div>
 											</div>
-											<!-- Auto populate Not working -->
 											<div class="control-group">
-												<label class="control-label">Is this the main
-													vehicle you will be tracking?</label>
+												<label class="control-label">Bore of your head
+													gaskets?</label>
 												<div class="controls">
-													<label><input type="radio" name="default" id="yes"
-														value="1" />Yes</label> <label><input type="radio"
-														name="default" id="no" value="0" /> No</label>
-													<script type="text/javascript" defer="defer">
-													<!--
-														if (document.getElementById) {
-															if (value =
-													<%=vDao.getDefaultVehicleId(userId)%>
-														== vehicleId) {
-																document
-																		.getElementById('yes').checked = true;
-																document
-																		.getElementById('no').checked = false;
-													<%System.out.println("test");%>
-														} else if (value =
-													<%=vDao.getDefaultVehicleId(userId)%>
-														!= vehicleId) {
-																// Radiobutton "Yes" should be selected.
-																document
-																		.getElementById('yes').checked = false;
-																document
-																		.getElementById('no').checked = true;
-													<%System.out.println("test2");%>
-														}
-														}
-													// -->
-													</script>
+													<input id="headGasketBore" type="text"
+														name="headGasketBore" value=0 />
 												</div>
 											</div>
+											<div class="control-group">
+												<label class="control-label">What is the cc of your
+													heads?</label>
+												<div class="controls">
+													<input id="headCC" type="text" name="headCC" value=0 />
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">What is the piston deck
+													heeight?</label>
+												<div class="controls">
+													<input id="pistonDeckHeight" type="text"
+														name="pistonDeckHeight" value=0 />
+												</div>
+											</div>
+
 										</div>
 										<div class="form-actions">
 											<input id="back" class="btn btn-primary" type="reset"
@@ -255,17 +306,16 @@
 								</div>
 							</div>
 						</div>
+					</div>
 
-						<div class="row-fluid">
-							<div id="footer" class="span12">2012 &copy; Brought to you
-								by Unity Productions</div>
-						</div>
+					<div class="row-fluid">
+						<div id="footer" class="span12">2012 &copy; Brought to you
+							by Unity Productions</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.ui.custom.js"></script>
