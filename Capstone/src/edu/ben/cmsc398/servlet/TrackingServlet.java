@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +39,32 @@ public class TrackingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		String action = (String) request.getParameter("action");
+		String id = request.getParameter("id");
+		System.out.println("Action is: " + action);
+		System.out.println("ID is: " + id);
+		MaintenanceDao mDao = new MaintenanceDao();
+		
+		if (action.equals("getMaintenance")) {
+			try {
+				System.out.println("in getMaintenance");
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+
+				ArrayList<Maintenance> records = new ArrayList<Maintenance>();
+				records = mDao.getMaintenanceByUser(userId, vehicleId);
+				
+				request.setAttribute("maintenanceRecord", records); // respond
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Maintenance.jsp");
+				dispatcher.forward(request, response);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 	/**
@@ -50,27 +76,11 @@ public class TrackingServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String id = request.getParameter("id");
-		// System.out.println("Action is: " + action);
-		// System.out.println("ID is: " + id);
+		System.out.println("Action is: " + action);
+		System.out.println("ID is: " + id);
 		MaintenanceDao mDao = new MaintenanceDao();
 
-		if (action.equals("getMaintenance")) {
-			try {
-				int userId = (int) request.getSession().getAttribute("userId");
-				int vehicleId = (int) request.getSession().getAttribute(
-						"vehicleId");
-
-				ArrayList<Maintenance> records = new ArrayList<Maintenance>();
-				records = mDao.getMaintenanceByUser(userId, vehicleId);
-				session.setAttribute("maintenanceRecord", records);
-				
-				response.setHeader("Refresh", "0; URL=Maintenance.jsp");
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} else if (action.equals("addMaintenance")) {
+		if (action.equals("addMaintenance")) {
 
 		} else if (action.equals("editMaintenance")) {
 

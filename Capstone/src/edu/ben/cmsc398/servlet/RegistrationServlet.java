@@ -39,12 +39,6 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// HttpSession session = request.getSession(true);
-		// String action = (String) request.getParameter("action");
-		// String id = request.getParameter("id");
-		// UserDao uDao = new UserDao();
-		// VehicleDao vDao = new VehicleDao();
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -87,8 +81,8 @@ public class RegistrationServlet extends HttpServlet {
 				int autoId = uDao.insertUser(user);
 				request.getSession().setAttribute("userId", autoId);
 
-				response.setHeader("Refresh",
-						"0; URL=RegistrationPageStage2.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationPageStage2.jsp");
+				dispatcher.forward(request, response);
 
 			} catch (SQLException e) {
 				e.printStackTrace();

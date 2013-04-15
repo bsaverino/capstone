@@ -37,7 +37,7 @@
 		<ul>
 			<li class="active"><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="RegistrationServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="TrackingServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
@@ -130,19 +130,6 @@
 								<li class="viewall"><a title="View all comments"
 									class="tip-top" href="#"> + View all + </a></li>
 							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="widget-box widget-calendar">
-						<div class="widget-title">
-							<span class="icon"><i class="icon-calendar"></i></span>
-							<h5>Calendar</h5>
-						</div>
-						<div class="widget-content nopadding">
-							<div class="calendar"></div>
 						</div>
 					</div>
 				</div>

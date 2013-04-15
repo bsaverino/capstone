@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
+<%@ page import="edu.ben.cmsc398.model.Maintenance,java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,14 +36,18 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
+					<span>Dashboard</span></a></li>
 			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li class="active"><a href="Maintenance.jsp"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li class="active"><a
+				href="TrackingServlet?action=getMaintenance"><i
+					class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="CompressionRatioCalc.jsp">Compression Ratio
+							Calc</a></li>
 					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
@@ -61,8 +66,13 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
+					<%
+						ArrayList<Maintenance> record = (ArrayList<Maintenance>) request
+								.getAttribute("maintenanceRecord");
+					%>
 					<div class="widget-box">
 						<div class="widget-title">
+
 							<span class="icon"> <i class="icon-th"></i>
 							</span>
 							<h5>Current Maintenance</h5>
@@ -73,120 +83,44 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="/maintenanceAddService.jsp">Add Service</a></li>
-									<li><a href="/maintenanceEditService.jsp">Edit Service</a></li>
-									<li><a href="#">Delete Time</a></li>
+									<li><a href="TrackingServlet?action=addMaintenance">Add
+											Record</a></li>
+									<li><a href="TrackingServlet?action=editMaintenance">Edit
+											Record</a></li>
+									<li><a href="TrackingServlet?action=deleteMaintenance">Delete
+											Record</a></li>
 								</ul>
 							</div>
-							<span class="label label-info">Times</span>
+							<span class="label label-info">Maintenance</span>
 						</div>
-						<div class="widget-content">
-							<table class="table table-bordered table-striped with-check">
+						<div class="widget-content nopadding">
+							<table class="table table-bordered data-table">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="title-table-checkbox"
-											name="title-table-checkbox" /></th>
+										<th></th>
 										<th>Service</th>
 										<th>Mileage</th>
-										<th>Cost $</th>
+										<th>Discription</th>
 										<th>Date</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
+									<%
+										for (Maintenance m : record) {
+									%>
+									<tr class="gradeX">
+										<td><input type="checkbox" name=<%=m.getMaintenanceId()%>
+											value=<%=m.getMaintenanceId()%> /></td>
+										<td><%=m.getService()%></td>
+										<td><%=m.getMileage()%></td>
+										<td><%=m.getDiscription()%></td>
+										<td><%=m.getDate()%></td>
 									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
+									<%
+										}
+									%>
 								</tbody>
 							</table>
-						</div>
-					</div>
-					<div class="widget-box widget-calendar">
-						<div class="widget-title">
-							<span class="icon"><i class="icon-calendar"></i></span>
-							<h5>Scheduled Services</h5>
-							<div class="buttons">
-								<a id="add-event" data-toggle="modal" href="#modal-add-event"
-									class="btn btn-success btn-mini"><i
-									class="icon-plus icon-white"></i> Add new event</a>
-								<div class="modal hide" id="modal-add-event">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">×</button>
-										<h3>Add a new event</h3>
-									</div>
-									<div class="modal-body">
-										<p>Enter event name:</p>
-										<p>
-											<input id="event-name" type="text" />
-										</p>
-									</div>
-									<div class="modal-footer">
-										<a href="#" class="btn" data-dismiss="modal">Cancel</a> <a
-											href="#" id="add-event-submit" class="btn btn-primary">Add
-											event</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="widget-content nopadding">
-							<div class="panel-left">
-								<div id="fullcalendar"></div>
-							</div>
-							<div id="external-events" class="panel-right">
-								<div class="panel-title">
-									<h5>Events</h5>
-								</div>
-								<div class="panel-content">
-									<div class="external-event ui-draggable label label-inverse">My
-										Event 1</div>
-									<div class="external-event ui-draggable label label-inverse">My
-										Event 2</div>
-									<div class="external-event ui-draggable label label-inverse">My
-										Event 3</div>
-									<div class="external-event ui-draggable label label-inverse">My
-										Event 4</div>
-									<div class="external-event ui-draggable label label-inverse">My
-										Event 5</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
