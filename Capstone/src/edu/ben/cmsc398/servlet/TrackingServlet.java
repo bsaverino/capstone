@@ -17,6 +17,7 @@ import edu.ben.cmsc398.dao.UserDao;
 import edu.ben.cmsc398.dao.VehicleDao;
 import edu.ben.cmsc398.dao.VehicleSpecDao;
 import edu.ben.cmsc398.model.Maintenance;
+import edu.ben.cmsc398.model.Services;
 
 /**
  * Servlet implementation class TrackingServlet
@@ -45,7 +46,7 @@ public class TrackingServlet extends HttpServlet {
 		System.out.println("Action is: " + action);
 		System.out.println("ID is: " + id);
 		MaintenanceDao mDao = new MaintenanceDao();
-		
+
 		if (action.equals("getMaintenance")) {
 			try {
 				System.out.println("in getMaintenance");
@@ -55,15 +56,29 @@ public class TrackingServlet extends HttpServlet {
 
 				ArrayList<Maintenance> records = new ArrayList<Maintenance>();
 				records = mDao.getMaintenanceByUser(userId, vehicleId);
-				
+
 				request.setAttribute("maintenanceRecord", records); // respond
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Maintenance.jsp");
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("Maintenance.jsp");
 				dispatcher.forward(request, response);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
+		} else if (action.equals("addForwardMaintenance")) {
+			try {
+				ArrayList<Services> service = new ArrayList<Services>();
+				service = mDao.getServices();
+
+				request.setAttribute("service", service); // respond
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("MaintenanceAddService.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -81,6 +96,25 @@ public class TrackingServlet extends HttpServlet {
 		MaintenanceDao mDao = new MaintenanceDao();
 
 		if (action.equals("addMaintenance")) {
+			try {
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+				int serviceId = Integer.parseInt(request
+						.getParameter("services"));
+				String date = request.getParameter("date");
+				float mileage = Float.parseFloat(request
+						.getParameter("mileage"));
+
+				Maintenance service = new Maintenance(0, serviceId, vehicleId,
+						userId, mileage, date);
+
+				mDao.insertMaintenance(service);
+				
+				response.setHeader("Refresh", "0; URL=TrackingServlet?action=getMaintenance");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (action.equals("editMaintenance")) {
 

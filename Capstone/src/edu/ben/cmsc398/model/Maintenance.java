@@ -1,18 +1,54 @@
 package edu.ben.cmsc398.model;
 
 public class Maintenance {
-	private int maintenanceId;
+	private int maintenanceId, serviceId, vehicleId, userId;
 	private float mileage;
 	private String service, discription, date;
 
-	public Maintenance(int maintenanceId,
-			float mileage, String service, String discription, String date) {
+	public Maintenance(int maintenanceId, float mileage, String service,
+			String discription, String date) {
 		super();
 		this.maintenanceId = maintenanceId;
 		this.mileage = mileage;
 		this.service = service;
 		this.discription = discription;
-		this.date = date; 
+		this.date = date;
+	}
+
+	public Maintenance(int maintenanceId, int serviceId, int vehicleId,
+			int userId, float mileage, String date) {
+		super();
+		this.maintenanceId = maintenanceId;
+		this.serviceId = serviceId;
+		this.vehicleId = vehicleId;
+		this.userId = userId;
+		this.mileage = mileage;
+		this.date = date;
+	}
+	
+
+	public int getVehicleId() {
+		return vehicleId;
+	}
+
+	public void setVehicleId(int vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(int serviceId) {
+		this.serviceId = serviceId;
 	}
 
 	public int getMaintenanceId() {
@@ -57,11 +93,9 @@ public class Maintenance {
 
 	@Override
 	public String toString() {
-		return "Maintenance [maintenanceId=" + maintenanceId + ", mileage="
-				+ mileage + ", service=" + service + ", discription="
-				+ discription + ", date=" + date + "]";
+		return "Maintenance [maintenanceId=" + maintenanceId + ", serviceId="
+				+ serviceId + ", mileage=" + mileage + ", service=" + service
+				+ ", discription=" + discription + ", date=" + date + "]";
 	}
-
-	
 
 }

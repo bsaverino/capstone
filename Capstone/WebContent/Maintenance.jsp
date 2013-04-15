@@ -83,7 +83,7 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="TrackingServlet?action=addMaintenance">Add
+									<li><a href="TrackingServlet?action=addForwardMaintenance">Add
 											Record</a></li>
 									<li><a href="TrackingServlet?action=editMaintenance">Edit
 											Record</a></li>
@@ -105,11 +105,13 @@
 									</tr>
 								</thead>
 								<tbody>
+
 									<%
 										for (Maintenance m : record) {
 									%>
+
 									<tr class="gradeX">
-										<td><input type="checkbox" name=<%=m.getMaintenanceId()%>
+										<td><input type="radio" name="mRecord"
 											value=<%=m.getMaintenanceId()%> /></td>
 										<td><%=m.getService()%></td>
 										<td><%=m.getMileage()%></td>
