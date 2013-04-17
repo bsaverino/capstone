@@ -36,26 +36,14 @@
 			return false;
 		}
 	}
-	function selectVehicle() {
-		var a = document.update.Vehicle.value;
-		Session.setAttribute("vehicleId", a);
-		alert(Session.getAttribute("vehicleId"));
-		document.update.color.value = (Session.getAttribute("vehicleId"));
-
-	}
 </script>
 </head>
 <body>
 	<%
-		int userId = Integer.parseInt(session.getAttribute("userId")
-			.toString());
-			int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-			.toString());
-			VehicleDao vDao = new VehicleDao();
-			Vehicle defaultVehicle = vDao.getVehicle(vehicleId);
-			ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
-			int def = vDao.getDefaultVehicleId(userId);
-			System.out.println("vehicleId: "+vehicleId+" def: "+def);
+		Vehicle vehicle = (Vehicle) request.getAttribute("vehicle");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)request.getAttribute("vehicleList");
+		int vehicleId = (Integer) session.getAttribute("vehicleId");
+		System.out.println(vehicleId);
 	%>
 
 	<div id="header">
@@ -81,7 +69,8 @@
 			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
 					<span>Dashboard</span></a></li>
 			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="TrackingServlet?action=getMaintenance"><i
+					class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
@@ -107,8 +96,8 @@
 				<div class="span12 center" style="text-align: center;">
 					<div class="widget-box">
 						<ul class="quick-actions">
-							<li><a href="UpdateProfile.jsp"> <i class="icon-user"></i>
-									Update User Profile
+							<li><a href="UpdateServlet?action=loadUserProfile"> <i
+									class="icon-user"></i> Update User Profile
 							</a></li>
 							<li><a href="ChangePassword.jsp"> <i class="icon-lock"></i>
 									Change Password
@@ -122,10 +111,10 @@
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
-							<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
-									Update Vehicle
+							<li><a href="UpdateServlet?action=loadVehicle"> <i
+									class="icon-survey"></i> Update Vehicle
 							</a></li>
-							<li><a href="UpdateVehicleSpec.jsp"> <i
+							<li><a href="UpdateServlet?action=loadVehicleSpec"> <i
 									class="icon-survey"></i> Update Vehicle Spec
 							</a></li>
 						</ul>
@@ -144,18 +133,27 @@
 									<form id="form-wizard" class="form-horizontal" method="post"
 										action="UpdateServlet?action=updateVehicle">
 										<div id="form-wizard-1" class="step">
-										<!-- Change so on click go to servlet, set new vehicleId in session and redirect back -->
+											<!-- Change so on click go to servlet, set new vehicleId in session and redirect back -->
 											<div class="control-group">
 												<label class="control-label">Select Vehicle</label>
 												<div class="controls">
-													<select onchange="selectVehicle()" name="Vehicle">
+													<select onchange="window.location=this.value" name="Vehicle">
 														<%
-															for (Vehicle vehicle : vehicleList) {
+															for (Vehicle newVehicle : vehicleList) {
 														%>
-														<option value=<%=vehicle.getVehicleId()%>><%=vehicle.getVehicleId() + " - " + vehicle.getMake()
+														<%
+															if(vehicleId == newVehicle.getVehicleId()){
+														%>
+														<option selected value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
+						+ ""%></option>
+														<%
+															}else{
+														%>
+														<option value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
 						+ ""%></option>
 														<%
 															}
+																											}
 														%>
 													</select>
 												</div>
@@ -164,49 +162,49 @@
 												<label class="control-label">Year</label>
 												<div class="controls">
 													<input id="year" type="text" name="year"
-														value=<%=defaultVehicle.getYear()%>>
+														value=<%=vehicle.getYear()%>>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Make</label>
 												<div class="controls">
 													<input id="make" type="text" name="make"
-														value=<%=defaultVehicle.getMake()%>>
+														value=<%=vehicle.getMake()%>>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Model</label>
 												<div class="controls">
 													<input id="model" type="text" name="model"
-														value=<%=defaultVehicle.getModel()%>>
+														value=<%=vehicle.getModel()%>>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Trim</label>
 												<div class="controls">
 													<input id="trim" type="text" name="trim"
-														value=<%=defaultVehicle.getTrim()%>>
+														value=<%=vehicle.getTrim()%>>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Engine</label>
 												<div class="controls">
 													<input id="engine" type="text" name="engine"
-														value=<%=defaultVehicle.getEngine()%>>
+														value=<%=vehicle.getEngine()%>>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Transmission</label>
 												<div class="controls">
 													<input id="trans" type="text" name="trans"
-														value=<%=defaultVehicle.getTrans()%>>
+														value=<%=vehicle.getTrans()%>>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Car Color</label>
 												<div class="controls">
 													<input id="color" type="text" name="color"
-														value=<%=defaultVehicle.getColor()%>>
+														value=<%=vehicle.getColor()%>>
 												</div>
 											</div>
 											<!-- Auto populate Not working -->
@@ -220,24 +218,26 @@
 													<script type="text/javascript" defer="defer">
 													<!--
 														if (document.getElementById) {
-															if (value =
-													<%=vDao.getDefaultVehicleId(userId)%>
-														== vehicleId) {
+															if (
+													<%=vehicleId%>
+														==
+													<%=vehicle.getVehicleId()%>
+														) {
 																document
 																		.getElementById('yes').checked = true;
 																document
 																		.getElementById('no').checked = false;
-													<%System.out.println("test");%>
-														} else if (value =
-													<%=vDao.getDefaultVehicleId(userId)%>
-														!= vehicleId) {
+															} else if (
+													<%=vehicleId%>
+														!=
+													<%=vehicle.getVehicleId()%>
+														) {
 																// Radiobutton "Yes" should be selected.
 																document
 																		.getElementById('yes').checked = false;
 																document
 																		.getElementById('no').checked = true;
-													<%System.out.println("test2");%>
-														}
+															}
 														}
 													// -->
 													</script>

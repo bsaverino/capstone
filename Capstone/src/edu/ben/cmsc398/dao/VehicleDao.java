@@ -15,7 +15,7 @@ public class VehicleDao extends DBConnector {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = null;
 		int autoId = -1;
-		
+
 		ps.setString(3, vehicle.getMake());
 		ps.setString(4, vehicle.getModel());
 		ps.setString(5, vehicle.getTrim());
@@ -24,9 +24,9 @@ public class VehicleDao extends DBConnector {
 		ps.setString(8, vehicle.getColor());
 		ps.setInt(2, vehicle.getYear());
 		ps.setInt(1, vehicle.getUserId());
-		
+
 		ps.execute();
-		
+
 		ps = conn.prepareStatement("select last_insert_id()");
 		rs = ps.executeQuery();
 
@@ -139,16 +139,14 @@ public class VehicleDao extends DBConnector {
 	}
 
 	public int getDefaultVehicleId(int userId) throws SQLException {
-		String sql = "select vehicle_id from vehicle where user_id='" + userId
-				+ "' Limit 1;";
-		Vehicle vehicle = null;
+		String sql = "select default_vehicle from user where user_id='" + userId+ "';";
 		int vehicleId = 0;
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		if (rs != null) {
 			while (rs.next()) {
 
-				vehicleId = rs.getInt("vehicle_id");
+				vehicleId = rs.getInt("default_vehicle");
 
 			}
 		}

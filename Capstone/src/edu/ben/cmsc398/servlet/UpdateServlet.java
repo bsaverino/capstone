@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +39,93 @@ public class UpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		String action = (String) request.getParameter("action");
+		String selectedVehicleId = (String) request.getParameter("selectedVehicle");
+		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
+				.toString());
+		int userId = Integer.parseInt(session.getAttribute("userId")
+				.toString());
+		int newDefaultVehicleId = 0;
+		if(selectedVehicleId!=null)
+			newDefaultVehicleId= Integer.parseInt(selectedVehicleId);
+		
+		String id = request.getParameter("id");
+		//System.out.println("Action is: " + action);
+		//System.out.println("ID is: " + id);
+		UserDao uDao = new UserDao();
+		VehicleDao vDao = new VehicleDao();
+		VehicleSpecDao vsDao = new VehicleSpecDao();
+
+		if (action.equalsIgnoreCase("loadUserProfile")) {
+			User user = null;
+			String firstName, lastName, email;
+			int month, day, year, gender, areacode;
+
+			try {
+				user = uDao.getUser(userId);
+				firstName = user.getFirstName();
+				lastName = user.getLastName();
+				email = user.getEmail();
+				month = user.getMonth();
+				day = user.getDay();
+				year = user.getYear();
+				gender = user.getGender();
+				areacode = user.getAreacode();
+				request.setAttribute("user", user);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error");
+			}
+
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("UpdateProfile.jsp");
+			dispatcher.forward(request, response);
+		} else if (action.equalsIgnoreCase("loadVehicle")) {
+
+			ArrayList<Vehicle> vehicleList = null;
+			Vehicle vehicle = null;
+			String firstName, lastName, email;
+			int month, day, year, gender, areacode;
+			
+			try {
+				vehicle = vDao.getVehicle(vehicleId);
+				vehicleList = vDao.getAllVehicleByUser(userId);
+				request.setAttribute("vehicle", vehicle);
+				request.setAttribute("vehicleList", vehicleList);
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error");
+			}
+
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("UpdateVehicle.jsp");
+			dispatcher.forward(request, response);
+		}else if (action.equalsIgnoreCase("loadVehicleSpec")) {
+
+			
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("UpdateVehicle.jsp");
+			dispatcher.forward(request, response);
+		}else if (action.equalsIgnoreCase("changeDefaultVehicle")) {
+			try {
+				System.out.println("default vehicle before "+vehicleId);
+				request.getSession().setAttribute("vehicleId",newDefaultVehicleId);
+				uDao.updateDefaultVehicle(userId, newDefaultVehicleId);
+				System.out.println("default vehicle after "+Integer.parseInt(session.getAttribute("vehicleId")
+						.toString()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("UpdateServlet?action=loadVehicle");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**
@@ -57,7 +144,10 @@ public class UpdateServlet extends HttpServlet {
 		VehicleSpecDao vsDao = new VehicleSpecDao();
 
 		if (action.equals("updateUser")) {
-			String username = request.getParameter("username");
+			int userId = Integer.parseInt(session.getAttribute("userId")
+					.toString());
+			int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
+					.toString());
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
 			String email = request.getParameter("email");
@@ -74,9 +164,11 @@ public class UpdateServlet extends HttpServlet {
 			// Can't get Date to work properly
 			User user = null;
 			try {
-				user = uDao.getUser(username);
+				user = uDao.getUser(userId);
+				System.out.println("User before: " + user.toString());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				System.out.println("error");
 				e.printStackTrace();
 			}
 			user.setAreacode(areacode);
@@ -87,7 +179,9 @@ public class UpdateServlet extends HttpServlet {
 			user.setLastName(lastName);
 			user.setMonth(month);
 			user.setYear(year);
+			user.setDefaultVehicle(vehicleId);
 			try {
+				System.out.println("User after: " + user.toString());
 				uDao.updateUser(user);
 				response.setHeader("Refresh", "0; URL=Profile.jsp");
 			} catch (SQLException e) {
@@ -229,7 +323,7 @@ public class UpdateServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		}else if (action.equalsIgnoreCase("deleteVehicle")) {
+		} else if (action.equalsIgnoreCase("deleteVehicle")) {
 			int vehicleId = Integer.parseInt(request.getParameter("Vehicle"));
 			String check = request.getParameter("delete");
 

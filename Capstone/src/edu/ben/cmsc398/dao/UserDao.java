@@ -180,4 +180,10 @@ public class UserDao extends DBConnector {
 		return null;
 
 	}
+	public void updateDefaultVehicle(int userId,int vehicleId) throws SQLException {
+
+		String sql = "update user set default_vehicle='" + vehicleId + "' where user_id='" + userId + "';";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.executeUpdate();
+	}
 }

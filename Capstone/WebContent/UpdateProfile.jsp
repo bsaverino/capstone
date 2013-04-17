@@ -19,11 +19,7 @@
 </head>
 <body>
 	<%
-	UserDao uDao = new UserDao();
-	System.out.println("user id " +session.getAttribute("userId"));
-	System.out.println("vehicle id "+session.getAttribute("vehicleId"));
-	User user = uDao.getUser(Integer.parseInt(session.getAttribute("userId").toString()));
-	//User user = uDao.getUser(2);
+		User user = (User) request.getAttribute("user");
 	%>
 
 	<div id="header">
@@ -46,14 +42,17 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
+					<span>Dashboard</span></a></li>
 			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="TrackingServlet?action=getMaintenance"><i
+					class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="CompressionRatioCalc.jsp">Compression Ratio
+							Calc</a></li>
 					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
@@ -73,8 +72,8 @@
 				<div class="span12 center" style="text-align: center;">
 					<div class="widget-box">
 						<ul class="quick-actions">
-							<li><a href="UpdateProfile.jsp"> <i class="icon-user"></i>
-									Update User Profile
+							<li><a href="UpdateServlet?action=loadUserProfile"> <i
+									class="icon-user"></i> Update User Profile
 							</a></li>
 							<li><a href="ChangePassword.jsp"> <i class="icon-lock"></i>
 									Change Password
@@ -82,17 +81,17 @@
 							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
 									Add Vehicle
 							</a></li>
-							<li><a href="AddVehicleSpec.jsp"> <i class="icon-database"></i>
-									Add Vehicle Spec
+							<li><a href="AddVehicleSpec.jsp"> <i
+									class="icon-database"></i> Add Vehicle Spec
 							</a></li>
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
-							<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
-									Update Vehicle
+							<li><a href="UpdateServlet?action=loadVehicle"> <i
+									class="icon-survey"></i> Update Vehicle
 							</a></li>
-							<li><a href="UpdateVehicleSpec.jsp"> <i class="icon-survey"></i>
-									Update Vehicle Spec
+							<li><a href="UpdateServlet?action=loadVehicleSpec"> <i
+									class="icon-survey"></i> Update Vehicle Spec
 							</a></li>
 						</ul>
 					</div>
@@ -108,75 +107,86 @@
 									<h5>Update Info</h5>
 								</div>
 								<div class="widget-content nopadding">
-									<form id="form-wizard" class="form-horizontal" method="post" action="UpdateServlet?action=updateUser">
+									<form id="form-wizard" class="form-horizontal" method="post"
+										action="UpdateServlet?action=updateUser">
 										<div id="form-wizard-1" class="step">
 											<div class="control-group">
 												<label class="control-label">First Name</label>
 												<div class="controls">
-													<input id="firstName" type="text" name="firstName" value="<%=user.getFirstName() %>"/>
+													<input id="firstName" type="text" name="firstName"
+														value="<%=user.getFirstName()%>" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Last Name</label>
 												<div class="controls">
-													<input id="lastName" type="text" name="lastName" value="<%=user.getLastName() %>"/>
+													<input id="lastName" type="text" name="lastName"
+														value="<%=user.getLastName()%>" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">E-Mail</label>
 												<div class="controls">
-													<input id="email" type="email" name="email" value="<%=user.getEmail() %>" />
+													<input id="email" type="email" name="email"
+														value="<%=user.getEmail()%>" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Area Code</label>
 												<div class="controls">
-													<input id="areacode" type="text" name="areacode" value="<%=user.getAreacode() %>"/>
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">Username</label>
-												<div class="controls">
-													<input id="username" type="text" name="username" readonly value="<%=user.getUsername() %>"/>
+													<input id="areacode" type="text" name="areacode"
+														value="<%=user.getAreacode()%>" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Gender</label>
 												<div class="controls">
-													<label><input type="radio" name="gender" id="male" value="male" />
-														Male</label> <label><input type="radio" name="gender" id="female"
-														value="female" /> Female</label>
-														<script type="text/javascript" defer="defer">
-														<!-- 
-														if(document.getElementById){
-														if (value=<%=user.getGender() %> == 1){
-														document.getElementById('male').checked = true;
-														document.getElementById('female').checked = false;
+													<label><input type="radio" name="gender" id="male"
+														value="male" /> Male</label> <label><input type="radio"
+														name="gender" id="female" value="female" /> Female</label>
+													<script type="text/javascript" defer="defer">
+													<!--
+														if (document.getElementById) {
+															if (value =
+													<%=user.getGender()%>
+														== 1) {
+																document
+																		.getElementById('male').checked = true;
+																document
+																		.getElementById('female').checked = false;
+															} else if (
+													<%=user.getGender()%>
+														== 0) {
+																// Radiobutton "Yes" should be selected.
+																document
+																		.getElementById('male').checked = false;
+																document
+																		.getElementById('female').checked = true;
+															}
 														}
-														else if (<%=user.getGender()%> == 0){
-														// Radiobutton "Yes" should be selected.
-														document.getElementById('male').checked = false;
-														document.getElementById('female').checked = true;
-														}
-														}
-														// -->
-														</script>
+													// -->
+													</script>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">Birthdate</label>
 												<div class="controls">
 													<select name="month" id="month">
-														<option value="0" >Month</option>
+														<option value="0">Month</option>
 														<%
 															int month = user.getMonth();
 															for (int i = 1; i <= 12; i++) {
 														%>
-														<%if(i == month){ %>
-														  <option selected value=<%=i%>><%=i%></option>
-														  <%}%>
+														<%
+															if (i == month) {
+														%>
+														<option selected value=<%=i%>><%=i%></option>
+														<%
+															} else {
+														%>
 														<option value=<%=i%>><%=i%></option>
 														<%
+															}
 															}
 														%>
 													</select>
@@ -188,11 +198,16 @@
 															int day = user.getDay();
 															for (int i = 1; i <= 31; i++) {
 														%>
-														<%if(i == day){ %>
-														  <option selected value=<%=i%>><%=i%></option>
-														  <%}%>
+														<%
+															if (i == day) {
+														%>
+														<option selected value=<%=i%>><%=i%></option>
+														<%
+															} else {
+														%>
 														<option value=<%=i%>><%=i%></option>
 														<%
+															}
 															}
 														%>
 													</select>
@@ -205,11 +220,16 @@
 															int year = Calendar.getInstance().get(Calendar.YEAR);
 															for (int i = 1900; i <= year; i++) {
 														%>
-														<%if(i == selectedYear){ %>
-														  <option selected value=<%=i%>><%=i%></option>
-														  <%}%>
+														<%
+															if (i == selectedYear) {
+														%>
+														<option selected value=<%=i%>><%=i%></option>
+														<%
+															} else {
+														%>
 														<option value=<%=i%>><%=i%></option>
 														<%
+															}
 															}
 														%>
 													</select>

@@ -102,7 +102,7 @@
 				<div class="span12 center" style="text-align: center;">
 					<div class="widget-box">
 						<ul class="quick-actions">
-							<li><a href="UpdateProfile.jsp"> <i class="icon-user"></i>
+							<li><a href="UpdateServlet?action=loadUserProfile"> <i class="icon-user"></i>
 									Update User Profile
 							</a></li>
 							<li><a href="ChangePassword.jsp"> <i class="icon-lock"></i>
@@ -111,17 +111,17 @@
 							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
 									Add Vehicle
 							</a></li>
-							<li><a href="AddVehicleSpec.jsp"> <i
-									class="icon-database"></i> Add Vehicle Spec
+							<li><a href="AddVehicleSpec.jsp"> <i class="icon-database"></i>
+									Add Vehicle Spec
 							</a></li>
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
-							<li><a href="UpdateVehicle.jsp"> <i class="icon-survey"></i>
+							<li><a href="UpdateServlet?action=loadVehicle"> <i class="icon-survey"></i>
 									Update Vehicle
 							</a></li>
-							<li><a href="UpdateVehicleSpec.jsp"> <i
-									class="icon-survey"></i> Update Vehicle Spec
+							<li><a href="UpdateServlet?action=loadVehicleSpec"> <i class="icon-survey"></i>
+									Update Vehicle Spec
 							</a></li>
 						</ul>
 					</div>
