@@ -49,9 +49,12 @@
 	<%
 		int userId = (Integer) session.getAttribute("userId");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-		
-		
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+				.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
+				.getAttribute("vehicleWithSpecList");
+		Vehicle vehicle = (Vehicle) request
+				.getAttribute("vehicleWithSpecList");
 	%>
 
 	<div id="header">
@@ -63,7 +66,7 @@
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
-		<li class="btn btn-inverse dropdown"><a href="#"
+			<li class="btn btn-inverse dropdown"><a href="#"
 				data-toggle="dropdown" class="dropdown-toggle"><i
 					class="icon icon-wrench"></i> <span class="text">Default
 						Vehicle</span> <span class="label label-important"><%=vehicleList.size()%></span>
@@ -73,22 +76,22 @@
 						for (Vehicle newVehicle : vehicleList) {
 					%>
 					<%
-						if(vehicleId == newVehicle.getVehicleId()){
+						if (vehicleId == newVehicle.getVehicleId()) {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-ok"></i><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
-						+ ""%></a></li>
+							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "
+							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></a></li>
 					<%
-						}else{
+						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-space"></i><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
-						+ ""%></a></li>
+							class="icon icon-space"></i><%=newVehicle.getYear() + " - "
+							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></a></li>
 					<%
 						}
-																																																										}
+						}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -105,7 +108,8 @@
 			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
 					<span>Dashboard</span></a></li>
 			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="TrackingServlet?action=getMaintenance"><i
+					class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
@@ -124,15 +128,15 @@
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
 				class="icon-home"></i> Home</a> <a href="#">Profile</a><a href="#"
-				class="current">Update Vehicle</a>
+				class="current">Add Vehicle Specs</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12 center" style="text-align: center;">
 					<div class="widget-box">
 						<ul class="quick-actions">
-							<li><a href="UpdateServlet?action=loadUserProfile"> <i class="icon-user"></i>
-									Update User Profile
+							<li><a href="UpdateServlet?action=loadUserProfile"> <i
+									class="icon-user"></i> Update User Profile
 							</a></li>
 							<li><a href="ChangePassword.jsp"> <i class="icon-lock"></i>
 									Change Password
@@ -140,17 +144,17 @@
 							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
 									Add Vehicle
 							</a></li>
-							<li><a href="AddVehicleSpec.jsp"> <i class="icon-database"></i>
-									Add Vehicle Spec
+							<li><a href="UpdateServlet?action=loadAddVehicleSpec"> <i
+									class="icon-database"></i> Add Vehicle Spec
 							</a></li>
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
-							<li><a href="UpdateServlet?action=loadVehicle"> <i class="icon-survey"></i>
-									Update Vehicle
+							<li><a href="UpdateServlet?action=loadUpdateVehicle"> <i
+									class="icon-survey"></i> Update Vehicle
 							</a></li>
-							<li><a href="UpdateServlet?action=loadVehicleSpec"> <i class="icon-survey"></i>
-									Update Vehicle Spec
+							<li><a href="UpdateServlet?action=loadUpdateVehicleSpec">
+									<i class="icon-survey"></i> Update Vehicle Spec
 							</a></li>
 						</ul>
 					</div>
@@ -169,6 +173,33 @@
 										action="RegistrationServlet?action=addVehicleSpec"
 										method="post">
 										<div id="form-wizard-1" class="step">
+											<div class="control-group">
+												<label class="control-label">Select Vehicle</label>
+												<div class="controls">
+													<select onchange="window.location=this.value"
+														name="Vehicle">
+														<%
+															for (Vehicle newVehicle : vehicleWithSpecList) {
+														%>
+														<%
+															if (vehicleId == newVehicle.getVehicleId()) {
+														%>
+														<option selected
+															value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - "
+							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></option>
+														<%
+															} else {
+														%>
+														<option
+															value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - "
+							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></option>
+														<%
+															}
+															}
+														%>
+													</select>
+												</div>
+											</div>
 											<div class="control-group">
 												<label class="control-label">Is your car Naturally
 													Aspirate, Boosted, or does it use Nitrous? </label>
@@ -242,28 +273,28 @@
 												<label class="control-label">How much Horespower
 													does your motor have at the wheel?</label>
 												<div class="controls">
-													<input id="hp" type="text" name="hp" value=0 />
+													<input id="hp" type="text" name="hp" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">How much Torque does
 													your motor have at the wheel?</label>
 												<div class="controls">
-													<input id="torque" type="text" name="torque" value=0 />
+													<input id="torque" type="text" name="torque" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">What is the bore of
 													your cylinders? </label>
 												<div class="controls">
-													<input id="bore" type="text" name="bore" value=0 />
+													<input id="bore" type="text" name="bore" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">What is the Stroke of
 													your motor? </label>
 												<div class="controls">
-													<input id="stroke" type="text" name="stroke" value=0 />
+													<input id="stroke" type="text" name="stroke" value="0" />
 												</div>
 											</div>
 
@@ -273,22 +304,22 @@
 												<div class="controls">
 													<label><input type="radio" id="pistonType"
 														name="pistonType" value="dome" /> Domed</label> <label><input
-														type="radio" id="pistonType" name="radios" value="dish" />
-														Dished</label>
+														type="radio" id="pistonType" name="pistonType"
+														value="dish" />Dished</label>
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">What is the cc of your
 													piston? </label>
 												<div class="controls">
-													<input id="pistonCC" type="text" name="pistonCC" value=0 />
+													<input id="pistonCC" type="text" name="pistonCC" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
 												<label class="control-label">What is the cc of your
 													heads? </label>
 												<div class="controls">
-													<input id="headCC" type="text" name="headCC" value=0 />
+													<input id="headCC" type="text" name="headCC" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
@@ -296,7 +327,7 @@
 													gaskets?</label>
 												<div class="controls">
 													<input id="headGasketThickness" type="text"
-														name="headGasketThickness" value=0 />
+														name="headGasketThickness" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
@@ -304,14 +335,7 @@
 													gaskets?</label>
 												<div class="controls">
 													<input id="headGasketBore" type="text"
-														name="headGasketBore" value=0 />
-												</div>
-											</div>
-											<div class="control-group">
-												<label class="control-label">What is the cc of your
-													heads?</label>
-												<div class="controls">
-													<input id="headCC" type="text" name="headCC" value=0 />
+														name="headGasketBore" value="0" />
 												</div>
 											</div>
 											<div class="control-group">
@@ -319,15 +343,14 @@
 													heeight?</label>
 												<div class="controls">
 													<input id="pistonDeckHeight" type="text"
-														name="pistonDeckHeight" value=0 />
+														name="pistonDeckHeight" value="0" />
 												</div>
 											</div>
 
 										</div>
 										<div class="form-actions">
-											<input id="back" class="btn btn-primary" type="reset"
-												value="Back" /> <input id="next" class="btn btn-primary"
-												type="submit" value="Next" />
+											<input id="next" class="btn btn-primary" type="submit"
+												value="Next" />
 											<div id="status"></div>
 										</div>
 										<div id="submitted"></div>

@@ -43,15 +43,15 @@
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-ok"></i><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
-						+ ""%></a></li>
+							class="icon icon-ok"></i><%=newVehicle.getYear() + " - " + newVehicle.getMake()
+						+ " "+ newVehicle.getTrim() %></a></li>
 					<%
 						}else{
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-space"></i><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
-						+ ""%></a></li>
+							class="icon icon-space"></i><%=newVehicle.getYear() + " - " + newVehicle.getMake()
+						+ " "+ newVehicle.getTrim() %></a></li>
 					<%
 						}
 																																																										}
@@ -104,16 +104,16 @@
 							<li><a href="AddVehicle.jsp"> <i class="icon-database"></i>
 									Add Vehicle
 							</a></li>
-							<li><a href="AddVehicleSpec.jsp"> <i class="icon-database"></i>
+							<li><a href="UpdateServlet?action=loadAddVehicleSpec"> <i class="icon-database"></i>
 									Add Vehicle Spec
 							</a></li>
 							<li><a href="DeleteVehicle.jsp"> <i class="icon-tag"></i>
 									Delete Vehicle
 							</a></li>
-							<li><a href="UpdateServlet?action=loadVehicle"> <i class="icon-survey"></i>
+							<li><a href="UpdateServlet?action=loadUpdateVehicle"> <i class="icon-survey"></i>
 									Update Vehicle
 							</a></li>
-							<li><a href="UpdateServlet?action=loadVehicleSpec"> <i class="icon-survey"></i>
+							<li><a href="UpdateServlet?action=loadUpdateVehicleSpec"> <i class="icon-survey"></i>
 									Update Vehicle Spec
 							</a></li>
 						</ul>

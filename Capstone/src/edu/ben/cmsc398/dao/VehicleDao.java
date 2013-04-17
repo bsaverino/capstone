@@ -47,10 +47,10 @@ public class VehicleDao extends DBConnector {
 		int year = vehicle.getYear();
 		int vehicleId = vehicle.getVehicleId();
 
-		String sql = "update vehicle set userId =" + userId + ",make='" + make
-				+ "', model='" + model + "', trim='" + trim + "', trans="
-				+ trans + ",engine=" + engine + ",color='" + color + "',year="
-				+ year + " where vehicleId='" + vehicleId + "';";
+		String sql = "update vehicle set user_id ='" + userId + "',make='" + make
+				+ "', model='" + model + "', trim='" + trim + "', trans='"
+				+ trans + "',engine_size='" + engine + "',color='" + color + "',year='"
+				+ year + "' where vehicle_id='" + vehicleId + "';";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 	}

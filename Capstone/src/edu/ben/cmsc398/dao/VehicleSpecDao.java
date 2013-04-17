@@ -171,17 +171,60 @@ public class VehicleSpecDao extends DBConnector {
 		return vehicle;
 	}
 
-	public void updateVehicleSpecs() {
-
+	public void updateVehicleSpecs(int vehicleID) throws SQLException {
+		/*TODO
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.executeUpdate();*/
 	}
 
-	public void deleteVehicleSpecs() {
-
+	public void deleteVehicleSpecs(int vehicleID) throws SQLException {
+		String sql = "Delete from vehicle_specs where vehicle_id=" + vehicleID + ";";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.executeUpdate();
 	}
-
-	public static void main(String[] args) throws SQLException {
-		VehicleSpecDao test = new VehicleSpecDao();
-		VehicleSpecs v = test.getVehicleSpec(1);
-		test.addVehicleSpecs(v);
+	public ArrayList<VehicleSpecs> getAllVehicleSpec()
+			throws SQLException {
+		String sql = "select * from vehicle_specs;";
+		VehicleSpecs vehicle = null;
+		ArrayList<VehicleSpecs> vehicleSpecList = new ArrayList<VehicleSpecs>();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				int vehicleId = rs.getInt("vehicle_id");
+				int pwrAdder = rs.getInt("bsfc");
+				int octane = rs.getInt("fuel_type_id");
+				int cylinders = rs.getInt("number_cylinders");
+				int pistonType = rs.getInt("piston_type_id");
+				int headCC = rs.getInt("head_cc");
+				int pistonCC = rs.getInt("piston_cc");
+				int syntheticOil = rs.getInt("oil_type_id");
+				float hp = rs.getFloat("horse_power");
+				float torque = rs.getFloat("torque");
+				float bore = rs.getFloat("bore");
+				float stroke = rs.getFloat("stroke");
+				float headGasketThickness = rs.getFloat("head_gasket_thickness");
+				float headGasketBore = rs.getFloat("head_gasket_bore");
+				float dutyCycle = rs.getFloat("duty_cycle");
+				float bsfc = rs.getFloat("bsfc");
+				float pistonDeckHeight = rs.getFloat("piston_deck_height");
+				float resultCubicInch = rs.getFloat("result_ci");
+				float resultCompressionRatio = rs.getFloat("result_cr");
+				float resultFuelInjector = rs.getFloat("result_fi");
+				vehicle = new VehicleSpecs(vehicleId, octane, cylinders,
+						pistonType, headCC, pistonCC, syntheticOil, hp, torque,
+						bore, stroke, headGasketThickness, headGasketBore,
+						dutyCycle, bsfc, pistonDeckHeight, resultCubicInch, resultCompressionRatio, resultFuelInjector);
+				vehicleSpecList.add(vehicle);
+			}
+		}
+		return vehicleSpecList;
+	}
+	public static void main(String []args) throws SQLException{
+		VehicleSpecDao v = new VehicleSpecDao();
+		ArrayList<VehicleSpecs> test = v.getAllVehicleSpec();
+		for(VehicleSpecs a:test)
+			System.out.println(a.toString());
+		
 	}
 }
