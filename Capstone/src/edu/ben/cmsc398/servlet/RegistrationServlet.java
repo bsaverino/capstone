@@ -227,7 +227,6 @@ public class RegistrationServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			try {
 				ArrayList<User> list = uDao.getAllUsers();
-
 				for (User user : list) {
 					if (currentUsername.equalsIgnoreCase(user.getUsername())) {
 						System.out.println("I have a username");
@@ -243,6 +242,8 @@ public class RegistrationServlet extends HttpServlet {
 							// vehicles[i] = String.valueOf(car.getVehicleId());
 							//
 							// }
+							ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(user.getId());
+							request.getSession().setAttribute("vehicleList", vehicleList);
 							request.getSession().setAttribute("userId",
 									user.getId());
 							request.getSession().setAttribute("vehicleId",

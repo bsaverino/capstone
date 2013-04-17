@@ -39,89 +39,90 @@ public class UpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// get the session and get the action(what page needs to be loaded) and what vehicle is selected
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String selectedVehicleId = (String) request.getParameter("selectedVehicle");
-		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-				.toString());
-		int userId = Integer.parseInt(session.getAttribute("userId")
-				.toString());
+		
+		// get the session info
+		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
+		int userId = Integer.parseInt(session.getAttribute("userId").toString());
+		
+		// getting the new default vehicleId
 		int newDefaultVehicleId = 0;
 		if(selectedVehicleId!=null)
 			newDefaultVehicleId= Integer.parseInt(selectedVehicleId);
+		// setting up various Daos
+		UserDao uDao = new UserDao();
+		VehicleDao vDao = new VehicleDao();
+		VehicleSpecDao vsDao = new VehicleSpecDao();
 		
 		String id = request.getParameter("id");
 		//System.out.println("Action is: " + action);
 		//System.out.println("ID is: " + id);
-		UserDao uDao = new UserDao();
-		VehicleDao vDao = new VehicleDao();
-		VehicleSpecDao vsDao = new VehicleSpecDao();
+		
+		// getting a list of all of the user's vehicles
+		ArrayList<Vehicle> vehicleList = null;
+		try {
+			vehicleList = vDao.getAllVehicleByUser(userId);
+			request.setAttribute("vehicleList", vehicleList);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		if (action.equalsIgnoreCase("loadUserProfile")) {
+		if (action.equalsIgnoreCase("loadUserProfile")) { // if the the user wants to update their profile information
 			User user = null;
-			String firstName, lastName, email;
-			int month, day, year, gender, areacode;
 
+			// get the User object from DB and put it in a request
 			try {
 				user = uDao.getUser(userId);
-				firstName = user.getFirstName();
-				lastName = user.getLastName();
-				email = user.getEmail();
-				month = user.getMonth();
-				day = user.getDay();
-				year = user.getYear();
-				gender = user.getGender();
-				areacode = user.getAreacode();
 				request.setAttribute("user", user);
-
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("error");
 			}
 
+			// redirect to UpdateProfile.jsp
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateProfile.jsp");
 			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("loadVehicle")) {
-
-			ArrayList<Vehicle> vehicleList = null;
+		} else if (action.equalsIgnoreCase("loadVehicle")) {	// if the the user wants to update a vehicle's info
 			Vehicle vehicle = null;
-			String firstName, lastName, email;
-			int month, day, year, gender, areacode;
 			
+			// get the Vehicle object from DB and put it in a request
 			try {
 				vehicle = vDao.getVehicle(vehicleId);
-				vehicleList = vDao.getAllVehicleByUser(userId);
 				request.setAttribute("vehicle", vehicle);
-				request.setAttribute("vehicleList", vehicleList);
-
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("error");
 			}
-
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("UpdateVehicle.jsp");
-			dispatcher.forward(request, response);
-		}else if (action.equalsIgnoreCase("loadVehicleSpec")) {
-
 			
+			// redirect to UpdateVehicle.jsp
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateVehicle.jsp");
 			dispatcher.forward(request, response);
-		}else if (action.equalsIgnoreCase("changeDefaultVehicle")) {
+		}else if (action.equalsIgnoreCase("loadVehicleSpec")) {	// if the the user wants to update a vehicle's specs
+
+			// TODO
+			
+			// redirect to UpdateVehicleSpec.jsp
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("UpdateVehicleSpec.jsp");
+			dispatcher.forward(request, response);
+		}else if (action.equalsIgnoreCase("changeDefaultVehicle")) {	// if the the user wants to change the default vehicle in session
 			try {
 				System.out.println("default vehicle before "+vehicleId);
+				// setting the new vehicleId in the session and in the DB
 				request.getSession().setAttribute("vehicleId",newDefaultVehicleId);
 				uDao.updateDefaultVehicle(userId, newDefaultVehicleId);
 				System.out.println("default vehicle after "+Integer.parseInt(session.getAttribute("vehicleId")
 						.toString()));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			// redirect to UpdateVehicle.jsp    NEED TO FIGURE OUT HOW TO REDIRECT BACK TO THE LAST PAGE
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateServlet?action=loadVehicle");
 			dispatcher.forward(request, response);

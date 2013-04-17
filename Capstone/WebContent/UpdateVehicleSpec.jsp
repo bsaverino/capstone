@@ -47,10 +47,11 @@
 </head>
 <body>
 	<%
-		int userId = Integer.parseInt(session.getAttribute("userId")
-				.toString());
-		VehicleDao vDao = new VehicleDao();
-		ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
+		int userId = (Integer) session.getAttribute("userId");
+		int vehicleId = (Integer) session.getAttribute("vehicleId");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		
+		
 	%>
 
 	<div id="header">
@@ -62,6 +63,34 @@
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
+		<li class="btn btn-inverse dropdown"><a href="#"
+				data-toggle="dropdown" class="dropdown-toggle"><i
+					class="icon icon-wrench"></i> <span class="text">Default
+						Vehicle</span> <span class="label label-important"><%=vehicleList.size()%></span>
+					<b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<%
+						for (Vehicle newVehicle : vehicleList) {
+					%>
+					<%
+						if(vehicleId == newVehicle.getVehicleId()){
+					%>
+					<li><a class="sAdd" title=""
+						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
+							class="icon icon-ok"></i><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
+						+ ""%></a></li>
+					<%
+						}else{
+					%>
+					<li><a class="sAdd" title=""
+						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
+							class="icon icon-space"></i><%=newVehicle.getVehicleId() + " - " + newVehicle.getMake()
+						+ ""%></a></li>
+					<%
+						}
+																																																										}
+					%>
+				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
 			<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
