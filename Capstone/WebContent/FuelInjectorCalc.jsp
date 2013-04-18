@@ -34,14 +34,6 @@
 </script>
 </head>
 <body>
-<%
-int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
-VehicleSpecDao aDao= new VehicleSpecDao();
-VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
-	if (vehicle.getDutyCycle() == 0){
-		vehicle.setDutyCycle(0.8f);
-	}
-		%>
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -68,9 +60,9 @@ VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId);
 			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
-					<li class="active"><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
+					<li class="active"><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -100,33 +92,41 @@ VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId);
 									<div class="control-group">
 										<label class="control-label">Horsepower at rear wheels</label>
 										<div class="controls">
-											<input type="text" id="hp" name="hp" value=<%=vehicle.getHp() %>>
+											<input type="text" id="hp" name="hp" value="<%=request.getAttribute("hp") %>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders" value=<%=vehicle.getCylinders() %>>
+											<input type="text" id="cylinders" name="cylinders" value="<%=request.getAttribute("cylinders")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Duty Cycle</label>
 										<div class="controls">
-											<input type="text" id="dutyCycle" name="dutyCycle" value=<%=vehicle.getDutyCycle() %>>
-											
+											<input type="text" id="dutyCycle" name="dutyCycle" value="<%=request.getAttribute("dutyCycle")%>">
 										</div>
 									</div>
 								</div>
+								<script type="text/javascript" defer="defer">
+											<!--
+												if (document.getElementById) {
+													if ( <%=request.getAttribute("dutyCycle")%> == 0) {
+														document.getElementById('dutyCycle').value = 0.8;
+													}
+												}
+											// -->
+											</script>
 								<div class="control-group">
 									<label class="control-label">BSFC</label>
 									<div class="controls">
-										<input type="text" id="bsfc" name="bsfc" value=<%=vehicle.getBsfc() %>>
+										<input type="text" id="bsfc" name="bsfc" value="<%=request.getAttribute("bsfc")%>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Fuel Injector</label>
 									<div class="controls">
-										<input type="text" id="fuelInjectorTotal" name="fuelInjectorTotal" disabled>
+										<input type="text" id="fuelInjectorTotal" name="fuelInjectorTotal" value="<%=request.getAttribute("resultFuelInjector")%>" readonly>
 									</div>
 								</div>
 								<div class="form-actions">
