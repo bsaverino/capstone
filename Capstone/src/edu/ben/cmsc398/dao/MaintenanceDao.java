@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import java.sql.Connection;
+
 import edu.ben.cmsc398.model.Maintenance;
 import edu.ben.cmsc398.model.Services;
 
@@ -16,6 +18,7 @@ public class MaintenanceDao extends DBConnector {
 
 	public ArrayList<Maintenance> getMaintenanceByUser(int userId, int vehicleId)
 			throws SQLException {
+		Connection conn = getConnection();
 		String sql = "Select m.maintenance_id, m.mileage, s.service, s.service_id, s.service_discription, m.date "
 				+ "FROM maintenance m, service_lookup s WHERE user_id = "
 				+ userId
@@ -40,11 +43,17 @@ public class MaintenanceDao extends DBConnector {
 				records.add(m);
 
 			}
+			return records;
 		}
-		return records;
+		conn.close();
+		return null;
+		
+		
+		
 	}
 
 	public ArrayList<Services> getServices() throws SQLException {
+		Connection conn = getConnection();
 		String sql = "SELECT * FROM service_lookup";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -59,13 +68,15 @@ public class MaintenanceDao extends DBConnector {
 
 				services.add(s);
 			}
+			return services;
 		}
-
-		return services;
+		conn.close();
+		return null;
 
 	}
 
 	public Maintenance getSingleMaintenance(int id) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "Select m.maintenance_id, m.mileage, m.service_id, s.service, s.service_discription, m.date " +
 				"FROM maintenance m, service_lookup s " +
 				"WHERE m.maintenance_id = " + id + " AND m.service_id = s.service_id;";
@@ -87,11 +98,13 @@ public class MaintenanceDao extends DBConnector {
 				return m;
 			}
 		}
+		conn.close();
 		return null;
 
 	}
 
 	public void insertMaintenance(Maintenance m) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "insert into maintenance (vehicle_id, user_id, date, mileage, service_id) values (?,?,?,?,?);";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = null;
@@ -103,10 +116,13 @@ public class MaintenanceDao extends DBConnector {
 		ps.setInt(1, m.getVehicleId());
 
 		ps.execute();
+		
+		conn.close();
 
 	}
 	
 	public void updateMaintenance(Maintenance m) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "update maintenance set vehicle_id = '" + m.getVehicleId()
 				+ "', user_id = '" + m.getUserId() + "', date = '"
 				+ m.getDate() + "', mileage = '" + m.getMileage()
@@ -114,12 +130,15 @@ public class MaintenanceDao extends DBConnector {
 
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		conn.close();
 	}
 	
 	public void deleteMaintenanceRecord(int id) throws SQLException {
+		Connection conn = getConnection();
 		String sql ="DELETE FROM maintenance WHERE maintenance_id = " + id + ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		conn.close();
 	}
 
 }
