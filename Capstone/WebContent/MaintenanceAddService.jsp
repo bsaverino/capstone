@@ -95,7 +95,7 @@
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Birthdate</label>
+										<label class="control-label">Services</label>
 										<div class="controls">
 											<select id="services" name="services">
 												<option value="0" selected="selected">Services</option>
@@ -112,9 +112,8 @@
 
 								</div>
 								<div class="form-actions">
-									<input id="back" class="btn btn-primary" type="reset"
-										value="Back" /> <input id="next" class="btn btn-primary"
-										type="submit" value="Next" />
+									<input id="back" class="btn btn-primary" type="reset" value="Back" /> 
+									<input id="next" class="btn btn-primary" type="submit" value="Next" />
 									<div id="status"></div>
 								</div>
 								<div id="submitted"></div>

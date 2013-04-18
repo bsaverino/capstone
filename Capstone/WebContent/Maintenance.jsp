@@ -76,71 +76,89 @@
 							<span class="icon"> <i class="icon-th"></i>
 							</span>
 							<h5>Current Maintenance</h5>
-							<div class="btn-group">
-								<button class="btn btn-mini">Actions</button>
-								<button data-toggle="dropdown"
-									class="btn btn-mini dropdown-toggle">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="TrackingServlet?action=addForwardMaintenance">Add
-											Record</a></li>
-									<li><a href="TrackingServlet?action=editMaintenance">Edit
-											Record</a></li>
-									<li><a href="TrackingServlet?action=deleteMaintenance">Delete
-											Record</a></li>
-								</ul>
-							</div>
+
 							<span class="label label-info">Maintenance</span>
 						</div>
 						<div class="widget-content nopadding">
-							<table class="table table-bordered data-table">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Service</th>
-										<th>Mileage</th>
-										<th>Discription</th>
-										<th>Date</th>
-									</tr>
-								</thead>
-								<tbody>
+							<div class="widget-content nopadding">
+								<form id="form-wizard" class="form-horizontal" method="post"
+									action="TrackingServlet?action=addMaintenance">
+									<div id="form-wizard-1" class="step">
+										<table class="table table-bordered data-table">
+											<thead>
+												<tr>
+													<th></th>
+													<th>Service</th>
+													<th>Mileage</th>
+													<th>Discription</th>
+													<th>Date</th>
+												</tr>
+											</thead>
+											<tbody>
 
-									<%
-										for (Maintenance m : record) {
-									%>
+												<%
+													for (Maintenance m : record) {
+												%>
 
-									<tr class="gradeX">
-										<td><input type="radio" name="mRecord"
-											value=<%=m.getMaintenanceId()%> /></td>
-										<td><%=m.getService()%></td>
-										<td><%=m.getMileage()%></td>
-										<td><%=m.getDiscription()%></td>
-										<td><%=m.getDate()%></td>
-									</tr>
-									<%
-										}
-									%>
-								</tbody>
-							</table>
+												<tr class="gradeX">
+													<td><input type="radio" name="mRecord"
+														value=<%=m.getMaintenanceId()%> /></td>
+													<td><%=m.getService()%></td>
+													<td><%=m.getMileage()%></td>
+													<td><%=m.getDiscription()%></td>
+													<td><%=m.getDate()%></td>
+												</tr>
+												<%
+													}
+												%>
+											</tbody>
+										</table>
+									</div>
+									<div class="form-actions">
+										<div class="btn-group">
+											<button class="btn btn-mini">Actions</button>
+											<button data-toggle="dropdown"
+												class="btn btn-mini dropdown-toggle">
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li><input id="next" class="btn btn-primary"
+													type="submit" value="Add Record"
+													onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+												</li>
+												<li><input id="next" class="btn btn-primary"
+													type="submit" value="Edit Record"
+													onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
+												<li><input id="next" class="btn btn-primary"
+													type="submit" value="Delete Record"
+													onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
+											</ul>
+										</div>
+										<div id="status"></div>
+									</div>
+									<div id="submitted"></div>
+								</form>
+
+
+
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row-fluid">
-				<div id="footer" class="span12">2012 &copy; Brought to you by
-					Unity Productions</div>
+				<div class="row-fluid">
+					<div id="footer" class="span12">2012 &copy; Brought to you by
+						Unity Productions</div>
+				</div>
 			</div>
 		</div>
-	</div>
 
 
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/fullcalendar.min.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.calendar.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.ui.custom.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/fullcalendar.min.js"></script>
+		<script src="js/unicorn.js"></script>
+		<script src="js/unicorn.calendar.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ public class Maintenance {
 	private float mileage;
 	private String service, discription, date;
 
-	public Maintenance(int maintenanceId, float mileage, String service,
+	public Maintenance(int maintenanceId, float mileage, int serviceId, String service,
 			String discription, String date) {
 		super();
 		this.maintenanceId = maintenanceId;
@@ -13,6 +13,7 @@ public class Maintenance {
 		this.service = service;
 		this.discription = discription;
 		this.date = date;
+		this.serviceId = serviceId;
 	}
 
 	public Maintenance(int maintenanceId, int serviceId, int vehicleId,
@@ -26,6 +27,23 @@ public class Maintenance {
 		this.date = date;
 	}
 	
+
+
+	public int getMaintenanceId() {
+		return maintenanceId;
+	}
+
+	public void setMaintenanceId(int maintenanceId) {
+		this.maintenanceId = maintenanceId;
+	}
+
+	public int getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(int serviceId) {
+		this.serviceId = serviceId;
+	}
 
 	public int getVehicleId() {
 		return vehicleId;
@@ -41,22 +59,6 @@ public class Maintenance {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public int getServiceId() {
-		return serviceId;
-	}
-
-	public void setServiceId(int serviceId) {
-		this.serviceId = serviceId;
-	}
-
-	public int getMaintenanceId() {
-		return maintenanceId;
-	}
-
-	public void setMaintenanceId(int maintenanceId) {
-		this.maintenanceId = maintenanceId;
 	}
 
 	public float getMileage() {

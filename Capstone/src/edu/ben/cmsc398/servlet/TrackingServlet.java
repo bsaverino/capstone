@@ -66,20 +66,8 @@ public class TrackingServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if (action.equals("addForwardMaintenance")) {
-			try {
-				ArrayList<Services> service = new ArrayList<Services>();
-				service = mDao.getServices();
-
-				request.setAttribute("service", service); // respond
-				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("MaintenanceAddService.jsp");
-				dispatcher.forward(request, response);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
+
 	}
 
 	/**
@@ -110,15 +98,76 @@ public class TrackingServlet extends HttpServlet {
 						userId, mileage, date);
 
 				mDao.insertMaintenance(service);
-				
-				response.setHeader("Refresh", "0; URL=TrackingServlet?action=getMaintenance");
+
+				response.setHeader("Refresh",
+						"0; URL=TrackingServlet?action=getMaintenance");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
+		} else if (action.equals("addForwardMaintenance")) {
+			try {
+				ArrayList<Services> service = new ArrayList<Services>();
+				service = mDao.getServices();
+
+				request.setAttribute("service", service); // respond
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("MaintenanceAddService.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else if (action.equals("editForwardMaintenance")) {
+			try {
+				ArrayList<Services> service = new ArrayList<Services>();
+				service = mDao.getServices();
+				int mRecord = Integer.parseInt(request.getParameter("mRecord"));
+
+				Maintenance record = mDao.getSingleMaintenance(mRecord);
+
+				System.out.println("record = " + record);
+
+				request.setAttribute("record", record); // respond
+				request.setAttribute("service", service); // respond
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("MaintenanceEditService.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} else if (action.equals("editMaintenance")) {
+			try {
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+				int serviceId = Integer.parseInt(request
+						.getParameter("services"));
+				String date = request.getParameter("date");
+				float mileage = Float.parseFloat(request
+						.getParameter("mileage"));
+				int maintId = Integer.parseInt(id);
+
+				Maintenance service = new Maintenance(maintId, serviceId,
+						vehicleId, userId, mileage, date);
+				System.out.println(service);
+
+				mDao.updateMaintenance(service);
+				response.setHeader("Refresh",
+						"0; URL=TrackingServlet?action=getMaintenance");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (action.equals("deleteMaintenance")) {
+			try {
+				int mRecord = Integer.parseInt(request.getParameter("mRecord"));
+
+				mDao.deleteMaintenanceRecord(mRecord);
+				response.setHeader("Refresh",
+						"0; URL=TrackingServlet?action=getMaintenance");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		}
 

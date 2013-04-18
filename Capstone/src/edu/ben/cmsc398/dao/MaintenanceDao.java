@@ -16,8 +16,8 @@ public class MaintenanceDao extends DBConnector {
 
 	public ArrayList<Maintenance> getMaintenanceByUser(int userId, int vehicleId)
 			throws SQLException {
-		String sql = "Select m.maintenance_id, m.mileage, s.service, s.service_discription, m.date " +
-				"FROM maintenance m, service_lookup s WHERE user_id = "
+		String sql = "Select m.maintenance_id, m.mileage, s.service, s.service_id, s.service_discription, m.date "
+				+ "FROM maintenance m, service_lookup s WHERE user_id = "
 				+ userId
 				+ " AND vehicle_id = "
 				+ vehicleId
@@ -28,43 +28,69 @@ public class MaintenanceDao extends DBConnector {
 
 		if (rs != null) {
 			while (rs.next()) {
+				int serviceId = rs.getInt("s.service_id");
 				int maintenance = rs.getInt("m.maintenance_id");
-				int mileage = rs.getInt("m.mileage");
+				float mileage = rs.getFloat("m.mileage");
 				String service = rs.getString("s.service");
 				String discription = rs.getString("s.service_discription");
 				String date = rs.getString("m.date");
 
-				Maintenance m = new Maintenance(maintenance, mileage, service,
-						discription, date);
+				Maintenance m = new Maintenance(maintenance, mileage,
+						serviceId, service, discription, date);
 				records.add(m);
 
 			}
 		}
 		return records;
 	}
-	
+
 	public ArrayList<Services> getServices() throws SQLException {
 		String sql = "SELECT * FROM service_lookup";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		ArrayList<Services> services = new ArrayList<Services>();
-		
-		if(rs != null) {
-			while(rs.next()) {
+
+		if (rs != null) {
+			while (rs.next()) {
 				int serviceId = rs.getInt("service_id");
 				String service = rs.getString("service");
-				
+
 				Services s = new Services(serviceId, service);
-				
+
 				services.add(s);
 			}
 		}
-		
+
 		return services;
-	
+
 	}
 
-	
+	public Maintenance getSingleMaintenance(int id) throws SQLException {
+		String sql = "Select m.maintenance_id, m.mileage, m.service_id, s.service, s.service_discription, m.date " +
+				"FROM maintenance m, service_lookup s " +
+				"WHERE m.maintenance_id = " + id + " AND m.service_id = s.service_id;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+
+		if (rs != null) {
+			while (rs.next()) {
+				int serviceId = rs.getInt("m.service_id");
+				int maintenance = rs.getInt("m.maintenance_id");
+				float mileage = rs.getFloat("m.mileage");
+				String service = rs.getString("s.service");
+				String discription = rs.getString("s.service_discription");
+				String date = rs.getString("m.date");
+				System.out.println(serviceId);
+				Maintenance m = new Maintenance(maintenance, mileage,
+						serviceId, service, discription, date);
+				System.out.println(m);
+				return m;
+			}
+		}
+		return null;
+
+	}
+
 	public void insertMaintenance(Maintenance m) throws SQLException {
 		String sql = "insert into maintenance (vehicle_id, user_id, date, mileage, service_id) values (?,?,?,?,?);";
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -77,7 +103,23 @@ public class MaintenanceDao extends DBConnector {
 		ps.setInt(1, m.getVehicleId());
 
 		ps.execute();
-		
+
 	}
 	
+	public void updateMaintenance(Maintenance m) throws SQLException {
+		String sql = "update maintenance set vehicle_id = '" + m.getVehicleId()
+				+ "', user_id = '" + m.getUserId() + "', date = '"
+				+ m.getDate() + "', mileage = '" + m.getMileage()
+				+ "', service_id = '" + m.getServiceId() + "' where maintenance_id = " + m.getMaintenanceId() + ";";
+
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.executeUpdate();
+	}
+	
+	public void deleteMaintenanceRecord(int id) throws SQLException {
+		String sql ="DELETE FROM maintenance WHERE maintenance_id = " + id + ";";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.executeUpdate();
+	}
+
 }
