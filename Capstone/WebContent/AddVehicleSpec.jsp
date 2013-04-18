@@ -42,16 +42,10 @@
 	<%
 		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
 				.toString());
-		VehicleSpecDao aDao = new VehicleSpecDao();
 		int userId = Integer.parseInt(session.getAttribute("userId")
 				.toString());
-		VehicleDao vDao = new VehicleDao();
-		ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
-		ArrayList<FuelType> fuel = aDao.getFuelType();
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
 	%>
-
-	<%-- <%ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-	int vehicleId = (Integer) session.getAttribute("vehicleId");%> --%>
 
 	<div id="header">
 		<h1>
