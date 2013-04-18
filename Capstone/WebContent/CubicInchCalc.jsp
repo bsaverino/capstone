@@ -31,11 +31,11 @@
 			<a href="./dashboard.html">rCal Tracer</a>
 		</h1>
 	</div>
-<%
+<%-- <%
 	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
 	VehicleSpecDao aDao= new VehicleSpecDao();
 	VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
-%>
+%> --%>
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
@@ -56,9 +56,9 @@
 			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li class="active"><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li class="active"><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -88,26 +88,26 @@
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore" value=<%=vehicle.getBore()%>>
+											<input type="text" id="bore" name="bore" value="<%=request.getAttribute("bore")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke" value=<%=vehicle.getStroke()%>>
+											<input type="text" id="stroke" name="stroke" value="<%=request.getAttribute("stroke")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders" value=<%=vehicle.getCylinders()%>>
+											<input type="text" id="cylinders" name="cylinders" value="<%=request.getAttribute("cylinders")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cubic Inch</label>
 										<div class="controls">
-											<input type="text" id="cubicInchTotal" name="cubicInchTotal"
-												disabled>
+											<input type="text" id="cubicInchTotal" name="cubicInchTotal" value ="<%=request.getAttribute("resultCubicInch") %>"
+												readonly>
 										</div>
 									</div>
 								</div>

@@ -53,11 +53,6 @@
 </head>
 <body>
 	getValue();
-	<%
-	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
-	VehicleSpecDao aDao= new VehicleSpecDao();
-	VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId); 
-%>
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -84,9 +79,9 @@
 			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li class="active"><a href="CompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
+					<li class="active"><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -116,27 +111,27 @@
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore" value=<%=vehicle.getBore() %>>
+											<input type="text" id="bore" name="bore" value="<%=request.getAttribute("bore") %>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke" value=<%=vehicle.getStroke() %>>
+											<input type="text" id="stroke" name="stroke" value="<%=request.getAttribute("stroke") %>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Piston Deck Height</label>
 										<div class="controls">
 											<input type="text" id="pistonDeckHeight"
-												name="pistonDeckHeight" value=<%=vehicle.getHeadGasketThickness() %>>
+												name="pistonDeckHeight" value="<%=request.getAttribute("pistonDeckHeight") %>">
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head CC</label>
 									<div class="controls">
-										<input type="text" id="headCC" name="headCC" value=<%=vehicle.getHeadCC() %>>
+										<input type="text" id="headCC" name="headCC" value="<%=request.getAttribute("headCC") %>">
 									</div>
 								</div>
 								<div class="control-group">
@@ -149,11 +144,11 @@
 											<script type="text/javascript" defer="defer">
 											<!-- 
 											if(document.getElementById){
-											if (<%=vehicle.getPistonType()%> == 1){
+											if (<%=request.getAttribute("pistonType")%> == 1){
 											document.getElementById('dome').checked = true;
 											document.getElementById('dish').checked = false;
 											}
-											else if (<%=vehicle.getPistonType()%> == 2){
+											else if (<%=request.getAttribute("pistonType")%> == 2){
 											// Radiobutton "Yes" should be selected.
 											document.getElementById('dome').checked = false;
 											document.getElementById('dish').checked = true;
@@ -166,27 +161,27 @@
 								<div class="control-group">
 									<label class="control-label">Piston CC</label>
 									<div class="controls">
-										<input type="text" id="pistonCC" name="pistonCC" value=<%=vehicle.getPistonCC() %>>
+										<input type="text" id="pistonCC" name="pistonCC" value="<%=request.getAttribute("pistonCC") %>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head Gasket Thickness</label>
 									<div class="controls">
 										<input type="text" id="headGasketThickness"
-											name="headGasketThickness" value=<%=vehicle.getHeadGasketThickness() %>>
+											name="headGasketThickness" value="<%=request.getAttribute("headGasketThickness") %>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head Gasket Bore</label>
 									<div class="controls">
-										<input type="text" id="headGasketBore" name="headGasketBore" value=<%=vehicle.getHeadGasketBore() %>>
+										<input type="text" id="headGasketBore" name="headGasketBore" value="<%=request.getAttribute("headGasketBore") %>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Compression Ratio</label>
 									<div class="controls">
 										<input type="text" id="compressionRatioTotal"
-											name="compressionRatioTotal">
+											name="compressionRatioTotal" value="<%=request.getAttribute("resultCompressionRatio")%>"readonly>
 									</div>
 								</div>
 								<div class="form-actions">

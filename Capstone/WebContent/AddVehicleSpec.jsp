@@ -42,16 +42,10 @@
 	<%
 		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
 				.toString());
-		VehicleSpecDao aDao = new VehicleSpecDao();
 		int userId = Integer.parseInt(session.getAttribute("userId")
 				.toString());
-		VehicleDao vDao = new VehicleDao();
-		ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
-		ArrayList<FuelType> fuel = aDao.getFuelType();
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
 	%>
-
-	<%-- <%ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-	int vehicleId = (Integer) session.getAttribute("vehicleId");%> --%>
 
 	<div id="header">
 		<h1>
@@ -109,10 +103,9 @@
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="CompressionRatioCalc.jsp">Compression Ratio
-							Calc</a></li>
-					<li><a href="FuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>

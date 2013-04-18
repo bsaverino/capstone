@@ -107,7 +107,10 @@ public class UpdateServlet extends HttpServlet {
 			ArrayList<VehicleSpecs> vehicleSpecsList = null;
 			ArrayList<Vehicle> vehicleWithSpecList = new ArrayList<Vehicle>();
 			ArrayList<Integer> vehicleIdList = new ArrayList<Integer>();
-			//ArrayList<Integer> vehicleWithSpecList = new ArrayList<Integer>();
+			ArrayList<FuelType> fuel = vsDao.getFuelType();
+			VehicleSpecs vehicleSpec = null;
+			
+
 			try {
 				vehicleSpecsList = vsDao.getAllVehicleSpec();
 
@@ -121,15 +124,24 @@ public class UpdateServlet extends HttpServlet {
 							vehicleWithSpecList.add(vDao.getVehicle(vehicleIdList.get(y)));
 					}
 				}
-				for(Vehicle v:vehicleWithSpecList)
-					System.out.println("Vehicle I own with specs: "+v.getVehicleId());
+				
+				for(Vehicle v:vehicleWithSpecList){
+					if(v.getVehicleId()== vehicleId)
+					{
+						request.setAttribute("vehicleSpec", vsDao.getVehicleSpec(vehicleId));
+						System.out.println(vsDao.getVehicleSpec(vehicleId).toString());
+					}
+				}
+				
+				
+				request.setAttribute("vehicleWithSpecList", vehicleWithSpecList);				
+				request.setAttribute("fuelList", fuel); // respond
 			}catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			
 			// redirect to UpdateVehicleSpec.jsp
-			request.setAttribute("vehicleWithSpecList", vehicleWithSpecList);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateVehicleSpec.jsp");
 			dispatcher.forward(request, response);
@@ -464,6 +476,108 @@ public class UpdateServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("Profile.jsp");
 			dispatcher.forward(request, response);
+		}else if(action.equalsIgnoreCase("updateVehicleSpec")){	// if the the user wants to update a vehicle's spec info
+			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
+			int pistonType, syntheticOil;
+			VehicleSpecs vehicleSpecs = null;
+			try {
+				vehicleSpecs = vsDao.getVehicleSpec(vehicleId);
+				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
+				pistonType = syntheticOil = vehicleId = 0;
+				int octane = Integer.parseInt(request.getParameter("fuel"));
+				int cylinders = Integer.parseInt(request
+						.getParameter("cylinders"));
+				int headCC = Integer.parseInt(request.getParameter("headCC"));
+				int pistonCC = Integer.parseInt(request
+						.getParameter("pistonCC"));
+				float hp = Float.parseFloat(request.getParameter("hp"));
+				float torque = Float.parseFloat(request.getParameter("torque"));
+				float bore = Float.parseFloat(request.getParameter("bore"));
+				float stroke = Float.parseFloat(request.getParameter("stroke"));
+				float headGasketThickness = Float.parseFloat(request
+						.getParameter("headGasketThickness"));
+				float headGasketBore = Float.parseFloat(request
+						.getParameter("headGasketBore"));
+				float pistonDeckHeight = Float.parseFloat(request
+						.getParameter("pistonDeckHeight"));
+				float dutyCycle = (float) .80;
+
+				if (request.getParameter("nitrous") == "nitrous")
+					bsfc = (float) .65;
+				else if (request.getParameter("fi") == "fi")
+					bsfc = (float) .65;
+				else
+					bsfc = (float) .55;
+				
+				System.out.println("nitro "+request.getParameter("nitrous"));
+				System.out.println("fi "+request.getParameter("fi"));
+				System.out.println("na "+request.getParameter("na"));
+				if (request.getParameter("pistonType").equals("dome"))
+					pistonType = 1;
+				else if (request.getParameter("pistonType").equals("dish"))
+					pistonType = -1;
+				else
+					pistonType = 0;
+
+				if (request.getParameter("syntheticOil").equals("yes"))
+					syntheticOil = 1;
+				else if (request.getParameter("syntheticOil").equals("no"))
+					syntheticOil = 2;
+				else
+					syntheticOil = 0;
+
+
+				// Gets Cubic Inch result for storage
+				if (bore != 0 && stroke != 0 && cylinders != 0) {
+					resultCubicInch = (float) ((bore * bore) * stroke
+							* 0.7853982 * cylinders);
+				}
+
+				// Gets Compression Ratio result for storage
+				if (bore != 0 && stroke != 0 && pistonType != 0
+						&& pistonDeckHeight != 0 && headCC != 0
+						&& pistonCC != 0 && headGasketThickness != 0
+						&& headGasketBore != 0) {
+					float CYV = (float) (0.7853982 * (bore * bore) * stroke);
+					float CLV = (float) (0.7853982 * (bore * bore) * pistonDeckHeight);
+					float PCC = (float) ((pistonType * pistonCC) * 0.0610237);
+					float HG = (float) (0.7853982 * Math.pow(headGasketBore, 2) * headGasketThickness);
+					float HCC = (float) (0.0610237 * headCC);
+					resultCompressionRatio = (CYV + CLV + PCC + HG + HCC)
+							/ (CLV + PCC + HG + HCC);
+				}
+
+				// Gets Fuel Injector size for storage
+				if (hp != 0 && bsfc != 0 && cylinders != 0) {
+					resultFuelInjector = (hp * bsfc) / (cylinders * dutyCycle);
+				}
+				vehicleSpecs.setOctane(octane);
+				vehicleSpecs.setCylinders(cylinders);
+				vehicleSpecs.setPistonType(pistonType);
+				vehicleSpecs.setHeadCC(headCC);
+				vehicleSpecs.setPistonCC(pistonCC);
+				vehicleSpecs.setSyntheticOil(syntheticOil);
+				vehicleSpecs.setHp(hp);
+				vehicleSpecs.setTorque(torque);
+				vehicleSpecs.setBore(bore);
+				vehicleSpecs.setStroke(stroke);
+				vehicleSpecs.setHeadGasketThickness(headGasketThickness);
+				vehicleSpecs.setHeadGasketBore(headGasketBore);
+				vehicleSpecs.setDutyCycle(dutyCycle);
+				vehicleSpecs.setBsfc(bsfc);
+				vehicleSpecs.setPistonDeckHeight(pistonDeckHeight);
+				vehicleSpecs.setResultCubicInch(resultCubicInch);
+				vehicleSpecs.setResultCompressionRatio(resultCompressionRatio);
+				vehicleSpecs.setResultFuelInjector(resultFuelInjector);
+				
+				vsDao.updateVehicleSpecs(vehicleSpecs);				
+				
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("Profile.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

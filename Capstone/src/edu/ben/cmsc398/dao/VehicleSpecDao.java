@@ -171,10 +171,34 @@ public class VehicleSpecDao extends DBConnector {
 		return vehicle;
 	}
 
-	public void updateVehicleSpecs(int vehicleID) throws SQLException {
-		/*TODO
+	public void updateVehicleSpecs(VehicleSpecs vehicleSpecs) throws SQLException {
+		int vehicleId = vehicleSpecs.getVehicleId();
+		int octane = vehicleSpecs.getOctane();
+		int cylinders = vehicleSpecs.getCylinders();
+		int pistonType = vehicleSpecs.getPistonType();
+		int headCC = vehicleSpecs.getHeadCC();
+		int pistonCC = vehicleSpecs.getPistonCC();
+		int syntheticOil = vehicleSpecs.getSyntheticOil();
+		float hp = vehicleSpecs.getHp();
+		float torque = vehicleSpecs.getTorque();
+		float bore = vehicleSpecs.getBore();
+		float stroke = vehicleSpecs.getStroke();
+		float headGasketThickness = vehicleSpecs.getHeadGasketThickness();
+		float headGasketBore = vehicleSpecs.getHeadGasketBore();
+		float dutyCycle = vehicleSpecs.getDutyCycle();
+		float bsfc = vehicleSpecs.getBsfc();
+		float pistonDeckHeight = vehicleSpecs.getPistonDeckHeight();
+		float resultCubicInch = vehicleSpecs.getResultCubicInch();
+		float resultCompressionRatio = vehicleSpecs.getResultCompressionRatio();
+		float resultFuelInjector = vehicleSpecs.getResultFuelInjector();
+
+		String sql = "update vehicle_specs set bore='"+ bore+"', stroke='"+stroke+"', number_cylinders='"+cylinders+"', piston_deck_height='"+pistonDeckHeight+"', head_cc='"
+				+ headCC+"', piston_type_id='"+pistonType+"', piston_cc='"+pistonCC+"', head_gasket_bore='"+headGasketBore+"', horse_power='"+hp+"', duty_cycle='"
+				+dutyCycle+"', bsfc='"+bsfc+ "',fuel_type_id='"+octane+"', oil_type_id='"+syntheticOil+"', torque='"+torque+"', result_ci='"+resultCubicInch+"',result_cr='"
+				+resultCompressionRatio+"',result_fi='"+resultFuelInjector+"',head_gasket_thickness='"+headGasketThickness+"' where vehicle_id='"+vehicleId+"';";
+		System.out.println(sql);
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.executeUpdate();*/
+		ps.executeUpdate();
 	}
 
 	public void deleteVehicleSpecs(int vehicleID) throws SQLException {
@@ -222,9 +246,8 @@ public class VehicleSpecDao extends DBConnector {
 	}
 	public static void main(String []args) throws SQLException{
 		VehicleSpecDao v = new VehicleSpecDao();
-		ArrayList<VehicleSpecs> test = v.getAllVehicleSpec();
-		for(VehicleSpecs a:test)
-			System.out.println(a.toString());
+		VehicleSpecs vs = v.getVehicleSpec(5);
+		v.updateVehicleSpecs(vs);
 		
 	}
 }
