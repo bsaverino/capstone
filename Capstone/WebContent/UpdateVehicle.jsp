@@ -67,14 +67,14 @@
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-ok"></i><%=newVehicle.getYear() + " - " + newVehicle.getMake()
+							class="icon icon-ok"></i><%=newVehicle.getYear() + " - " + newVehicle.getMake()+ " "+ newVehicle.getModel()
 						+ " "+ newVehicle.getTrim()%></a></li>
 					<%
 						}else{
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-space"></i><%=newVehicle.getYear() + " - " + newVehicle.getMake()
+							class="icon icon-space"></i><%=newVehicle.getYear() + " - " + newVehicle.getMake()+ " "+ newVehicle.getModel()
 						+ " "+ newVehicle.getTrim()%></a></li>
 					<%
 						}
@@ -171,13 +171,13 @@
 														%>
 														<option selected
 															value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - " + newVehicle.getMake()
-						+ " "+ newVehicle.getTrim()%></option>
+																	+ " "+ newVehicle.getModel()+ " "+ newVehicle.getTrim()%></option>
 														<%
 															}else{
 														%>
 														<option
 															value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - " + newVehicle.getMake()
-						+ " "+ newVehicle.getTrim()%></option>
+																	+ " "+ newVehicle.getModel()+ " "+ newVehicle.getTrim()%></option>
 														<%
 															}
 																																																																																																				}

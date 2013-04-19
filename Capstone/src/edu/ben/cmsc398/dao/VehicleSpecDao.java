@@ -217,8 +217,8 @@ public class VehicleSpecDao extends DBConnector {
 
 	public void deleteVehicleSpecs(int vehicleID) throws SQLException {
 		Connection conn = getConnection();
-		String sql = "Delete from vehicle_specs where vehicle_id=" + vehicleID
-				+ ";";
+		String sql = "delete from vehicle_specs where vehicle_id="+vehicleID+";";
+		System.out.println(sql);
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 		closeConnection();
@@ -270,8 +270,7 @@ public class VehicleSpecDao extends DBConnector {
 
 	public static void main(String[] args) throws SQLException {
 		VehicleSpecDao v = new VehicleSpecDao();
-		VehicleSpecs vs = v.getVehicleSpec(5);
-		v.updateVehicleSpecs(vs);
+		v.deleteVehicleSpecs(24);
 
 	}
 }

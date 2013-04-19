@@ -309,7 +309,9 @@ public class UpdateServlet extends HttpServlet {
 			try {
 				System.out.println("User after: " + user.toString());
 				uDao.updateUser(user);
-				response.setHeader("Refresh", "0; URL=Profile.jsp");
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("Profile.jsp");
+				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -324,8 +326,10 @@ public class UpdateServlet extends HttpServlet {
 					if (newPassword.equals(newPassword2)) {
 						user.setPassword(newPassword);
 						uDao.updateUser(user);
-						response.setHeader("Refresh", "0; URL=Profile.jsp");
 					}
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("Profile.jsp");
+				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -460,13 +464,27 @@ public class UpdateServlet extends HttpServlet {
 
 		} else if (action.equalsIgnoreCase("deleteVehicle")) {
 			int deleteVehicleId = Integer.parseInt(request.getParameter("Vehicle"));
+			System.out.println("delete "+deleteVehicleId);
 			String check = request.getParameter("delete");
 
 			if (check.equals("on"))
 				try {
-					vDao.deleteVehicle(deleteVehicleId);
+					
 					vsDao.deleteVehicleSpecs(deleteVehicleId);
-					response.setHeader("Refresh", "0; URL=Profile.jsp");
+					vDao.deleteVehicle(deleteVehicleId);
+					System.out.println("deleted vehicle" + deleteVehicleId);
+					vehicleList = vDao.getAllVehicleByUser(userId);
+					
+					System.out.println("new vehicle list");
+					for(Vehicle v:vehicleList)
+						System.out.println(v.toString());
+					
+					request.getSession().setAttribute("vehicleId", vehicleList.get(0).getVehicleId());
+					System.out.println("new v id: "+vehicleList.get(0).getVehicleId());
+					request.getSession().setAttribute("vehicleList",vehicleList);
+					RequestDispatcher dispatcher = request
+							.getRequestDispatcher("Profile.jsp");
+					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
