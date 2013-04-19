@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="edu.ben.cmsc398.dao.*"%>
 <%@ page import="edu.ben.cmsc398.model.*"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
@@ -20,7 +19,7 @@
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)request.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
 

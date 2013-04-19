@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="edu.ben.cmsc398.dao.*"%>
 <%@ page import="edu.ben.cmsc398.model.*"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
@@ -17,8 +16,6 @@
 <body>
 	<%
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
-		VehicleSpecDao aDao = new VehicleSpecDao();
-		VehicleSpecs vehicle = aDao.getVehicleSpec(vehicleId);
 		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 				.getAttribute("vehicleList");
 	%>

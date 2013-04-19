@@ -43,11 +43,12 @@ public class UpdateServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String selectedVehicleId = (String) request.getParameter("selectedVehicle");
+		String breadcrumbs = (String) request.getAttribute("javax.servlet.forward.request_uri");
+		System.out.println("I was on page " +breadcrumbs);
 		
 		// get the session info
 		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
 		int userId = Integer.parseInt(session.getAttribute("userId").toString());
-		
 		// getting the new default vehicleId
 		int newDefaultVehicleId = 0;
 		if(selectedVehicleId!=null)
@@ -107,13 +108,13 @@ public class UpdateServlet extends HttpServlet {
 			ArrayList<VehicleSpecs> vehicleSpecsList = null;
 			ArrayList<Vehicle> vehicleWithSpecList = new ArrayList<Vehicle>();
 			ArrayList<Integer> vehicleIdList = new ArrayList<Integer>();
-			ArrayList<FuelType> fuel = vsDao.getFuelType();
+			ArrayList<FuelType> fuel = null;
 			VehicleSpecs vehicleSpec = null;
 			
 
 			try {
 				vehicleSpecsList = vsDao.getAllVehicleSpec();
-
+				fuel = vsDao.getFuelType();
 				for(Vehicle v:vehicleList)
 					vehicleIdList.add(v.getVehicleId());
 				
@@ -144,6 +145,9 @@ public class UpdateServlet extends HttpServlet {
 					.getRequestDispatcher("UpdateVehicleSpec.jsp");
 			dispatcher.forward(request, response);
 		}else if (action.equalsIgnoreCase("changeDefaultVehicle")) {	// if the the user wants to change the default vehicle in session
+			String prevPage = (String) request.getHeader("Referer");
+			System.out.println(prevPage);
+			System.out.println(request.getAttribute("javax.servlet.forward.request_uri"));
 			try {
 				System.out.println("default vehicle before "+vehicleId);
 				// setting the new vehicleId in the session and in the DB
@@ -156,11 +160,24 @@ public class UpdateServlet extends HttpServlet {
 			}
 			
 			// redirect to UpdateVehicle.jsp    NEED TO FIGURE OUT HOW TO REDIRECT BACK TO THE LAST PAGE
+			/*if(prevPage.equals("http://localhost:8080/Capstone/UpdateServlet?action=loadUpdateVehicle")){
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateServlet?action=loadUpdateVehicle");
 			dispatcher.forward(request, response);
+			}else if(prevPage.equals("http://localhost:8080/Capstone/UpdateServlet?action=loadUserProfile")){
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("UpdateServlet?action=loadUserProfile");
+				dispatcher.forward(request, response);
+			}if(prevPage.equals("http://localhost:8080/Capstone/UpdateServlet?action=loadUpdateVehicleSpec")){
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("UpdateServlet?action=loadUpdateVehicleSpec");
+				dispatcher.forward(request, response);
+				}*/
+			// Go back to the previous page
+			response.sendRedirect(request.getHeader("referer"));
+			
 		}else if (action.equalsIgnoreCase("loadAddVehicleSpec")) {	// if the the user wants to change the default vehicle in session
-				ArrayList<FuelType> fuel = vsDao.getFuelType();
+				ArrayList<FuelType> fuel = null;
 				
 				System.out.println("in servlet");
 				// Figure out what vehicles don't have vehicleSpecs
@@ -170,7 +187,7 @@ public class UpdateServlet extends HttpServlet {
 				ArrayList<Integer> vehicleWithSpecList = new ArrayList<Integer>();
 				try {
 					vehicleSpecsList = vsDao.getAllVehicleSpec();
-
+					fuel = vsDao.getFuelType();
 					// get a list of all vehicleId that I own
 					for(Vehicle v:vehicleList)
 						vehicleIdList.add(v.getVehicleId());

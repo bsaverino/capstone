@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="edu.ben.cmsc398.dao.*"%>
 <%@ page import="edu.ben.cmsc398.model.*"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
