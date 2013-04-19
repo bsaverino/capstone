@@ -1,5 +1,6 @@
 package edu.ben.cmsc398.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,29 +15,25 @@ public class VehicleSpecDao extends DBConnector {
 
 	}
 
-	public ArrayList<FuelType> getFuelType() {
-
-		try {
-			String sql = "SELECT * FROM fuel_lookup;";
-			ArrayList<FuelType> fuel = new ArrayList<FuelType>();
-			FuelType gas = null;
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			if (rs != null) {
-				while (rs.next()) {
-					int fuelId = rs.getInt("fuel_type_id");
-					String fuelType = rs.getString("fuel_type");
-					gas = new FuelType(fuelId, fuelType);
-					fuel.add(gas);
-				}
-				return fuel;
+	public ArrayList<FuelType> getFuelType() throws SQLException {
+		Connection conn = getConnection();
+		String sql = "SELECT * FROM fuel_lookup;";
+		ArrayList<FuelType> fuel = new ArrayList<FuelType>();
+		FuelType gas = null;
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		if (rs != null) {
+			while (rs.next()) {
+				int fuelId = rs.getInt("fuel_type_id");
+				String fuelType = rs.getString("fuel_type");
+				gas = new FuelType(fuelId, fuelType);
+				fuel.add(gas);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			closeConnection();
+			return fuel;
 		}
+		closeConnection();
 		return null;
-
 	}
 
 	public void getOilType() {
@@ -68,6 +65,7 @@ public class VehicleSpecDao extends DBConnector {
 	}
 
 	public void addVehicleSpecs(VehicleSpecs vehicleSpecs) throws SQLException {
+		Connection conn = getConnection();
 		int vehicleId = vehicleSpecs.getVehicleId();
 		int octane = vehicleSpecs.getOctane();
 		int cylinders = vehicleSpecs.getCylinders();
@@ -126,16 +124,16 @@ public class VehicleSpecDao extends DBConnector {
 				+ "','"
 				+ resultCompressionRatio
 				+ "','"
-				+ resultFuelInjector
-				+ "','"
-				+ headGasketThickness+ "');";
+				+ resultFuelInjector + "','" + headGasketThickness + "');";
 		System.out.println(sql);
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		closeConnection();
 
 	}
 
 	public VehicleSpecs getVehicleSpec(int vehicleId) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select * from vehicle_specs where vehicle_id='"
 				+ vehicleId + "';";
 		VehicleSpecs vehicle = null;
@@ -154,7 +152,8 @@ public class VehicleSpecDao extends DBConnector {
 				float torque = rs.getFloat("torque");
 				float bore = rs.getFloat("bore");
 				float stroke = rs.getFloat("stroke");
-				float headGasketThickness = rs.getFloat("head_gasket_thickness");
+				float headGasketThickness = rs
+						.getFloat("head_gasket_thickness");
 				float headGasketBore = rs.getFloat("head_gasket_bore");
 				float dutyCycle = rs.getFloat("duty_cycle");
 				float bsfc = rs.getFloat("bsfc");
@@ -165,13 +164,19 @@ public class VehicleSpecDao extends DBConnector {
 				vehicle = new VehicleSpecs(vehicleId, octane, cylinders,
 						pistonType, headCC, pistonCC, syntheticOil, hp, torque,
 						bore, stroke, headGasketThickness, headGasketBore,
-						dutyCycle, bsfc, pistonDeckHeight, resultCubicInch, resultCompressionRatio, resultFuelInjector);
+						dutyCycle, bsfc, pistonDeckHeight, resultCubicInch,
+						resultCompressionRatio, resultFuelInjector);
 			}
+			closeConnection();
+			return vehicle;
 		}
-		return vehicle;
+		closeConnection();
+		return null;
 	}
 
-	public void updateVehicleSpecs(VehicleSpecs vehicleSpecs) throws SQLException {
+	public void updateVehicleSpecs(VehicleSpecs vehicleSpecs)
+			throws SQLException {
+		Connection conn = getConnection();
 		int vehicleId = vehicleSpecs.getVehicleId();
 		int octane = vehicleSpecs.getOctane();
 		int cylinders = vehicleSpecs.getCylinders();
@@ -192,22 +197,35 @@ public class VehicleSpecDao extends DBConnector {
 		float resultCompressionRatio = vehicleSpecs.getResultCompressionRatio();
 		float resultFuelInjector = vehicleSpecs.getResultFuelInjector();
 
-		String sql = "update vehicle_specs set bore='"+ bore+"', stroke='"+stroke+"', number_cylinders='"+cylinders+"', piston_deck_height='"+pistonDeckHeight+"', head_cc='"
-				+ headCC+"', piston_type_id='"+pistonType+"', piston_cc='"+pistonCC+"', head_gasket_bore='"+headGasketBore+"', horse_power='"+hp+"', duty_cycle='"
-				+dutyCycle+"', bsfc='"+bsfc+ "',fuel_type_id='"+octane+"', oil_type_id='"+syntheticOil+"', torque='"+torque+"', result_ci='"+resultCubicInch+"',result_cr='"
-				+resultCompressionRatio+"',result_fi='"+resultFuelInjector+"',head_gasket_thickness='"+headGasketThickness+"' where vehicle_id='"+vehicleId+"';";
+		String sql = "update vehicle_specs set bore='" + bore + "', stroke='"
+				+ stroke + "', number_cylinders='" + cylinders
+				+ "', piston_deck_height='" + pistonDeckHeight + "', head_cc='"
+				+ headCC + "', piston_type_id='" + pistonType
+				+ "', piston_cc='" + pistonCC + "', head_gasket_bore='"
+				+ headGasketBore + "', horse_power='" + hp + "', duty_cycle='"
+				+ dutyCycle + "', bsfc='" + bsfc + "',fuel_type_id='" + octane
+				+ "', oil_type_id='" + syntheticOil + "', torque='" + torque
+				+ "', result_ci='" + resultCubicInch + "',result_cr='"
+				+ resultCompressionRatio + "',result_fi='" + resultFuelInjector
+				+ "',head_gasket_thickness='" + headGasketThickness
+				+ "' where vehicle_id='" + vehicleId + "';";
 		System.out.println(sql);
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		closeConnection();
 	}
 
 	public void deleteVehicleSpecs(int vehicleID) throws SQLException {
-		String sql = "Delete from vehicle_specs where vehicle_id=" + vehicleID + ";";
+		Connection conn = getConnection();
+		String sql = "Delete from vehicle_specs where vehicle_id=" + vehicleID
+				+ ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		closeConnection();
 	}
-	public ArrayList<VehicleSpecs> getAllVehicleSpec()
-			throws SQLException {
+
+	public ArrayList<VehicleSpecs> getAllVehicleSpec() throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select * from vehicle_specs;";
 		VehicleSpecs vehicle = null;
 		ArrayList<VehicleSpecs> vehicleSpecList = new ArrayList<VehicleSpecs>();
@@ -227,7 +245,8 @@ public class VehicleSpecDao extends DBConnector {
 				float torque = rs.getFloat("torque");
 				float bore = rs.getFloat("bore");
 				float stroke = rs.getFloat("stroke");
-				float headGasketThickness = rs.getFloat("head_gasket_thickness");
+				float headGasketThickness = rs
+						.getFloat("head_gasket_thickness");
 				float headGasketBore = rs.getFloat("head_gasket_bore");
 				float dutyCycle = rs.getFloat("duty_cycle");
 				float bsfc = rs.getFloat("bsfc");
@@ -238,16 +257,21 @@ public class VehicleSpecDao extends DBConnector {
 				vehicle = new VehicleSpecs(vehicleId, octane, cylinders,
 						pistonType, headCC, pistonCC, syntheticOil, hp, torque,
 						bore, stroke, headGasketThickness, headGasketBore,
-						dutyCycle, bsfc, pistonDeckHeight, resultCubicInch, resultCompressionRatio, resultFuelInjector);
+						dutyCycle, bsfc, pistonDeckHeight, resultCubicInch,
+						resultCompressionRatio, resultFuelInjector);
 				vehicleSpecList.add(vehicle);
 			}
+			closeConnection();
+			return vehicleSpecList;
 		}
-		return vehicleSpecList;
+		closeConnection();
+		return null;
 	}
-	public static void main(String []args) throws SQLException{
+
+	public static void main(String[] args) throws SQLException {
 		VehicleSpecDao v = new VehicleSpecDao();
 		VehicleSpecs vs = v.getVehicleSpec(5);
 		v.updateVehicleSpecs(vs);
-		
+
 	}
 }

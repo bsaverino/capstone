@@ -1,16 +1,17 @@
 package edu.ben.cmsc398.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import edu.ben.cmsc398.model.*;
 
 public class UserDao extends DBConnector {
 
 	public User getUser(String username) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select * from user where username='" + username + "';";
 		User user = null;
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -33,11 +34,16 @@ public class UserDao extends DBConnector {
 						password, email, areacode, gender, year, month, day,
 						def);
 			}
+			closeConnection();
+			return user;
 		}
-		return user;
+		closeConnection();
+		return null;
+
 	}
 
 	public User getUser(int userId) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select * from user where user_id='" + userId + "';";
 		User user = null;
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -60,11 +66,15 @@ public class UserDao extends DBConnector {
 						password, email, areacode, gender, year, month, day,
 						def);
 			}
+			closeConnection();
+			return user;
 		}
-		return user;
+		closeConnection();
+		return null;
 	}
 
 	public void updateUser(User user) throws SQLException {
+		Connection conn = getConnection();
 		String username = user.getUsername();
 		String firstName = user.getFirstName();
 		String lastName = user.getLastName();
@@ -81,12 +91,15 @@ public class UserDao extends DBConnector {
 				+ "', last_name='" + lastName + "', email='" + email
 				+ "', area_code=" + areacode + ",year='" + year + "',month='"
 				+ month + "',day='" + day + "',sex=" + gender + ",password='"
-				+ password + "', default_vehicle='" + def + "' where username='" + username + "';";
+				+ password + "', default_vehicle='" + def
+				+ "' where username='" + username + "';";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		closeConnection();
 	}
 
 	public int insertUser(User user) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "insert into user (first_name, last_name, year, month, day, email, area_code,sex,username,password) values (?,?,?,?,?,?,?,?,?,?);";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = null;
@@ -108,19 +121,25 @@ public class UserDao extends DBConnector {
 		ps = conn.prepareStatement("select last_insert_id()");
 		rs = ps.executeQuery();
 
-		if (rs.next())
+		if (rs.next()) {
 			autoId = rs.getInt(1);
-
-		return autoId;
+			closeConnection();
+			return autoId;
+		}
+		closeConnection();
+		return 0;
 	}
 
 	public void deleteUser(String username) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "Delete from user where username='" + username + "';";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		closeConnection();
 	}
 
 	public int getUserId(String username) throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select user_id from user where username='" + username
 				+ "';";
 		int userId = 0;
@@ -130,11 +149,16 @@ public class UserDao extends DBConnector {
 			while (rs.next()) {
 				userId = rs.getInt("user_id");
 			}
+			closeConnection();
+			return userId;
 		}
-		return userId;
+		closeConnection();
+		return 0;
+
 	}
 
 	public int getNewUserId() throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select Max(user_id) as user_id from user;";
 		int userId = 0;
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -143,11 +167,15 @@ public class UserDao extends DBConnector {
 			while (rs.next()) {
 				userId = rs.getInt("user_id");
 			}
+			closeConnection();
+			return userId;
 		}
-		return userId;
+		closeConnection();
+		return 0;
 	}
 
 	public ArrayList<User> getAllUsers() throws SQLException {
+		Connection conn = getConnection();
 		String sql = "select * from user";
 		ArrayList<User> users = new ArrayList<User>();
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -173,17 +201,21 @@ public class UserDao extends DBConnector {
 				users.add(s);
 
 			}
-			conn.close();
+			closeConnection();
 			return users;
 		}
-		conn.close();
+		closeConnection();
 		return null;
 
 	}
-	public void updateDefaultVehicle(int userId,int vehicleId) throws SQLException {
 
-		String sql = "update user set default_vehicle='" + vehicleId + "' where user_id='" + userId + "';";
+	public void updateDefaultVehicle(int userId, int vehicleId)
+			throws SQLException {
+		Connection conn = getConnection();
+		String sql = "update user set default_vehicle='" + vehicleId
+				+ "' where user_id='" + userId + "';";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
+		closeConnection();
 	}
 }

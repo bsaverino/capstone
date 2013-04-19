@@ -43,13 +43,12 @@ public class MaintenanceDao extends DBConnector {
 				records.add(m);
 
 			}
+			closeConnection();
 			return records;
 		}
-		conn.close();
+		closeConnection();
 		return null;
-		
-		
-		
+
 	}
 
 	public ArrayList<Services> getServices() throws SQLException {
@@ -68,9 +67,10 @@ public class MaintenanceDao extends DBConnector {
 
 				services.add(s);
 			}
+			closeConnection();
 			return services;
 		}
-		conn.close();
+		closeConnection();
 		return null;
 
 	}
@@ -95,10 +95,11 @@ public class MaintenanceDao extends DBConnector {
 				Maintenance m = new Maintenance(maintenance, mileage,
 						serviceId, service, discription, date);
 				System.out.println(m);
+				closeConnection();
 				return m;
 			}
 		}
-		conn.close();
+		closeConnection();
 		return null;
 
 	}
@@ -116,8 +117,7 @@ public class MaintenanceDao extends DBConnector {
 		ps.setInt(1, m.getVehicleId());
 
 		ps.execute();
-		
-		conn.close();
+		closeConnection();
 
 	}
 	
@@ -130,7 +130,7 @@ public class MaintenanceDao extends DBConnector {
 
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
-		conn.close();
+		closeConnection();
 	}
 	
 	public void deleteMaintenanceRecord(int id) throws SQLException {
@@ -138,7 +138,7 @@ public class MaintenanceDao extends DBConnector {
 		String sql ="DELETE FROM maintenance WHERE maintenance_id = " + id + ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
-		conn.close();
+		closeConnection();
 	}
 
 }
