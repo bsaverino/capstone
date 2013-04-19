@@ -157,9 +157,9 @@ public class RegistrationServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				if (request.getParameter("nitrous") == "1")
+				if (request.getParameter("nitrous").equals("nitrous"))
 					bsfc = (float) .65;
-				else if (request.getParameter("fi") == "1")
+				else if (request.getParameter("fi").equals("fi"))
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;

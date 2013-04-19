@@ -45,6 +45,10 @@
 		int userId = Integer.parseInt(session.getAttribute("userId")
 				.toString());
 		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
+		System.out.println("in add v spec");
+		for(Vehicle x:vehicleNoSpecList)
+			System.out.println(x.toString());
 	%>
 
 	<div id="header">
@@ -166,7 +170,7 @@
 											<div class="controls">
 												<select onchange="window.location=this.value" name="Vehicle">
 													<%
-														for (Vehicle newVehicle : vehicleList) {
+														for (Vehicle newVehicle : vehicleNoSpecList) {
 													%>
 													<%
 														if (vehicleId == newVehicle.getVehicleId()) {

@@ -132,8 +132,6 @@ public class UpdateServlet extends HttpServlet {
 						System.out.println(vsDao.getVehicleSpec(vehicleId).toString());
 					}
 				}
-				
-				
 				request.setAttribute("vehicleWithSpecList", vehicleWithSpecList);				
 				request.setAttribute("fuelList", fuel); // respond
 			}catch (SQLException e) {
@@ -163,8 +161,8 @@ public class UpdateServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else if (action.equalsIgnoreCase("loadAddVehicleSpec")) {	// if the the user wants to change the default vehicle in session
 				ArrayList<FuelType> fuel = vsDao.getFuelType();
-				request.setAttribute("fuelList", fuel); // respond
 				
+				System.out.println("in servlet");
 				// Figure out what vehicles don't have vehicleSpecs
 				ArrayList<VehicleSpecs> vehicleSpecsList = null;
 				ArrayList<Vehicle> vehicleNoSpecList = new ArrayList<Vehicle>();
@@ -173,8 +171,13 @@ public class UpdateServlet extends HttpServlet {
 				try {
 					vehicleSpecsList = vsDao.getAllVehicleSpec();
 
+					// get a list of all vehicleId that I own
 					for(Vehicle v:vehicleList)
 						vehicleIdList.add(v.getVehicleId());
+					
+					System.out.println("ID in v spec table");
+					for(Integer v:vehicleIdList)
+						System.out.println(v);
 					
 					// find out which of my vehicles have specs
 					for(int j=0;j<vehicleSpecsList.size();j++){
@@ -183,19 +186,32 @@ public class UpdateServlet extends HttpServlet {
 								vehicleWithSpecList.add(vehicleIdList.get(y));
 						}
 					}
+					
+					for(Integer v:vehicleWithSpecList)
+						System.out.println("I own ID"+v.toString());
 
 					// Remove all the vehicles that belong to me and has specs so what remains is the vehicleId of those with no specs
 					vehicleIdList.removeAll(vehicleWithSpecList);
+					
+					System.out.println("Removed those with ID so what remains is");
+					for(Integer v:vehicleIdList)
+						System.out.println(v);
+					
 					for (Integer x:vehicleIdList)
 						vehicleNoSpecList.add(vDao.getVehicle(x));
+					
 						
+					for(Vehicle v:vehicleNoSpecList)
+						System.out.println("v w/o spec "+v.toString());
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				request.setAttribute("vehicleNoSpecList", vehicleNoSpecList);
+				request.setAttribute("fuelList", fuel); // respond
+				request.getSession().setAttribute("vehicleId",vehicleNoSpecList.get(0).getVehicleId());
 				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("UpdateVehicleSpec.jsp");
+						.getRequestDispatcher("AddVehicleSpec.jsp");
 				dispatcher.forward(request, response);
 		}
 		
@@ -342,7 +358,9 @@ public class UpdateServlet extends HttpServlet {
 			int pistonType, syntheticOil;
 			try {
 				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
-				pistonType = syntheticOil = vehicleId = 0;
+				pistonType = syntheticOil = 0;
+				System.out.println("selected v request"+(String) request.getParameter("selectedVehicle"));
+				System.out.println(newDefaultVehicleId);
 				int octane = Integer.parseInt(request.getParameter("fuel"));
 				int cylinders = Integer.parseInt(request
 						.getParameter("cylinders"));
@@ -361,9 +379,9 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				if (request.getParameter("nitrous") == "1")
+				if (request.getParameter("nitrous").equals("nitrous"))
 					bsfc = (float) .65;
-				else if (request.getParameter("fi") == "1")
+				else if (request.getParameter("fi").equals("fi"))
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
@@ -502,9 +520,9 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				if (request.getParameter("nitrous") == "nitrous")
+				if (request.getParameter("nitrous").equals("nitrous"))
 					bsfc = (float) .65;
-				else if (request.getParameter("fi") == "fi")
+				else if (request.getParameter("fi").equals("fi"))
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
