@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ben.cmsc398.dao.MaintenanceDao;
+import edu.ben.cmsc398.dao.PerformanceDao;
 import edu.ben.cmsc398.dao.UserDao;
 import edu.ben.cmsc398.dao.VehicleDao;
 import edu.ben.cmsc398.dao.VehicleSpecDao;
 import edu.ben.cmsc398.model.Maintenance;
+import edu.ben.cmsc398.model.Modification;
+import edu.ben.cmsc398.model.RaceTime;
 import edu.ben.cmsc398.model.Services;
 
 /**
@@ -46,10 +49,10 @@ public class TrackingServlet extends HttpServlet {
 		System.out.println("Action is: " + action);
 		System.out.println("ID is: " + id);
 		MaintenanceDao mDao = new MaintenanceDao();
+		PerformanceDao pDao = new PerformanceDao();
 
 		if (action.equals("getMaintenance")) {
 			try {
-				System.out.println("in getMaintenance");
 				int userId = (int) request.getSession().getAttribute("userId");
 				int vehicleId = (int) request.getSession().getAttribute(
 						"vehicleId");
@@ -62,6 +65,28 @@ public class TrackingServlet extends HttpServlet {
 						.getRequestDispatcher("Maintenance.jsp");
 				dispatcher.forward(request, response);
 
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else if (action.equals("getPerformance")) {
+			try {
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+
+				ArrayList<Modification> mods = new ArrayList<Modification>();
+				ArrayList<RaceTime> times = new ArrayList<RaceTime>();
+
+				mods = pDao.getModificationById(userId, vehicleId);
+				times = pDao.getRaceTimeById(userId, vehicleId);
+				
+				request.setAttribute("times", times); // respond
+				request.setAttribute("mods", mods); // respond
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Performance.jsp");
+				dispatcher.forward(request, response);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

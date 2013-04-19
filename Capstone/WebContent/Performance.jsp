@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
+<%@ page
+	import="edu.ben.cmsc398.model.RaceTime, edu.ben.cmsc398.model.Modification,java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,19 +38,31 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
+					<span>Dashboard</span></a></li>
 			<li class="active"><a href="Performance.jsp"><i
 					class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="TrackingServlet?action=getMaintenance"><i
+					class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCICalc">Cubic
+							Inch Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCRCalc">Compression
+							Ratio Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacFICalc">Fuel
+							Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
+
+	<%
+		ArrayList<Modification> mods = (ArrayList<Modification>) request
+				.getAttribute("mods");
+		ArrayList<RaceTime> times = (ArrayList<RaceTime>) request
+				.getAttribute("times");
+	%>
 
 
 	<div id="content">
@@ -62,171 +76,41 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
+
 					<div class="widget-box">
 						<div class="widget-title">
-							<span class="icon"> <i class="icon-th"></i>
-							</span>
+
 							<h5>Racing Times</h5>
-							<div class="btn-group">
-								<button class="btn btn-mini">Actions</button>
-								<button data-toggle="dropdown"
-									class="btn btn-mini dropdown-toggle">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="racingTimeAdd.jsp">Add Time</a></li>
-									<li><a href="racingTimeEdit.jsp">Edit Time</a></li>
-									<li><a href="#">Delete Time</a></li>
-								</ul>
-							</div>
-							<span class="label label-info">Times</span>
 						</div>
-						<div class="widget-content">
-							<table class="table table-bordered table-striped with-check">
+						<div class="widget-content nopadding">
+							<table class="table table-bordered data-table">
 								<thead>
 									<tr>
-										<th><input type="checkbox" id="title-table-checkbox"
-											name="title-table-checkbox" /></th>
-										<th>Type of Race</th>
-										<th>ET</th>
-										<th>60 Foot</th>
-										<th>MPH</th>
+										<th></th>
+										<th>Type</th>
+										<th>Total Time</th>
+										<th>Speed</th>
+										<th>60ft / lap time</th>
+										<th>Date</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
+								<%for(RaceTime t : times){ %>
+									<tr class="time">
+										<td><input type="radio" name="mRecord"
+											value=<%=t.getRaceId()%> /></td>
+										<td><%=t.getRaceType()%></td>
+										<td><%=t.getTime()%></td>
+										<td><%=t.getSpeed()%></td>
+										<td><%=t.getDistanceTime()%></td>
+										<td><%=t.getDate()%></td>
 									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-									</tr>
+									<%} %>
 								</tbody>
 							</table>
 						</div>
 					</div>
-
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"> <i class="icon-th"></i>
-							</span>
-							<h5>Modification List</h5>
-							<div class="btn-group">
-								<button class="btn btn-mini">Actions</button>
-								<button data-toggle="dropdown"
-									class="btn btn-mini dropdown-toggle">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="modificationAdd.jsp">Add Time</a></li>
-									<li><a href="modificationEdit.jsp">Edit Time</a></li>
-									<li><a href="#">Delete Time</a></li>
-								</ul>
-							</div>
-							<span class="label label-info">Times</span>
-						</div>
-						<div class="widget-content">
-							<table class="table table-bordered table-striped with-check">
-								<thead>
-									<tr>
-										<th><input type="checkbox" id="title-table-checkbox"
-											name="title-table-checkbox" /></th>
-										<th>Type of Modifiaction</th>
-										<th>Part Name</th>
-										<th>Brand</th>
-										<th>Part #(s)</th>
-										<th>Price $</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-										<td>Row 5</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-										<td>Row 5</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-										<td>Row 5</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-										<td>Row 5</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-										<td>Row 5</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>Row 1</td>
-										<td>Row 2</td>
-										<td>Row 3</td>
-										<td>Row 4</td>
-										<td>Row 5</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
+					
 					<div class="widget-box">
 						<div class="widget-title">
 
@@ -236,413 +120,24 @@
 							<table class="table table-bordered data-table">
 								<thead>
 									<tr>
-										<th>Type of Modifiaction</th>
-										<th>Part Name</th>
+										<th></th>
+										<th>Type</th>
 										<th>Brand</th>
-										<th>Part #(s)</th>
-										<th>Price $</th>
+										<th>Part</th>
+										<th>Price</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="gradeX">
-										<td>Trident</td>
-										<td></td>
-										<td>Internet Explorer 4.0</td>
-										<td>Win 95+</td>
-										<td class="center">4</td>
+								<%for(Modification m : mods){ %>
+									<tr class="time">
+										<td><input type="radio" name="mRecord"
+											value=<%=m.getModificationId()%> /></td>
+										<td><%=m.getModType()%></td>
+										<td><%=m.getBrand()%></td>
+										<td><%=m.getPart()%></td>
+										<td><%=m.getPrice()%></td>
 									</tr>
-									<tr class="gradeC">
-										<td>Trident</td>
-										<td></td>
-										<td>Internet Explorer 5.0</td>
-										<td>Win 95+</td>
-										<td class="center">5</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Trident</td>
-										<td></td>
-										<td>Internet Explorer 5.5</td>
-										<td>Win 95+</td>
-										<td class="center">5.5</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Trident</td>
-										<td></td>
-										<td>Internet Explorer 6</td>
-										<td>Win 98+</td>
-										<td class="center">6</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Trident</td>
-										<td></td>
-										<td>Internet Explorer 7</td>
-										<td>Win XP SP2+</td>
-										<td class="center">7</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Trident</td>
-										<td></td>
-										<td>AOL browser (AOL desktop)</td>
-										<td>Win XP</td>
-										<td class="center">6</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Firefox 1.0</td>
-										<td>Win 98+ / OSX.2+</td>
-										<td class="center">1.7</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Firefox 1.5</td>
-										<td>Win 98+ / OSX.2+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Firefox 2.0</td>
-										<td>Win 98+ / OSX.2+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Firefox 3.0</td>
-										<td>Win 2k+ / OSX.3+</td>
-										<td class="center">1.9</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Camino 1.0</td>
-										<td>OSX.2+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Camino 1.5</td>
-										<td>OSX.3+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Netscape 7.2</td>
-										<td>Win 95+ / Mac OS 8.6-9.2</td>
-										<td class="center">1.7</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Netscape Browser 8</td>
-										<td>Win 98SE+</td>
-										<td class="center">1.7</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Netscape Navigator 9</td>
-										<td>Win 98+ / OSX.2+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.0</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.1</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1.1</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.2</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1.2</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.3</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1.3</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.4</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1.4</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.5</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1.5</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.6</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">1.6</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.7</td>
-										<td>Win 98+ / OSX.1+</td>
-										<td class="center">1.7</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Mozilla 1.8</td>
-										<td>Win 98+ / OSX.1+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Seamonkey 1.1</td>
-										<td>Win 98+ / OSX.2+</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Gecko</td>
-										<td></td>
-										<td>Epiphany 2.20</td>
-										<td>Gnome</td>
-										<td class="center">1.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>Safari 1.2</td>
-										<td>OSX.3</td>
-										<td class="center">125.5</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>Safari 1.3</td>
-										<td>OSX.3</td>
-										<td class="center">312.8</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>Safari 2.0</td>
-										<td>OSX.4+</td>
-										<td class="center">419.3</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>Safari 3.0</td>
-										<td>OSX.4+</td>
-										<td class="center">522.1</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>OmniWeb 5.5</td>
-										<td>OSX.4+</td>
-										<td class="center">420</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>iPod Touch / iPhone</td>
-										<td>iPod</td>
-										<td class="center">420.1</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Webkit</td>
-										<td></td>
-										<td>S60</td>
-										<td>S60</td>
-										<td class="center">413</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 7.0</td>
-										<td>Win 95+ / OSX.1+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 7.5</td>
-										<td>Win 95+ / OSX.2+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 8.0</td>
-										<td>Win 95+ / OSX.2+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 8.5</td>
-										<td>Win 95+ / OSX.2+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 9.0</td>
-										<td>Win 95+ / OSX.3+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 9.2</td>
-										<td>Win 88+ / OSX.3+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera 9.5</td>
-										<td>Win 88+ / OSX.3+</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Opera for Wii</td>
-										<td>Wii</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Nokia N800</td>
-										<td>N800</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Presto</td>
-										<td></td>
-										<td>Nintendo DS browser</td>
-										<td>Nintendo DS</td>
-										<td class="center">8.5</td>
-									</tr>
-									<tr class="gradeC">
-										<td>KHTML</td>
-										<td></td>
-										<td>Konqureror 3.1</td>
-										<td>KDE 3.1</td>
-										<td class="center">3.1</td>
-									</tr>
-									<tr class="gradeA">
-										<td>KHTML</td>
-										<td></td>
-										<td>Konqureror 3.3</td>
-										<td>KDE 3.3</td>
-										<td class="center">3.3</td>
-									</tr>
-									<tr class="gradeA">
-										<td>KHTML</td>
-										<td></td>
-										<td>Konqureror 3.5</td>
-										<td>KDE 3.5</td>
-										<td class="center">3.5</td>
-									</tr>
-									<tr class="gradeX">
-										<td>Tasman</td>
-										<td></td>
-										<td>Internet Explorer 4.5</td>
-										<td>Mac OS 8-9</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeC">
-										<td>Tasman</td>
-										<td></td>
-										<td>Internet Explorer 5.1</td>
-										<td>Mac OS 7.6-9</td>
-										<td class="center">1</td>
-									</tr>
-									<tr class="gradeC">
-										<td>Tasman</td>
-										<td></td>
-										<td>Internet Explorer 5.2</td>
-										<td>Mac OS 8-X</td>
-										<td class="center">1</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Misc</td>
-										<td></td>
-										<td>NetFront 3.1</td>
-										<td>Embedded devices</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Misc</td>
-										<td></td>
-										<td>NetFront 3.4</td>
-										<td>Embedded devices</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeX">
-										<td>Misc</td>
-										<td></td>
-										<td>Dillo 0.8</td>
-										<td>Embedded devices</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeX">
-										<td>Misc</td>
-										<td></td>
-										<td>Links</td>
-										<td>Text only</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeX">
-										<td>Misc</td>
-										<td></td>
-										<td>Lynx</td>
-										<td>Text only</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeC">
-										<td>Misc</td>
-										<td></td>
-										<td>IE Mobile</td>
-										<td>Windows Mobile 6</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeC">
-										<td>Misc</td>
-										<td></td>
-										<td>PSP browser</td>
-										<td>PSP</td>
-										<td class="center">-</td>
-									</tr>
-									<tr class="gradeU">
-										<td>Other browsers</td>
-										<td></td>
-										<td>All others</td>
-										<td>-</td>
-										<td class="center">-</td>
-									</tr>
+									<%} %>
 								</tbody>
 							</table>
 						</div>

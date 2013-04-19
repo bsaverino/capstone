@@ -6,11 +6,12 @@ import java.sql.Time;
 public class RaceTime {
 	
 	int raceId, userId, vehicleId, raceTypeId, speed;
-	Date date, raceType;
+	Date date;
+	String raceType;
 	Time time, distanceTime;
 	
 	public RaceTime(int raceId, int raceTypeId, int speed, Date date,
-			Date raceType, Time time, Time distanceTime) {
+			String raceType, Time time, Time distanceTime) {
 		super();
 		this.raceId = raceId;
 		this.raceTypeId = raceTypeId;
@@ -82,11 +83,11 @@ public class RaceTime {
 		this.date = date;
 	}
 
-	public Date getRaceType() {
+	public String getRaceType() {
 		return raceType;
 	}
 
-	public void setRaceType(Date raceType) {
+	public void setRaceType(String raceType) {
 		this.raceType = raceType;
 	}
 
