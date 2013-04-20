@@ -10,14 +10,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/fullcalendar.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
 </head>
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+				.getAttribute("vehicleList");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
 	<div id="header">
@@ -44,17 +46,21 @@
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-space"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+						}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -77,119 +83,114 @@
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCICalc">Cubic
+							Inch Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCRCalc">Compression
+							Ratio Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacFICalc">Fuel
+							Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
 
+	<%
+		ArrayList<Maintenance> record = (ArrayList<Maintenance>) request
+				.getAttribute("maintenanceRecord");
+	%>
 
 	<div id="content">
 		<div id="content-header">
-			<h1>Dashboard</h1>
+			<h1>Maintenance</h1>
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
 				class="icon-home"></i> Home</a> <a href="#" class="current">Maintenance</a>
 		</div>
-
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
-					<%
-						ArrayList<Maintenance> record = (ArrayList<Maintenance>) request
-								.getAttribute("maintenanceRecord");
-					%>
+
 					<div class="widget-box">
-						<div class="widget-title">
-
-							<span class="icon"> <i class="icon-th"></i>
-							</span>
-							<h5>Current Maintenance</h5>
-
-							<span class="label label-info">Maintenance</span>
-						</div>
 						<div class="widget-content nopadding">
-							<div class="widget-content nopadding">
-								<form id="form-wizard" class="form-horizontal" method="post"
-									action="TrackingServlet?action=addMaintenance">
-									<div id="form-wizard-1" class="step">
-										<table class="table table-bordered data-table">
-											<thead>
-												<tr>
-													<th></th>
-													<th>Service</th>
-													<th>Mileage</th>
-													<th>Discription</th>
-													<th>Date</th>
-												</tr>
-											</thead>
-											<tbody>
+							<form id="form-wizard" class="form-vertical" method="post"
+								action="TrackingServlet?action=addMaintenance">
+								<div id="form-wizard-1" class="step">
+									<table class="table table-bordered data-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Service</th>
+												<th>Mileage</th>
+												<th>Discription</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												for (Maintenance m : record) {
+											%>
+											<tr class="time">
+												<td><input type="radio" name="mRecord"
+													value=<%=m.getMaintenanceId()%> /></td>
+												<td><%=m.getService()%></td>
+												<td><%=m.getMileage()%></td>
+												<td><%=m.getDiscription()%></td>
+												<td><%=m.getDate()%></td>
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+										<div class="widget-title">
 
-												<%
-													for (Maintenance m : record) {
-												%>
-
-												<tr class="gradeX">
-													<td><input type="radio" name="mRecord"
-														value=<%=m.getMaintenanceId()%> /></td>
-													<td><%=m.getService()%></td>
-													<td><%=m.getMileage()%></td>
-													<td><%=m.getDiscription()%></td>
-													<td><%=m.getDate()%></td>
-												</tr>
-												<%
-													}
-												%>
-											</tbody>
-										</table>
-									</div>
-									<div class="form-actions">
-										<div class="btn-group">
-											<button class="btn btn-mini">Actions</button>
-											<button data-toggle="dropdown"
-												class="btn btn-mini dropdown-toggle">
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><input id="next" class="btn btn-primary"
-													type="submit" value="Add Record"
-													onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
-												</li>
-												<li><input id="next" class="btn btn-primary"
-													type="submit" value="Edit Record"
-													onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
-												<li><input id="next" class="btn btn-primary"
-													type="submit" value="Delete Record"
-													onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
-											</ul>
+											<h5>Racing Times</h5>
+											<div class="btn-group">
+												<button class="btn btn-mini">Actions</button>
+												<button data-toggle="dropdown"
+													class="btn btn-mini dropdown-toggle">
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Add Record"
+														onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+													</li>
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Edit Record"
+														onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Delete Record"
+														onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
+												</ul>
+											</div>
+											<div id="status"></div>
 										</div>
-										<div id="status"></div>
-									</div>
-									<div id="submitted"></div>
-								</form>
 
 
+									</table>
 
-							</div>
+								</div>
+								<div id="submitted"></div>
+
+							</form>
 						</div>
 					</div>
-				</div>
-				<div class="row-fluid">
-					<div id="footer" class="span12">2012 &copy; Brought to you by
-						Unity Productions</div>
+					<div class="row-fluid">
+						<div id="footer" class="span12">2012 &copy; Brought to you
+							by Unity Productions</div>
+					</div>
 				</div>
 			</div>
-		</div>
 
 
 
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.ui.custom.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/fullcalendar.min.js"></script>
-		<script src="js/unicorn.js"></script>
-		<script src="js/unicorn.calendar.js"></script>
+			<script src="js/jquery.min.js"></script>
+			<script src="js/jquery.ui.custom.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			<script src="js/jquery.uniform.js"></script>
+			<script src="js/select2.min.js"></script>
+			<script src="js/jquery.dataTables.min.js"></script>
+			<script src="js/unicorn.js"></script>
+			<script src="js/unicorn.tables.js"></script>
 </body>
 </html>

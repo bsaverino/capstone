@@ -20,7 +20,8 @@
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+				.getAttribute("vehicleList");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
 	<div id="header">
@@ -47,17 +48,21 @@
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-space"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+						}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -104,98 +109,163 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#" class="current">Dashboard</a>
+				class="icon-home"></i> Home</a> <a href="#" class="current">Performance</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
 
 					<div class="widget-box">
-						<div class="widget-title">
-
-							<h5>Racing Times</h5>
-						</div>
 						<div class="widget-content nopadding">
-							<table class="table table-bordered data-table">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Type</th>
-										<th>Total Time</th>
-										<th>Speed</th>
-										<th>60ft / lap time</th>
-										<th>Date</th>
-									</tr>
-								</thead>
-								<tbody>
-								<%for(RaceTime t : times){ %>
-									<tr class="time">
-										<td><input type="radio" name="mRecord"
-											value=<%=t.getRaceId()%> /></td>
-										<td><%=t.getRaceType()%></td>
-										<td><%=t.getTime()%></td>
-										<td><%=t.getSpeed()%></td>
-										<td><%=t.getDistanceTime()%></td>
-										<td><%=t.getDate()%></td>
-									</tr>
-									<%} %>
-								</tbody>
-							</table>
+							<form id="form-wizard" class="form-vertical" method="post"
+								action="TrackingServlet?action=addMaintenance">
+								<div id="form-wizard-1" class="step">
+									<table class="table table-bordered data-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Type</th>
+												<th>Total Time</th>
+												<th>Speed</th>
+												<th>60ft / lap time</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												for (RaceTime t : times) {
+											%>
+											<tr class="time">
+												<td><input type="radio" name="mRecord"
+													value=<%=t.getRaceId()%> /></td>
+												<td><%=t.getRaceType()%></td>
+												<td><%=t.getTime()%></td>
+												<td><%=t.getSpeed()%></td>
+												<td><%=t.getDistanceTime()%></td>
+												<td><%=t.getDate()%></td>
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+										<div class="widget-title">
+
+											<h5>Racing Times</h5>
+											<div class="btn-group">
+												<button class="btn btn-mini">Actions</button>
+												<button data-toggle="dropdown"
+													class="btn btn-mini dropdown-toggle">
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Add Record"
+														onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+													</li>
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Edit Record"
+														onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Delete Record"
+														onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
+												</ul>
+											</div>
+											<div id="status"></div>
+										</div>
+
+
+									</table>
+
+								</div>
+								<div id="submitted"></div>
+
+							</form>
 						</div>
 					</div>
-					
-					<div class="widget-box">
-						<div class="widget-title">
 
-							<h5>Modification List</h5>
-						</div>
+					<div class="widget-box">
 						<div class="widget-content nopadding">
-							<table class="table table-bordered data-table">
-								<thead>
-									<tr>
-										<th></th>
-										<th>Type</th>
-										<th>Brand</th>
-										<th>Part</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								<tbody>
-								<%for(Modification m : mods){ %>
-									<tr class="time">
-										<td><input type="radio" name="mRecord"
-											value=<%=m.getModificationId()%> /></td>
-										<td><%=m.getModType()%></td>
-										<td><%=m.getBrand()%></td>
-										<td><%=m.getPart()%></td>
-										<td><%=m.getPrice()%></td>
-									</tr>
-									<%} %>
-								</tbody>
-							</table>
+							<form id="form-wizard" class="form-vertical" method="post"
+								action="TrackingServlet?action=addMaintenance">
+								<div id="form-wizard-1" class="step">
+									<table class="table table-bordered data-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Type</th>
+												<th>Brand</th>
+												<th>Part</th>
+												<th>Price</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												for (Modification m : mods) {
+											%>
+											<tr class="time">
+												<td><input type="radio" name="mRecord"
+													value=<%=m.getModificationId()%> /></td>
+												<td><%=m.getModType()%></td>
+												<td><%=m.getBrand()%></td>
+												<td><%=m.getPart()%></td>
+												<td><%=m.getPrice()%></td>
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+										<div class="widget-title">
+
+											<h5>Modification List</h5>
+											<div class="btn-group">
+												<button class="btn btn-mini">Actions</button>
+												<button data-toggle="dropdown"
+													class="btn btn-mini dropdown-toggle">
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Add Record"
+														onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+													</li>
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Edit Record"
+														onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
+													<li><input id="next" class="btn btn-primary"
+														type="submit" value="Delete Record"
+														onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
+												</ul>
+											</div>
+											<div id="status"></div>
+										</div>
+
+
+									</table>
+
+								</div>
+								<div id="submitted"></div>
+
+							</form>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="row-fluid">
+							<div id="footer" class="span12">2012 &copy; Brought to you
+								by Unity Productions</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="row-fluid">
-				<div id="footer" class="span12">2012 &copy; Brought to you by
-					Unity Productions</div>
-			</div>
-		</div>
-	</div>
 
 
 
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.uniform.js"></script>
-	<script src="js/select2.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.tables.js"></script>
+				<script src="js/jquery.min.js"></script>
+				<script src="js/jquery.ui.custom.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="js/jquery.uniform.js"></script>
+				<script src="js/select2.min.js"></script>
+				<script src="js/jquery.dataTables.min.js"></script>
+				<script src="js/unicorn.js"></script>
+				<script src="js/unicorn.tables.js"></script>
 </body>
 </html>
