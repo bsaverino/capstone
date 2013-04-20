@@ -39,16 +39,29 @@
 </head>
 <body>
 	<%
-		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-				.toString());
+	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
+		.toString());
 		int userId = Integer.parseInt(session.getAttribute("userId")
-				.toString());
+		.toString());
 		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-		ArrayList<Vehicle> vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
-		System.out.println("in add v spec");
-		for(Vehicle x:vehicleNoSpecList)
-			System.out.println(x.toString());
-	%>
+		int vehicleNoSpecListSize = (Integer) request.getAttribute("vehicleNoSpecListSize");
+		ArrayList<Vehicle> vehicleNoSpecList = null;
+		if(vehicleNoSpecListSize>0){
+	vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
+		}
+		%>
+<%
+		if(vehicleNoSpecListSize==0){%>
+<script type="text/javascript" defer="defer">
+<!--
+	alert('Error. All your vehicles have specs. Please edit them or add another vehicle');
+	window.location.replace("Profile.jsp");
+// -->
+</script>
+
+<%
+}
+%>
 
 	<div id="header">
 		<h1>
@@ -169,6 +182,7 @@
 											<div class="controls">
 												<select onchange="window.location=this.value" name="Vehicle">
 													<%
+													if(vehicleNoSpecListSize>0){
 														for (Vehicle newVehicle : vehicleNoSpecList) {
 													%>
 													<%
@@ -186,6 +200,7 @@
 													<%
 														}
 														}
+													}
 													%>
 												</select>
 											</div>

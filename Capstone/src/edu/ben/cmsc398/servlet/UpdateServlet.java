@@ -224,9 +224,14 @@ public class UpdateServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				request.setAttribute("vehicleNoSpecListSize", vehicleNoSpecList.size());
 				request.setAttribute("vehicleNoSpecList", vehicleNoSpecList);
 				request.setAttribute("fuelList", fuel); // respond
+				if(vehicleNoSpecList.size()>0){
 				request.getSession().setAttribute("vehicleId",vehicleNoSpecList.get(0).getVehicleId());
+				}else{
+					request.getSession().setAttribute("vehicleId",vehicleList.get(0).getVehicleId());
+				}
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("AddVehicleSpec.jsp");
 				dispatcher.forward(request, response);
