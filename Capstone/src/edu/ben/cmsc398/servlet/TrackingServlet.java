@@ -20,6 +20,7 @@ import edu.ben.cmsc398.dao.VehicleDao;
 import edu.ben.cmsc398.dao.VehicleSpecDao;
 import edu.ben.cmsc398.model.Maintenance;
 import edu.ben.cmsc398.model.Modification;
+import edu.ben.cmsc398.model.ModificationLookup;
 import edu.ben.cmsc398.model.RaceTime;
 import edu.ben.cmsc398.model.RaceType;
 import edu.ben.cmsc398.model.Services;
@@ -208,13 +209,99 @@ public class TrackingServlet extends HttpServlet {
 
 		}
 
+//-------------------------------------------------------------------------------		
+		
+		
 		if (action.equals("addMod")) {
+			try {
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+				int modTypeId = Integer.parseInt(request
+						.getParameter("modType"));
+				String brand = request.getParameter("brand");
+				String part = request.getParameter("part");
+				float price = Float.parseFloat(request.getParameter("price"));
+
+				Modification mod = new Modification(' ', vehicleId, userId,
+						brand, part, modTypeId, price);
+				System.out.println(mod);
+				pDao.insertModification(mod);
+				System.out.println("insertered");
+				response.setHeader("Refresh",
+						"0; URL=TrackingServlet?action=getPerformance");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else if (action.equals("addForwardMod")) {
+			try {
+				ArrayList<ModificationLookup> modLookup = new ArrayList<ModificationLookup>();
+
+				modLookup = pDao.getModType();
+				
+				request.setAttribute("modLookup", modLookup); // respond
+
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("ModificationAdd.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else if (action.equals("editForwardMod")) {
+			try {
+				int modId = Integer.parseInt(request.getParameter("modId"));
+				ArrayList<ModificationLookup> modLookup = new ArrayList<ModificationLookup>();
+
+				modLookup = pDao.getModType();
+				Modification mod = pDao.getSingleModification(modId);
+				request.setAttribute("modLookup", modLookup); // respond
+				request.setAttribute("mod", mod); // respond
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("ModificationAdd.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (action.equals("editMod")) {
+			try {
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+				int modTypeId = Integer.parseInt(request
+						.getParameter("modType"));
+				String brand = request.getParameter("brand");
+				String part = request.getParameter("part");
+				float price = Float.parseFloat(request.getParameter("price"));
+
+				Modification mod = new Modification(' ', vehicleId, userId,
+						brand, part, modTypeId, price);
+
+				pDao.updateModification(mod);
+
+				response.setHeader("Refresh",
+						"0; URL=TrackingServlet?action=getPerformance");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (action.equals("deleteMod")) {
+			try {
+				int modId = Integer.parseInt(request.getParameter("modId"));
+				pDao.deleteSingleModification(modId);
+				response.setHeader("Refresh",
+						"0; URL=TrackingServlet?action=getPerformance");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
-		} else if (action.equals("addForwardTime")) {
+		} 
+		
+//		-------------------------------------------------------------------------------
+		
+		if (action.equals("addForwardTime")) {
 			try {
 				ArrayList<RaceType> times = new ArrayList<RaceType>();
 				times = pDao.getRaceType();
@@ -275,7 +362,8 @@ public class TrackingServlet extends HttpServlet {
 				int vehicleId = (int) request.getSession().getAttribute(
 						"vehicleId");
 				int speed = Integer.parseInt(request.getParameter("speed"));
-				int raceTypeId = Integer.parseInt(request.getParameter("raceType"));
+				int raceTypeId = Integer.parseInt(request
+						.getParameter("raceType"));
 				int raceId = Integer.parseInt(id);
 				String date = request.getParameter("date");
 				float time = Float.parseFloat(request.getParameter("time"));
@@ -286,7 +374,7 @@ public class TrackingServlet extends HttpServlet {
 						raceTypeId, speed, date, time, distanceTime);
 
 				pDao.updateRaceTime(r);
-				
+
 				response.setHeader("Refresh",
 						"0; URL=TrackingServlet?action=getPerformance");
 			} catch (SQLException e) {

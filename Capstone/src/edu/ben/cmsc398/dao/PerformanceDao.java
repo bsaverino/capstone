@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import edu.ben.cmsc398.model.Maintenance;
 import edu.ben.cmsc398.model.Modification;
+import edu.ben.cmsc398.model.ModificationLookup;
 import edu.ben.cmsc398.model.RaceTime;
 import edu.ben.cmsc398.model.RaceType;
 
@@ -261,5 +262,30 @@ public class PerformanceDao extends DBConnector {
 		closeConnection();
 		return null;
 	}
+	
+	public ArrayList<ModificationLookup> getModType() throws SQLException{
+		Connection conn = getConnection();
+		ArrayList<ModificationLookup> modLookup = new ArrayList<ModificationLookup>();
+		String sql = "SELECT * from modification_lookup;";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		if (rs != null) {
+			while (rs.next()) {
+				int modId = rs.getInt("mod_id");
+				String mod = rs.getString("modification");
+				ModificationLookup mods = new ModificationLookup(modId, mod);
+
+				modLookup.add(mods);
+
+			}
+			closeConnection();
+			return modLookup;
+		}
+		closeConnection();
+		return null;
+	}
+	
 
 }

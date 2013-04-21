@@ -16,7 +16,8 @@
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+				.getAttribute("vehicleList");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
 	<div id="header">
@@ -43,17 +44,21 @@
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-space"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+						}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -67,19 +72,29 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
+					<span>Dashboard</span></a></li>
 			<li class="active"><a href="Performance.jsp"><i
 					class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i class="icon-wrench"></i> <span>Maintenance</span></a></li>
+			<li><a href="TrackingServlet?action=getMaintenance"><i
+					class="icon-wrench"></i> <span>Maintenance</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCICalc">Cubic
+							Inch Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacCRCalc">Compression
+							Ratio Calc</a></li>
+					<li><a href="CalculatorServlet?action=loacFICalc">Fuel
+							Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
+
+	<%
+		ArrayList<ModificationLookup> modLookup = (ArrayList<ModificationLookup>) request
+				.getAttribute("modLookup");
+	%>
 
 	<div id="content">
 		<div id="content-header">
@@ -87,7 +102,8 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#" class="current">Add Mod</a>
+				class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#"
+				class="current">Add Mod</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -99,42 +115,46 @@
 							<h5>Add your modification!</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form name="calc" id="form-wizard" class="form-horizontal">
+							<form id="form-wizard" class="form-horizontal" method="post"
+								action="TrackingServlet?action=addMod">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">Type of Modification</label>
+										<label class="control-label">Modification Type</label>
 										<div class="controls">
-											<input type="text" id="hp" name="hp">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label">Part Name</label>
-										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders">
+											<select id="services" name="modType">
+												<option value="0" selected="selected">Modification Type</option>
+												<%
+													for(ModificationLookup m : modLookup){
+												%>
+												<option value="<%=m.getModLookupId()%>"><%=m.getMod()%></option>
+												<%
+													}
+												%>
+											</select>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Brand</label>
 										<div class="controls">
-											<input type="text" id="dutyCycle" name="dutyCycle">
+											<input type="text" id="brand" name="brand">
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">Part Number</label>
+									<label class="control-label">Part #</label>
 									<div class="controls">
-										<input type="text" id="bsfc" name="bsfc">
+										<input type="text" id="part" name="part">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Price ($)</label>
 									<div class="controls">
-										<input type="text" id="bsfc" name="bsfc">
+										<input type="text" id="price" name="price">
 									</div>
 								</div>
 								<div class="form-actions">
-									<input id="calc" class="btn btn-primary" type="button"
-										value="Add" onClick="doCalcTotal()" />
+									<input id="back" class="btn btn-primary" type="reset" value="Back" /> 
+									<input id="next" class="btn btn-primary" type="submit" value="Next" />
 									<div id="status"></div>
 								</div>
 								<div id="submitted"></div>
