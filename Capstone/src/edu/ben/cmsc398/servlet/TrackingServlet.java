@@ -275,8 +275,7 @@ public class TrackingServlet extends HttpServlet {
 				int vehicleId = (int) request.getSession().getAttribute(
 						"vehicleId");
 				int speed = Integer.parseInt(request.getParameter("speed"));
-				int raceTypeId = Integer.parseInt(request
-						.getParameter("raceTypeId"));
+				int raceTypeId = Integer.parseInt(request.getParameter("raceType"));
 				int raceId = Integer.parseInt(id);
 				String date = request.getParameter("date");
 				float time = Float.parseFloat(request.getParameter("time"));

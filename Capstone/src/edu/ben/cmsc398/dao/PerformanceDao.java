@@ -219,7 +219,7 @@ public class PerformanceDao extends DBConnector {
 
 	public void deleteSingleModification(int modId) throws SQLException {
 		Connection conn = getConnection();
-		String sql = "DELETE FROM modification WHERE maintenance_id = " + modId
+		String sql = "DELETE FROM modification WHERE mod_id = " + modId
 				+ ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
@@ -229,7 +229,7 @@ public class PerformanceDao extends DBConnector {
 
 	public void deleteSingleRaceTime(int timeId) throws SQLException {
 		Connection conn = getConnection();
-		String sql = "DELETE FROM performance WHERE maintenance_id = " + timeId
+		String sql = "DELETE FROM performance WHERE performance_id = " + timeId
 				+ ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();

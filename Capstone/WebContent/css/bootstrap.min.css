@@ -827,7 +827,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 }
 .radio input[type="radio"], .checkbox input[type="checkbox"] {
 	float: left;
-	margin-left: -20px
+	/* margin-left: -20px */
 }
 .controls > .radio:first-child, .controls > .checkbox:first-child {
 	padding-top: 5px
