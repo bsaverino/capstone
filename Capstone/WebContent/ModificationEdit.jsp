@@ -92,8 +92,7 @@
 	</div>
 
 	<%
-		ArrayList<ModificationLookup> modLookup = (ArrayList<ModificationLookup>) request
-				.getAttribute("modLookup");
+		ArrayList<ModificationLookup> modLookup = (ArrayList<ModificationLookup>) request.getAttribute("modLookup");
 		Modification mod = (Modification) request.getAttribute("mod");
 	%>
 
@@ -117,7 +116,7 @@
 						</div>
 						<div class="widget-content nopadding">
 							<form id="form-wizard" class="form-horizontal" method="post"
-								action="TrackingServlet?action=editMod">
+								action="TrackingServlet?action=editMod&id=<%= mod.getModificationId() %>">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">Modification Type</label>

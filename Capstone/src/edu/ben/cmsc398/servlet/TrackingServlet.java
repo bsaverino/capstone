@@ -49,8 +49,6 @@ public class TrackingServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String id = request.getParameter("id");
-		System.out.println("Action is: " + action);
-		System.out.println("ID is: " + id);
 		MaintenanceDao mDao = new MaintenanceDao();
 		PerformanceDao pDao = new PerformanceDao();
 
@@ -78,29 +76,18 @@ public class TrackingServlet extends HttpServlet {
 				int vehicleId = (int) request.getSession().getAttribute(
 						"vehicleId");
 
-				System.out.println("got the user and vehicle");
-
 				ArrayList<Modification> mods = new ArrayList<Modification>();
 				ArrayList<RaceTime> times = new ArrayList<RaceTime>();
-
-				System.out.println("initialized the arrays");
 
 				mods = pDao.getModificationById(userId, vehicleId);
 				times = pDao.getRaceTimeById(userId, vehicleId);
 
-				System.out.println("called the daos ");
-
 				request.setAttribute("times", times); // respond
 				request.setAttribute("mods", mods); // respond
-
-				System.out.println("getPerformance");
 
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Performance.jsp");
 				dispatcher.forward(request, response);
-
-				System.out.println("going to the JSP");
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -163,8 +150,6 @@ public class TrackingServlet extends HttpServlet {
 
 				Maintenance record = mDao.getSingleMaintenance(mRecord);
 
-				System.out.println("record = " + record);
-
 				request.setAttribute("record", record); // respond
 				request.setAttribute("service", service); // respond
 				RequestDispatcher dispatcher = request
@@ -187,7 +172,6 @@ public class TrackingServlet extends HttpServlet {
 
 				Maintenance service = new Maintenance(maintId, serviceId,
 						vehicleId, userId, mileage, date);
-				System.out.println(service);
 
 				mDao.updateMaintenance(service);
 				response.setHeader("Refresh",
@@ -215,19 +199,16 @@ public class TrackingServlet extends HttpServlet {
 		if (action.equals("addMod")) {
 			try {
 				int userId = (int) request.getSession().getAttribute("userId");
-				int vehicleId = (int) request.getSession().getAttribute(
-						"vehicleId");
-				int modTypeId = Integer.parseInt(request
-						.getParameter("modType"));
+				int vehicleId = (int) request.getSession().getAttribute("vehicleId");
+				int modTypeId = Integer.parseInt(request.getParameter("modType"));
 				String brand = request.getParameter("brand");
 				String part = request.getParameter("part");
 				float price = Float.parseFloat(request.getParameter("price"));
 
 				Modification mod = new Modification(' ', vehicleId, userId,
 						brand, part, modTypeId, price);
-				System.out.println(mod);
+
 				pDao.insertModification(mod);
-				System.out.println("insertered");
 				response.setHeader("Refresh",
 						"0; URL=TrackingServlet?action=getPerformance");
 			} catch (SQLException e) {
@@ -256,10 +237,12 @@ public class TrackingServlet extends HttpServlet {
 
 				modLookup = pDao.getModType();
 				Modification mod = pDao.getSingleModification(modId);
+				
 				request.setAttribute("modLookup", modLookup); // respond
 				request.setAttribute("mod", mod); // respond
+				
 				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("ModificationAdd.jsp");
+						.getRequestDispatcher("ModificationEdit.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -268,19 +251,17 @@ public class TrackingServlet extends HttpServlet {
 		} else if (action.equals("editMod")) {
 			try {
 				int userId = (int) request.getSession().getAttribute("userId");
-				int vehicleId = (int) request.getSession().getAttribute(
-						"vehicleId");
-				int modTypeId = Integer.parseInt(request
-						.getParameter("modType"));
+				int vehicleId = (int) request.getSession().getAttribute("vehicleId");
+				int modTypeId = Integer.parseInt(request.getParameter("modType"));
 				String brand = request.getParameter("brand");
 				String part = request.getParameter("part");
 				float price = Float.parseFloat(request.getParameter("price"));
+				int modId = Integer.parseInt(id);
 
-				Modification mod = new Modification(' ', vehicleId, userId,
+				Modification mod = new Modification(modId, vehicleId, userId,
 						brand, part, modTypeId, price);
-
+				
 				pDao.updateModification(mod);
-
 				response.setHeader("Refresh",
 						"0; URL=TrackingServlet?action=getPerformance");
 			} catch (SQLException e) {

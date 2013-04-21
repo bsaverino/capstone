@@ -128,7 +128,7 @@ public class PerformanceDao extends DBConnector {
 		Connection conn = getConnection();
 		String sql = "SELECT m.brand, m.part, m.price, m.mod_id, m.mod_lookup_id, l.modification "
 				+ "FROM modification m, modification_lookup l "
-				+ "WHERE m.mod_id = " + modId + ";";
+				+ "WHERE m.mod_id = " + modId + " AND m.mod_lookup_id = l.mod_id;";
 		Modification mods = null;
 
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -208,10 +208,10 @@ public class PerformanceDao extends DBConnector {
 
 	public void updateModification(Modification m) throws SQLException {
 		Connection conn = getConnection();
-		String sql = "update modification set brand = '" + m.getBrand()
-				+ "', part = '" + m.getPart() + "', mod_lookup_id = '"
-				+ m.getModLookupId() + "', price = '" + m.getPrice()
-				+ "' where mod_id = " + m.getModificationId() + ";";
+		String sql = "UPDATE modification SET brand = '" + m.getBrand()
+				+ "', part = " + m.getPart() + ", mod_lookup_id = "
+				+ m.getModLookupId() + ", price = " + m.getPrice()
+				+ " WHERE mod_id = " + m.getModificationId() + ";";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.executeUpdate();
 		closeConnection();
