@@ -41,8 +41,14 @@ public class CalculatorServlet extends HttpServlet {
 		int userId = Integer.parseInt(session.getAttribute("userId").toString());
 		VehicleSpecDao vsDao = new VehicleSpecDao();
 		VehicleSpecs vehicle = null;
+		VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, 0,
+				0, 0, 0, 0, 0,0, 0,0,0,0,0,0,0,0,0,0,0);
 		try {
 			vehicle = vsDao.getVehicleSpec(vehicleId);
+			if (vehicle==null){
+				vehicle = vehicleSpecs;
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

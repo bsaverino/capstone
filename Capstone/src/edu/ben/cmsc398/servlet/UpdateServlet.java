@@ -150,21 +150,13 @@ public class UpdateServlet extends HttpServlet {
 				}
 				
 				// if the default vehicle's specs are not found, assume it hasn't been created
-				// so set default vehicleId and the specs to be the first vehicle that has specs
-				VehicleSpecs defaultv =null;
-				Vehicle defaultvehicle = vehicleWithSpecList.get(0);
-				int dvID= defaultvehicle.getVehicleId();
-				vsDao.getVehicleSpec(vehicleWithSpecList.indexOf(0));
+				// so redirect to AddVehicleSpec
 				if(!found){
-						System.out.println("default v has no spec so setting the first one with spec");
-						request.setAttribute("vehicleSpec", vsDao.getVehicleSpec(dvID));
-						request.getSession().setAttribute("vehicleId", dvID);
+					RequestDispatcher dispatcher = request
+							.getRequestDispatcher("UpdateServlet?action=loadAddVehicleSpec");
+					dispatcher.forward(request, response);
+					return;
 				}
-				
-				defaultv = (VehicleSpecs)request.getAttribute("vehicleSpec");
-				
-				
-				System.out.println("default v "+defaultv);
 				request.setAttribute("vehicleWithSpecList", vehicleWithSpecList);				
 				request.setAttribute("fuelList", fuel); // respond
 				request.setAttribute("exist", exist); // respond
