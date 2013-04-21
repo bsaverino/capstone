@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="edu.ben.cmsc398.model.*, java.util.*"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/uniform.css" />
-<link rel="stylesheet" href="css/select2.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
 </head>
@@ -92,103 +92,103 @@
 		</ul>
 	</div>
 
-	<%
-		ArrayList<Maintenance> record = (ArrayList<Maintenance>) request
-				.getAttribute("maintenanceRecord");
-	%>
 
 	<div id="content">
 		<div id="content-header">
-			<h1>Maintenance</h1>
+			<h1>Dashboard</h1>
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
 				class="icon-home"></i> Home</a> <a href="#" class="current">Maintenance</a>
 		</div>
+
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
-
+					<%
+						RaceTime time = (RaceTime) request.getAttribute("time");
+						ArrayList<RaceType> times = (ArrayList<RaceType>) request
+								.getAttribute("times");
+					%>
 					<div class="widget-box">
+						<div class="widget-title">
+
+							<span class="icon"> <i class="icon-th"></i>
+							</span>
+							<h5>Current Maintenance -> Add Record</h5>
+							<span class="label label-info">Maintenance</span>
+						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-vertical" method="post"
-								action="TrackingServlet?action=addMaintenance">
+							<form id="form-wizard" class="form-horizontal" method="post"
+								action="TrackingServlet?action=editTime&id=<%= time.getRaceId() %>">
 								<div id="form-wizard-1" class="step">
-									<table class="table table-bordered data-table">
-										<thead>
-											<tr>
-												<th></th>
-												<th>Service</th>
-												<th>Mileage</th>
-												<th>Discription</th>
-												<th>Date</th>
-											</tr>
-										</thead>
-										<tbody>
-											<%
-												for (Maintenance m : record) {
-											%>
-											<tr class="time">
-												<td><input type="radio" name="mRecord" value="<%=m.getMaintenanceId()%>" /></td>
-												<td><%=m.getService()%></td>
-												<td><%=m.getMileage()%></td>
-												<td><%=m.getDiscription()%></td>
-												<td><%=m.getDate()%></td>
-											</tr>
-											<%
-												}
-											%>
-										</tbody>
-										<div class="widget-title">
-
-											<h5>Racing Times</h5>
-											<div class="btn-group">
-												<button class="btn btn-mini">Actions</button>
-												<button data-toggle="dropdown"
-													class="btn btn-mini dropdown-toggle">
-													<span class="caret"></span>
-												</button>
-												<ul class="dropdown-menu">
-													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Add Record"
-														onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
-													</li>
-													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Edit Record"
-														onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
-													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Delete Record"
-														onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
-												</ul>
-											</div>
-											<div id="status"></div>
+									<div class="control-group">
+										<label class="control-label">Date</label>
+										<div class="controls">
+											<input id="date" type="text" name="date" value="<%=time.getDate()%>"/>
 										</div>
-
-
-									</table>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Total Time</label>
+										<div class="controls">
+											<input id="time" type="text" name="time" value="<%=time.getTime()%>"/>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Lap/60 Time</label>
+										<div class="controls">
+											<input id="distanceTime" type="text" name="distanceTime" value="<%=time.getDistanceTime()%>"/>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Speed</label>
+										<div class="controls">
+											<input id="speed" type="text" name="speed" value="<%=time.getSpeed()%>"/>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Type</label>
+										<div class="controls">
+											<select id="services" name="raceType">
+												<option value="<%=time.getRaceTypeId() %>" selected="selected"><%=time.getRaceType() %></option>
+												<%
+													for (RaceType r : times) {
+												%>
+												<option value=<%=r.getRaceId()%>><%=r.getRaceType()%></option>
+												<%
+													}
+												%>
+											</select>
+										</div>
+									</div>
 
 								</div>
+								<div class="form-actions">
+									<input id="back" class="btn btn-primary" type="reset"
+										value="Back" /> <input id="next" class="btn btn-primary"
+										type="submit" value="Next" />
+									<div id="status"></div>
+								</div>
 								<div id="submitted"></div>
-
 							</form>
 						</div>
 					</div>
-					<div class="row-fluid">
-						<div id="footer" class="span12">2012 &copy; Brought to you
-							by Unity Productions</div>
-					</div>
 				</div>
 			</div>
+			<div class="row-fluid">
+				<div id="footer" class="span12">2012 &copy; Brought to you by
+					Unity Productions</div>
+			</div>
+		</div>
+	</div>
 
 
 
-			<script src="js/jquery.min.js"></script>
-			<script src="js/jquery.ui.custom.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/jquery.uniform.js"></script>
-			<script src="js/select2.min.js"></script>
-			<script src="js/jquery.dataTables.min.js"></script>
-			<script src="js/unicorn.js"></script>
-			<script src="js/unicorn.tables.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.ui.custom.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/fullcalendar.min.js"></script>
+	<script src="js/unicorn.js"></script>
+	<script src="js/unicorn.calendar.js"></script>
 </body>
 </html>

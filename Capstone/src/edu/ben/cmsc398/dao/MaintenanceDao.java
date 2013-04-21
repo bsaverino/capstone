@@ -74,7 +74,7 @@ public class MaintenanceDao extends DBConnector {
 		return null;
 
 	}
-
+	
 	public Maintenance getSingleMaintenance(int id) throws SQLException {
 		Connection conn = getConnection();
 		String sql = "Select m.maintenance_id, m.mileage, m.service_id, s.service, s.service_discription, m.date " +

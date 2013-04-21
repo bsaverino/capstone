@@ -5,13 +5,12 @@ import java.sql.Time;
 
 public class RaceTime {
 	
-	int raceId, userId, vehicleId, raceTypeId, speed;
-	Date date;
-	String raceType;
-	Time time, distanceTime;
+	private int raceId, userId, vehicleId, raceTypeId, speed;
+	private String raceType, date;
+	private float time, distanceTime;
 	
-	public RaceTime(int raceId, int raceTypeId, int speed, Date date,
-			String raceType, Time time, Time distanceTime) {
+	public RaceTime(int raceId, int raceTypeId, int speed, String date,
+			String raceType, float time, float distanceTime) {
 		super();
 		this.raceId = raceId;
 		this.raceTypeId = raceTypeId;
@@ -23,7 +22,7 @@ public class RaceTime {
 	}
 
 	public RaceTime(int raceId, int userId, int vehicleId, int raceTypeId,
-			int speed, Date date, Time time, Time distanceTime) {
+			int speed, String date, float time, float distanceTime) {
 		super();
 		this.raceId = raceId;
 		this.userId = userId;
@@ -34,6 +33,7 @@ public class RaceTime {
 		this.time = time;
 		this.distanceTime = distanceTime;
 	}
+
 
 	public int getRaceId() {
 		return raceId;
@@ -75,14 +75,6 @@ public class RaceTime {
 		this.speed = speed;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	public String getRaceType() {
 		return raceType;
 	}
@@ -91,19 +83,27 @@ public class RaceTime {
 		this.raceType = raceType;
 	}
 
-	public Time getTime() {
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public float getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(float time) {
 		this.time = time;
 	}
 
-	public Time getDistanceTime() {
+	public float getDistanceTime() {
 		return distanceTime;
 	}
 
-	public void setDistanceTime(Time distanceTime) {
+	public void setDistanceTime(float distanceTime) {
 		this.distanceTime = distanceTime;
 	}
 

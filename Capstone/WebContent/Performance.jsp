@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="edu.ben.cmsc398.model.*"%>
-<%@ page import="java.util.*"%>
-<%@ page
-	import="edu.ben.cmsc398.model.RaceTime, edu.ben.cmsc398.model.Modification,java.util.ArrayList"%>
+<%@ page import="edu.ben.cmsc398.model.*, java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,8 +133,8 @@
 												for (RaceTime t : times) {
 											%>
 											<tr class="time">
-												<td><input type="radio" name="mRecord"
-													value=<%=t.getRaceId()%> /></td>
+												<td><input type="radio" name="raceId"
+													value="<%=t.getRaceId()%>"/></td>
 												<td><%=t.getRaceType()%></td>
 												<td><%=t.getTime()%></td>
 												<td><%=t.getSpeed()%></td>
@@ -159,15 +156,15 @@
 												</button>
 												<ul class="dropdown-menu">
 													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Add Record"
-														onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+														type="submit" value="Add Time"
+														onclick="form.action='TrackingServlet?action=addForwardTime';" />
 													</li>
 													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Edit Record"
-														onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
+														type="submit" value="Edit Time"
+														onclick="form.action='TrackingServlet?action=editForwardTime';" /></li>
 													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Delete Record"
-														onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
+														type="submit" value="Delete Time"
+														onclick="form.action='TrackingServlet?action=deleteTime';" /></li>
 												</ul>
 											</div>
 											<div id="status"></div>
@@ -203,7 +200,7 @@
 												for (Modification m : mods) {
 											%>
 											<tr class="time">
-												<td><input type="radio" name="mRecord"
+												<td><input type="radio" name="modId"
 													value=<%=m.getModificationId()%> /></td>
 												<td><%=m.getModType()%></td>
 												<td><%=m.getBrand()%></td>
@@ -225,15 +222,15 @@
 												</button>
 												<ul class="dropdown-menu">
 													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Add Record"
-														onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+														type="submit" value="Add Modification"
+														onclick="form.action='TrackingServlet?action=addForwardMod';" />
 													</li>
 													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Edit Record"
-														onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
+														type="submit" value="Edit Modification"
+														onclick="form.action='TrackingServlet?action=editForwardMod';" /></li>
 													<li><input id="next" class="btn btn-primary"
-														type="submit" value="Delete Record"
-														onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
+														type="submit" value="Delete Modification"
+														onclick="form.action='TrackingServlet?action=deleteMod';" /></li>
 												</ul>
 											</div>
 											<div id="status"></div>

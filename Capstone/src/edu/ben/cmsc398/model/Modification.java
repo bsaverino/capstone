@@ -15,14 +15,14 @@ public class Modification {
 		this.price = price;
 	}
 	public Modification(int modificationId, int vehicleId, int userId,
-			String brand, String part, String modType, float price) {
+			String brand, String part, int modLookupId, float price) {
 		super();
 		this.modificationId = modificationId;
 		this.vehicleId = vehicleId;
 		this.userId = userId;
 		this.brand = brand;
 		this.part = part;
-		this.modType = modType;
+		this.modLookupId = modLookupId;
 		this.price = price;
 	}
 	public int getModificationId() {
