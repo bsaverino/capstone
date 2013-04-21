@@ -190,13 +190,13 @@
 													%>
 													<option selected
 														value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></option>
+							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></option>
 													<%
 														} else {
 													%>
 													<option
 														value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></option>
+							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></option>
 													<%
 														}
 														}

@@ -143,12 +143,17 @@
 													<select name="Vehicle">
 														<%
 															for (Vehicle vehicle : vehicleList) {
+																if(vehicle.getVehicleId() == vehicleId){
+																	
+																}else{
 														%>
-														<option value=<%=vehicle.getVehicleId()%>><%=vehicle.getYear() + " - " + vehicle.getMake() + " "
-						+ vehicle.getTrim()%></option>
+														<option value=<%=vehicle.getVehicleId()%>><%=vehicle.getYear() + " - " + vehicle.getMake()
+																	+ " "+ vehicle.getModel()+ " "+ vehicle.getTrim()%></option>
 														<%
+																}
 															}
 														%>
+														
 													</select>
 												</div>
 											</div>

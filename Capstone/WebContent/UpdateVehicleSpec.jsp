@@ -41,14 +41,28 @@
 	<%
 		int userId = (Integer) session.getAttribute("userId");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
-			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 		.getAttribute("vehicleList");
-			ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
+		ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
 		.getAttribute("vehicleWithSpecList");
 			VehicleSpecs vehicle = (VehicleSpecs) request.getAttribute("vehicleSpec");
-			float niFi = (float) .65;
-			float na = (float) .55;
+		float niFi = (float) .65;
+		float na = (float) .55;
+		boolean exist = (Boolean) request.getAttribute("exist");
 	%>
+	
+<%
+		if(!exist){%>
+<script type="text/javascript">
+<!--
+	alert('Error. Add Vehicle Specs before trying to update them');
+	window.location.replace("Profile.jsp");
+// -->
+</script>
+
+<%
+}
+%>
 
 	<div id="header">
 		<h1>
@@ -73,15 +87,15 @@
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "+ " "+ newVehicle.getModel()
-							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></a></li>
+							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "+ newVehicle.getMake() + " "+ newVehicle.getModel()
+									+" " + newVehicle.getTrim()%></a></li>
 					<%
 						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
-							class="icon icon-space"></i><%=newVehicle.getYear() + " - "+ " "+ newVehicle.getModel()
-							+ newVehicle.getMake() + " " + newVehicle.getTrim()%></a></li>
+							class="icon icon-space"></i><%=newVehicle.getYear() + " - "+ newVehicle.getMake() + " "+ newVehicle.getModel()
+									+" " + newVehicle.getTrim()%></a></li>
 					<%
 						}
 												}

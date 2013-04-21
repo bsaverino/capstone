@@ -110,13 +110,24 @@ public class UpdateServlet extends HttpServlet {
 			ArrayList<Integer> vehicleIdList = new ArrayList<Integer>();
 			ArrayList<FuelType> fuel = null;
 			VehicleSpecs vehicleSpec = null;
-			
+			boolean found = false;
+			boolean exist = false;
 
 			try {
 				vehicleSpecsList = vsDao.getAllVehicleSpec();
 				fuel = vsDao.getFuelType();
+				// get a list of all vehicleId that I own
 				for(Vehicle v:vehicleList)
 					vehicleIdList.add(v.getVehicleId());
+				
+				System.out.println("ID in v spec table");
+				for(Integer v:vehicleIdList)
+				{
+					System.out.println(v);
+					if(vehicleId== v)
+						exist = true;
+				}
+				
 				
 				// find out which of my vehicles have specs
 				for(int j=0;j<vehicleSpecsList.size();j++){
@@ -126,15 +137,37 @@ public class UpdateServlet extends HttpServlet {
 					}
 				}
 				
+				// find out the default vehicle's specs and return it
 				for(Vehicle v:vehicleWithSpecList){
+					System.out.println("v with specs: "+v.toString());
 					if(v.getVehicleId()== vehicleId)
 					{
 						request.setAttribute("vehicleSpec", vsDao.getVehicleSpec(vehicleId));
 						System.out.println(vsDao.getVehicleSpec(vehicleId).toString());
+						found = true;
+						break;
 					}
 				}
+				
+				// if the default vehicle's specs are not found, assume it hasn't been created
+				// so set default vehicleId and the specs to be the first vehicle that has specs
+				VehicleSpecs defaultv =null;
+				Vehicle defaultvehicle = vehicleWithSpecList.get(0);
+				int dvID= defaultvehicle.getVehicleId();
+				vsDao.getVehicleSpec(vehicleWithSpecList.indexOf(0));
+				if(!found){
+						System.out.println("default v has no spec so setting the first one with spec");
+						request.setAttribute("vehicleSpec", vsDao.getVehicleSpec(dvID));
+						request.getSession().setAttribute("vehicleId", dvID);
+				}
+				
+				defaultv = (VehicleSpecs)request.getAttribute("vehicleSpec");
+				
+				
+				System.out.println("default v "+defaultv);
 				request.setAttribute("vehicleWithSpecList", vehicleWithSpecList);				
 				request.setAttribute("fuelList", fuel); // respond
+				request.setAttribute("exist", exist); // respond
 			}catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -146,8 +179,6 @@ public class UpdateServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else if (action.equalsIgnoreCase("changeDefaultVehicle")) {	// if the the user wants to change the default vehicle in session
 			String prevPage = (String) request.getHeader("Referer");
-			System.out.println(prevPage);
-			System.out.println(request.getAttribute("javax.servlet.forward.request_uri"));
 			try {
 				System.out.println("default vehicle before "+vehicleId);
 				// setting the new vehicleId in the session and in the DB
@@ -158,21 +189,6 @@ public class UpdateServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
-			// redirect to UpdateVehicle.jsp    NEED TO FIGURE OUT HOW TO REDIRECT BACK TO THE LAST PAGE
-			/*if(prevPage.equals("http://localhost:8080/Capstone/UpdateServlet?action=loadUpdateVehicle")){
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("UpdateServlet?action=loadUpdateVehicle");
-			dispatcher.forward(request, response);
-			}else if(prevPage.equals("http://localhost:8080/Capstone/UpdateServlet?action=loadUserProfile")){
-				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("UpdateServlet?action=loadUserProfile");
-				dispatcher.forward(request, response);
-			}if(prevPage.equals("http://localhost:8080/Capstone/UpdateServlet?action=loadUpdateVehicleSpec")){
-				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("UpdateServlet?action=loadUpdateVehicleSpec");
-				dispatcher.forward(request, response);
-				}*/
 			// Go back to the previous page
 			response.sendRedirect(request.getHeader("referer"));
 			
@@ -357,7 +373,7 @@ public class UpdateServlet extends HttpServlet {
 				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
 						color, year, ' ', userId);
 				int vId = vDao.addVehicle(vehicle);
-				vehicleList.add(vehicle);
+				vehicleList = vDao.getAllVehicleByUser(userId);
 
 				if (user.getDefaultVehicle() == 0) {
 					user.setDefaultVehicle(vId);
@@ -371,6 +387,7 @@ public class UpdateServlet extends HttpServlet {
 					}
 				}
 				request.getSession().setAttribute("vehicleList",vehicleList);
+				request.getSession().setAttribute("vehicleId",vId);
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Profile.jsp");
 				dispatcher.forward(request, response);
@@ -474,17 +491,19 @@ public class UpdateServlet extends HttpServlet {
 
 			if (check.equals("on"))
 				try {
-					
+					if(deleteVehicleId==vehicleId)
+						request.getSession().setAttribute("vehicleId", vehicleList.get(0).getVehicleId());
+					uDao.updateDefaultVehicle(userId, vehicleList.get(0).getVehicleId());
 					vsDao.deleteVehicleSpecs(deleteVehicleId);
 					vDao.deleteVehicle(deleteVehicleId);
-					System.out.println("deleted vehicle" + deleteVehicleId);
-					vehicleList = vDao.getAllVehicleByUser(userId);
+					System.out.println("deleted vehicle" + deleteVehicleId);					
 					
 					System.out.println("new vehicle list");
+					vehicleList = vDao.getAllVehicleByUser(userId);
 					for(Vehicle v:vehicleList)
 						System.out.println(v.toString());
 					
-					request.getSession().setAttribute("vehicleId", vehicleList.get(0).getVehicleId());
+					//request.getSession().setAttribute("vehicleId", vehicleList.get(0).getVehicleId());
 					System.out.println("new v id: "+vehicleList.get(0).getVehicleId());
 					request.getSession().setAttribute("vehicleList",vehicleList);
 					RequestDispatcher dispatcher = request
