@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -130,21 +129,4 @@
 				</div>
 			</div>
 
-			<div class="row-fluid">
-				<div id="footer" class="span12">2012 &copy; Brought to you by
-					Unity Productions</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.validate.js"></script>
-	<script src="js/jquery.wizard.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.wizard.js"></script>
-</body>
-</html>
+			<jsp:include page="Footer.jspf" />

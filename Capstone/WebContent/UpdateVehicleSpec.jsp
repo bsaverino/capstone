@@ -40,37 +40,36 @@
 <body>
 	<%
 		int userId = (Integer) session.getAttribute("userId");
-		int vehicleId = (Integer) session.getAttribute("vehicleId");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
-		.getAttribute("vehicleList");
-		ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
-		.getAttribute("vehicleWithSpecList");
-			VehicleSpecs vehicle = (VehicleSpecs) request.getAttribute("vehicleSpec");
-		float niFi = (float) .65;
-		float na = (float) .55;
-		boolean exist = (Boolean) request.getAttribute("exist");
+			int vehicleId = (Integer) session.getAttribute("vehicleId");
+			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+			.getAttribute("vehicleList");
+			ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
+			.getAttribute("vehicleWithSpecList");
+		VehicleSpecs vehicle = (VehicleSpecs) request.getAttribute("vehicleSpec");
+			float niFi = (float) .65;
+			float na = (float) .55;
+			boolean exist = (Boolean) request.getAttribute("exist");
 	%>
-	
-<%
-		if(!exist){%>
-<script type="text/javascript">
-<!--
-	alert('Error. Add Vehicle Specs before trying to update them');
-	window.location.replace("Profile.jsp");
-// -->
-</script>
 
-<%
-}
-%>
+	<%
+		if(!exist){
+	%>
+	<script type="text/javascript">
+	<!--
+		alert('Error. Add Vehicle Specs before trying to update them');
+		window.location.replace("Profile.jsp");
+	// -->
+	</script>
+
+	<%
+		}
+	%>
 
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
 		</h1>
 	</div>
-
-
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
 			<li class="btn btn-inverse dropdown"><a href="#"
@@ -98,7 +97,7 @@
 									+" " + newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+															}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -108,24 +107,7 @@
 		</ul>
 	</div>
 
-	<div id="sidebar">
-		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
-			Home</a>
-		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
-					<span>Dashboard</span></a></li>
-			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i
-					class="icon-wrench"></i> <span>Maintenance</span></a></li>
-			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
-					<span>Calculators</span> <span class="label">3</span></a>
-				<ul>
-					<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
-				</ul></li>
-		</ul>
-	</div>
+	<jsp:include page="Nav.jspf" />
 
 	<div id="content">
 		<div id="content-header">
@@ -200,7 +182,7 @@
 							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></option>
 														<%
 															}
-																																							}
+																																																			}
 														%>
 													</select>
 												</div>
@@ -266,8 +248,8 @@
 													<select id="fuel" name="fuel">
 														<%
 															ArrayList<FuelType> fuel = (ArrayList<FuelType>) request.getAttribute("fuelList");
-																										for (FuelType fuelType : fuel) {
-																											if (vehicle.getOctane() == fuelType.getFuelId()) {
+																																						for (FuelType fuelType : fuel) {
+																																							if (vehicle.getOctane() == fuelType.getFuelId()) {
 														%>
 														<option selected value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 														<%
@@ -276,7 +258,7 @@
 														<option value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 														<%
 															}
-																										}
+																																						}
 														%>
 													</select>
 												</div>
@@ -289,7 +271,7 @@
 														<option value="0" selected="selected">Cylinders</option>
 														<%
 															for (int i = 1; i <= 16; i++) {
-																												if (vehicle.getCylinders() == i ) {
+																																								if (vehicle.getCylinders() == i ) {
 														%>
 														<option selected value=<%=i%>><%=i%></option>
 														<%
@@ -298,7 +280,7 @@
 														<option value=<%=i%>><%=i%></option>
 														<%
 															}
-																													}
+																																									}
 														%>
 													</select>
 												</div>
@@ -440,20 +422,4 @@
 						</div>
 					</div>
 
-					<div class="row-fluid">
-						<div id="footer" class="span12">2012 &copy; Brought to you
-							by Unity Productions</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.peity.min.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.interface.js"></script>
-</body>
-</html>
+					<jsp:include page="Footer.jspf" />

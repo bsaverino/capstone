@@ -16,14 +16,11 @@
 </head>
 <body>
 
-
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
 		</h1>
 	</div>
-
-
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
 			<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
@@ -44,7 +41,8 @@
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Cal</a></li>
-					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Cal</a></li>
+					<li><a href="guestCompressionRatioCalc.jsp">Compression
+							Ratio Cal</a></li>
 					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Cal</a></li>
 				</ul></li>
 		</ul>
@@ -63,28 +61,8 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12 center" style="text-align: center;">
-					<h1>Register or Login to take full advantage of all rCal Tracer can do for you! </h1>
+					<h1>Register or Login to take full advantage of all rCal
+						Tracer can do for you!</h1>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div class="row-fluid">
-					<div id="footer" class="span12">2012 &copy; Brought to you by
-						Unity Productions</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<script src="js/excanvas.min.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.flot.min.js"></script>
-	<script src="js/jquery.flot.resize.min.js"></script>
-	<script src="js/jquery.peity.min.js"></script>
-	<script src="js/fullcalendar.min.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.dashboard.js"></script>
-</body>
-</html>
+			<jsp:include page="Footer.jspf" />

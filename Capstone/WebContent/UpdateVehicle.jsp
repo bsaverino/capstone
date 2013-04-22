@@ -50,7 +50,6 @@
 		</h1>
 	</div>
 
-
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
 			<li class="btn btn-inverse dropdown"><a href="#"
@@ -88,24 +87,7 @@
 		</ul>
 	</div>
 
-	<div id="sidebar">
-		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
-			Home</a>
-		<ul>
-			<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
-					<span>Dashboard</span></a></li>
-			<li><a href="Performance.jsp"><i class="icon-road"></i> <span>Performance</span></a></li>
-			<li><a href="TrackingServlet?action=getMaintenance"><i
-					class="icon-wrench"></i> <span>Maintenance</span></a></li>
-			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
-					<span>Calculators</span> <span class="label">3</span></a>
-				<ul>
-				<li><a href="CalculatorServlet?action=loacCICalc">Cubic Inch Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacCRCalc">Compression Ratio Calc</a></li>
-					<li><a href="CalculatorServlet?action=loacFICalc">Fuel Injector Calc</a></li>
-				</ul></li>
-		</ul>
-	</div>
+	<jsp:include page="Nav.jspf" />
 
 	<div id="content">
 		<div id="content-header">
@@ -281,22 +263,4 @@
 							</div>
 						</div>
 
-						<div class="row-fluid">
-							<div id="footer" class="span12">2012 &copy; Brought to you
-								by Unity Productions</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.peity.min.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.interface.js"></script>
-</body>
-</html>
+						<jsp:include page="Footer.jspf" />

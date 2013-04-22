@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -39,7 +38,8 @@
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="guestCompressionRatioCalc.jsp">Compression
+							Ratio Calc</a></li>
 					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
@@ -52,7 +52,8 @@
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#" class="current">Personal Info</a> 
+				class="icon-home"></i> Home</a> <a href="#" class="current">Personal
+				Info</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -64,7 +65,8 @@
 							<h5>Registration Page 1</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet?action=registerUser">
+							<form id="form-wizard" class="form-horizontal" method="post"
+								action="RegistrationServlet?action=registerUser">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
 										<label class="control-label">First Name</label>
@@ -111,8 +113,10 @@
 									<div class="control-group">
 										<label class="control-label">Gender</label>
 										<div class="controls">
-											<label><input type="radio" id="genderMale" name="gender" value="male"/> Male</label> <label><input
-												type="radio" id="genderFemale" name="gender" value="female"/> Female</label>
+											<label><input type="radio" id="genderMale"
+												name="gender" value="male" /> Male</label> <label><input
+												type="radio" id="genderFemale" name="gender" value="female" />
+												Female</label>
 										</div>
 									</div>
 									<div class="control-group">
@@ -169,23 +173,4 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row-fluid">
-				<div id="footer" class="span12">2012 &copy; Brought to you by
-					Unity Productions</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.ui.custom.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.validate.js"></script>
-	<script src="js/jquery.wizard.js"></script>
-	<script src="js/unicorn.js"></script>
-	<script src="js/unicorn.wizard.js"></script>
-</body>
-</html>
-
+			<jsp:include page="Footer.jspf" />

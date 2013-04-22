@@ -156,10 +156,10 @@ public class RegistrationServlet extends HttpServlet {
 				float pistonDeckHeight = Float.parseFloat(request
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
-
-				if (request.getParameter("nitrous").equals("nitrous"))
+				
+				if (request.getParameter("nitrous") == "1")
 					bsfc = (float) .65;
-				else if (request.getParameter("fi").equals("fi"))
+				else if (request.getParameter("fi") == "1")
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
