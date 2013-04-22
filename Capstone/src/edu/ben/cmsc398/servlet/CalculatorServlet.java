@@ -44,7 +44,10 @@ public class CalculatorServlet extends HttpServlet {
 		VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, 0,
 				0, 0, 0, 0, 0,0, 0,0,0,0,0,0,0,0,0,0,0);
 		try {
+			// Get the vehicle spec that correspond to the vehicleId
 			vehicle = vsDao.getVehicleSpec(vehicleId);
+			
+			// If none is found, create a blank one that can be passed to the page so the user can edit it
 			if (vehicle==null){
 				vehicle = vehicleSpecs;
 			}
@@ -54,8 +57,8 @@ public class CalculatorServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if (action.equalsIgnoreCase("loacCRCalc")) { // load UpdateProfile.jsp
-			
+		if (action.equalsIgnoreCase("loacCRCalc")) { // load Compression Ratio Calculator
+			// Set attributes that is forward to the calc
 			request.setAttribute("bore",vehicle.getBore());
 			request.setAttribute("stroke",vehicle.getStroke());
 			request.setAttribute("headCC",vehicle.getHeadCC());
@@ -66,29 +69,29 @@ public class CalculatorServlet extends HttpServlet {
 			request.setAttribute("headGasketBore",vehicle.getHeadGasketBore());
 			request.setAttribute("resultCompressionRatio",vehicle.getResultCompressionRatio());
 			
-			// redirect to UpdateProfile.jsp
+			// redirect to calculator
 			RequestDispatcher dispatcher = request.getRequestDispatcher("CompressionRatioCalc.jsp");
 			dispatcher.forward(request, response);
-		}else if (action.equalsIgnoreCase("loacCICalc")) { // load UpdateProfile.jsp
-			
+		}else if (action.equalsIgnoreCase("loacCICalc")) { // load Cubic Inch Calc
+			// Set attributes that is forward to the calc
 			request.setAttribute("bore",vehicle.getBore());
 			request.setAttribute("stroke",vehicle.getStroke());
 			request.setAttribute("cylinders",vehicle.getCylinders());
 			request.setAttribute("resultCubicInch",vehicle.getResultCubicInch());
 			
-			// redirect to UpdateProfile.jsp
+			// redirect to calc
 			RequestDispatcher dispatcher = request.getRequestDispatcher("CubicInchCalc.jsp");
 			dispatcher.forward(request, response);
 		}
-		else if (action.equalsIgnoreCase("loacFICalc")) { // load UpdateProfile.jsp
-			
+		else if (action.equalsIgnoreCase("loacFICalc")) { // load Fuel Injector Calc
+			// Set attributes that is forward to the calc
 			request.setAttribute("hp",vehicle.getHp());
 			request.setAttribute("cylinders",vehicle.getCylinders());
 			request.setAttribute("dutyCycle",vehicle.getDutyCycle());
 			request.setAttribute("bsfc",vehicle.getBsfc());
 			request.setAttribute("resultFuelInjector",vehicle.getResultFuelInjector());
 			
-			// redirect to UpdateProfile.jsp
+			// redirect to calc
 			RequestDispatcher dispatcher = request.getRequestDispatcher("FuelInjectorCalc.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -98,8 +101,6 @@ public class CalculatorServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// testing pull and commit. reinstalled windows so setting it up again 
 	}
 
 }
