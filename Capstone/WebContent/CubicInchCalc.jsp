@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
-    pageEncoding="US-ASCII"%>
+	pageEncoding="US-ASCII"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="edu.ben.cmsc398.model.*"%>
 <%@ page import="java.util.*"%>
@@ -26,11 +26,15 @@
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+				.getAttribute("vehicleList");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
-	<jsp:include page="Header.jspf" />
-
+	<div id="header">
+		<h1>
+			<a href="./dashboard.html">rCal Tracer</a>
+		</h1>
+	</div>
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
 			<li class="btn btn-inverse dropdown"><a href="#"
@@ -48,17 +52,21 @@
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-space"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+						}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -94,25 +102,29 @@
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore" value="<%=request.getAttribute("bore")%>">
+											<input type="text" id="bore" name="bore"
+												value="<%=request.getAttribute("bore")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke" value="<%=request.getAttribute("stroke")%>">
+											<input type="text" id="stroke" name="stroke"
+												value="<%=request.getAttribute("stroke")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders" value="<%=request.getAttribute("cylinders")%>">
+											<input type="text" id="cylinders" name="cylinders"
+												value="<%=request.getAttribute("cylinders")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cubic Inch</label>
 										<div class="controls">
-											<input type="text" id="cubicInchTotal" name="cubicInchTotal" value ="<%=request.getAttribute("resultCubicInch") %>"
+											<input type="text" id="cubicInchTotal" name="cubicInchTotal"
+												value="<%=request.getAttribute("resultCubicInch")%>"
 												readonly>
 										</div>
 									</div>
@@ -131,4 +143,3 @@
 			</div>
 		</div>
 		<jsp:include page="Footer.jspf" />
-

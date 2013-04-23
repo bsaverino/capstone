@@ -19,27 +19,29 @@
 			var dutyCycle = parseFloat(document.calc.dutyCycle.value);
 		var cylinders = parseInt(document.calc.cylinders.value);
 		var bsfc = parseFloat(document.calc.bsfc.value);
-		var total = ((hp*bsfc)/(cylinders*dutyCycle)).toPrecision(3);
+		var total = ((hp * bsfc) / (cylinders * dutyCycle)).toPrecision(3);
 		document.calc.fuelInjectorTotal.value = total;
 	}
-	function dutyCycle(){
+	function dutyCycle() {
 		System.out.println("test2");
-		if (vehicle.getDutyCycle() == 0){
-			document.calc.dutyCycle.value="0.8";
+		if (vehicle.getDutyCycle() == 0) {
+			document.calc.dutyCycle.value = "0.8";
 			System.out.println("test");
 		}
 	}
-	
 </script>
 </head>
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-		int vehicleId = (Integer) session.getAttribute("vehicleId");
+			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+			int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
-	<jsp:include page="Header.jspf" />
-
+	<div id="header">
+		<h1>
+			<a href="./dashboard.html">rCal Tracer</a>
+		</h1>
+	</div>
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
@@ -68,7 +70,7 @@
 							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+															}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -105,41 +107,51 @@
 									<div class="control-group">
 										<label class="control-label">Horsepower at rear wheels</label>
 										<div class="controls">
-											<input type="text" id="hp" name="hp" value="<%=request.getAttribute("hp") %>">
+											<input type="text" id="hp" name="hp"
+												value="<%=request.getAttribute("hp")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Cylinders</label>
 										<div class="controls">
-											<input type="text" id="cylinders" name="cylinders" value="<%=request.getAttribute("cylinders")%>">
+											<input type="text" id="cylinders" name="cylinders"
+												value="<%=request.getAttribute("cylinders")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Duty Cycle</label>
 										<div class="controls">
-											<input type="text" id="dutyCycle" name="dutyCycle" value="<%=request.getAttribute("dutyCycle")%>">
+											<input type="text" id="dutyCycle" name="dutyCycle"
+												value="<%=request.getAttribute("dutyCycle")%>">
 										</div>
 									</div>
 								</div>
 								<script type="text/javascript" defer="defer">
-											<!--
-												if (document.getElementById) {
-													if ( <%=request.getAttribute("dutyCycle")%> == 0) {
-														document.getElementById('dutyCycle').value = 0.8;
-													}
-												}
-											// -->
-											</script>
+								<!--
+									if (document.getElementById) {
+										if (
+								<%=request.getAttribute("dutyCycle")%>
+									== 0) {
+											document
+													.getElementById('dutyCycle').value = 0.8;
+										}
+									}
+								// -->
+								</script>
 								<div class="control-group">
 									<label class="control-label">BSFC</label>
 									<div class="controls">
-										<input type="text" id="bsfc" name="bsfc" value="<%=request.getAttribute("bsfc")%>">
+										<input type="text" id="bsfc" name="bsfc"
+											value="<%=request.getAttribute("bsfc")%>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Fuel Injector</label>
 									<div class="controls">
-										<input type="text" id="fuelInjectorTotal" name="fuelInjectorTotal" value="<%=request.getAttribute("resultFuelInjector")%>" readonly>
+										<input type="text" id="fuelInjectorTotal"
+											name="fuelInjectorTotal"
+											value="<%=request.getAttribute("resultFuelInjector")%>"
+											readonly>
 									</div>
 								</div>
 								<div class="form-actions">
@@ -155,4 +167,3 @@
 			</div>
 		</div>
 		<jsp:include page="Footer.jspf" />
-

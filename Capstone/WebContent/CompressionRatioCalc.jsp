@@ -19,16 +19,16 @@
 		var headCC = parseInt(document.calc.headCC.value);
 		var pistonCC = parseInt(document.calc.pistonCC.value);
 
-		if(getValue()=="-1")
+		if (getValue() == "-1")
 			pistonType = -1;
-		if(getValue()=="1")
+		if (getValue() == "1")
 			pistonType = 1;
 		var headGasketThickness = parseFloat(document.calc.headGasketThickness.value);
 		var headGasketBore = parseFloat(document.calc.headGasketBore.value);
 
 		var CYV = 0.7853982 * Math.pow(bore, 2) * stroke;
 		var CLV = 0.7853982 * Math.pow(bore, 2) * pistonDeckHeight;
-		var PCC = (pistonType * pistonCC) * 0.0610237; 
+		var PCC = (pistonType * pistonCC) * 0.0610237;
 		var HG = 0.7853982 * Math.pow(headGasketBore, 2) * headGasketThickness;
 		var HCC = 0.0610237 * headCC;
 		var total = (CYV + CLV + PCC + HG + HCC) / (CLV + PCC + HG + HCC);
@@ -39,11 +39,11 @@
 
 		var radios = document.getElementsByName('pistonType');
 
-		for (var i = 0, length = radios.length; i < length; i++) {
-		    if (radios[i].checked) {
-		        /* alert(radios[i].value); */
-		        return radios[i].value;
-		    }
+		for ( var i = 0, length = radios.length; i < length; i++) {
+			if (radios[i].checked) {
+				/* alert(radios[i].value); */
+				return radios[i].value;
+			}
 		}
 
 	}
@@ -52,12 +52,15 @@
 <body>
 	<%
 		User user = (User) request.getAttribute("user");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-		int vehicleId = (Integer) session.getAttribute("vehicleId");
+			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+			int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
 	getValue();
-	<jsp:include page="Header.jspf" />
-
+	<div id="header">
+		<h1>
+			<a href="./dashboard.html">rCal Tracer</a>
+		</h1>
+	</div>
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
@@ -86,7 +89,7 @@
 							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></a></li>
 					<%
 						}
-												}
+															}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -122,77 +125,93 @@
 									<div class="control-group">
 										<label class="control-label">Bore</label>
 										<div class="controls">
-											<input type="text" id="bore" name="bore" value="<%=request.getAttribute("bore") %>">
+											<input type="text" id="bore" name="bore"
+												value="<%=request.getAttribute("bore")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Stroke</label>
 										<div class="controls">
-											<input type="text" id="stroke" name="stroke" value="<%=request.getAttribute("stroke") %>">
+											<input type="text" id="stroke" name="stroke"
+												value="<%=request.getAttribute("stroke")%>">
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Piston Deck Height</label>
 										<div class="controls">
 											<input type="text" id="pistonDeckHeight"
-												name="pistonDeckHeight" value="<%=request.getAttribute("pistonDeckHeight") %>">
+												name="pistonDeckHeight"
+												value="<%=request.getAttribute("pistonDeckHeight")%>">
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head CC</label>
 									<div class="controls">
-										<input type="text" id="headCC" name="headCC" value="<%=request.getAttribute("headCC") %>">
+										<input type="text" id="headCC" name="headCC"
+											value="<%=request.getAttribute("headCC")%>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Piston Type</label>
 									<div class="controls">
-										<label><input type="radio" id="dome"
-											name="pistonType" onClick="return getValue()" value="1"/>
-											Dome</label> <label><input type="radio" id="dish"
-											name="pistonType" onClick="return getValue()" value="-1" /> Dish</label>
-											<script type="text/javascript" defer="defer">
-											<!-- 
-											if(document.getElementById){
-											if (<%=request.getAttribute("pistonType")%> == 1){
-											document.getElementById('dome').checked = true;
-											document.getElementById('dish').checked = false;
+										<label><input type="radio" id="dome" name="pistonType"
+											onClick="return getValue()" value="1" /> Dome</label> <label><input
+											type="radio" id="dish" name="pistonType"
+											onClick="return getValue()" value="-1" /> Dish</label>
+										<script type="text/javascript" defer="defer">
+										<!--
+											if (document.getElementById) {
+												if (
+										<%=request.getAttribute("pistonType")%>
+											== 1) {
+													document
+															.getElementById('dome').checked = true;
+													document
+															.getElementById('dish').checked = false;
+												} else if (
+										<%=request.getAttribute("pistonType")%>
+											== 2) {
+													// Radiobutton "Yes" should be selected.
+													document
+															.getElementById('dome').checked = false;
+													document
+															.getElementById('dish').checked = true;
+												}
 											}
-											else if (<%=request.getAttribute("pistonType")%> == 2){
-											// Radiobutton "Yes" should be selected.
-											document.getElementById('dome').checked = false;
-											document.getElementById('dish').checked = true;
-											}
-											}
-											// -->
-											</script>
+										// -->
+										</script>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Piston CC</label>
 									<div class="controls">
-										<input type="text" id="pistonCC" name="pistonCC" value="<%=request.getAttribute("pistonCC") %>">
+										<input type="text" id="pistonCC" name="pistonCC"
+											value="<%=request.getAttribute("pistonCC")%>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head Gasket Thickness</label>
 									<div class="controls">
 										<input type="text" id="headGasketThickness"
-											name="headGasketThickness" value="<%=request.getAttribute("headGasketThickness") %>">
+											name="headGasketThickness"
+											value="<%=request.getAttribute("headGasketThickness")%>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Head Gasket Bore</label>
 									<div class="controls">
-										<input type="text" id="headGasketBore" name="headGasketBore" value="<%=request.getAttribute("headGasketBore") %>">
+										<input type="text" id="headGasketBore" name="headGasketBore"
+											value="<%=request.getAttribute("headGasketBore")%>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Compression Ratio</label>
 									<div class="controls">
 										<input type="text" id="compressionRatioTotal"
-											name="compressionRatioTotal" value="<%=request.getAttribute("resultCompressionRatio")%>"readonly>
+											name="compressionRatioTotal"
+											value="<%=request.getAttribute("resultCompressionRatio")%>"
+											readonly>
 									</div>
 								</div>
 								<div class="form-actions">

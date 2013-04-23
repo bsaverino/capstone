@@ -39,32 +39,36 @@
 </head>
 <body>
 	<%
-	int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-		.toString());
-		int userId = Integer.parseInt(session.getAttribute("userId")
-		.toString());
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-		int vehicleNoSpecListSize = (Integer) request.getAttribute("vehicleNoSpecListSize");
-		ArrayList<Vehicle> vehicleNoSpecList = null;
-		if(vehicleNoSpecListSize>0){
-	vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
+		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
+			.toString());
+			int userId = Integer.parseInt(session.getAttribute("userId")
+			.toString());
+			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+			int vehicleNoSpecListSize = (Integer) request.getAttribute("vehicleNoSpecListSize");
+			ArrayList<Vehicle> vehicleNoSpecList = null;
+			if(vehicleNoSpecListSize>0){
+		vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
+			}
+	%>
+	<%
+		if(vehicleNoSpecListSize==0){
+	%>
+	<script type="text/javascript" defer="defer">
+	<!--
+		alert('Error. All your vehicles have specs. Please edit them or add another vehicle');
+		window.location.replace("Profile.jsp");
+	// -->
+	</script>
+
+	<%
 		}
-		%>
-<%
-		if(vehicleNoSpecListSize==0){%>
-<script type="text/javascript" defer="defer">
-<!--
-	alert('Error. All your vehicles have specs. Please edit them or add another vehicle');
-	window.location.replace("Profile.jsp");
-// -->
-</script>
+	%>
 
-<%
-}
-%>
-
-	<jsp:include page="Header.jspf" />
-
+	<div id="header">
+		<h1>
+			<a href="./dashboard.html">rCal Tracer</a>
+		</h1>
+	</div>
 
 	<div id="user-nav" class="navbar navbar-inverse">
 		<ul class="nav btn-group">
@@ -83,14 +87,18 @@
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-ok"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						} else {
 					%>
 					<li><a class="sAdd" title=""
 						href="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><i
 							class="icon icon-space"></i><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></a></li>
+							+ newVehicle.getMake() + " "
+							+ newVehicle.getModel() + " "
+							+ newVehicle.getTrim()%></a></li>
 					<%
 						}
 						}
@@ -161,25 +169,29 @@
 											<div class="controls">
 												<select onchange="window.location=this.value" name="Vehicle">
 													<%
-													if(vehicleNoSpecListSize>0){
-														for (Vehicle newVehicle : vehicleNoSpecList) {
+														if (vehicleNoSpecListSize > 0) {
+															for (Vehicle newVehicle : vehicleNoSpecList) {
 													%>
 													<%
 														if (vehicleId == newVehicle.getVehicleId()) {
 													%>
 													<option selected
 														value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></option>
+								+ newVehicle.getMake() + " "
+								+ newVehicle.getModel() + " "
+								+ newVehicle.getTrim()%></option>
 													<%
 														} else {
 													%>
 													<option
 														value="UpdateServlet?action=changeDefaultVehicle&selectedVehicle=<%=newVehicle.getVehicleId()%>"><%=newVehicle.getYear() + " - "
-							+ newVehicle.getMake()+ " "+ newVehicle.getModel() + " " + newVehicle.getTrim()%></option>
+								+ newVehicle.getMake() + " "
+								+ newVehicle.getModel() + " "
+								+ newVehicle.getTrim()%></option>
 													<%
 														}
+															}
 														}
-													}
 													%>
 												</select>
 											</div>

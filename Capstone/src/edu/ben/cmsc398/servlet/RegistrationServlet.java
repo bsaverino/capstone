@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.ben.cmsc398.dao.*;
+import edu.ben.cmsc398.model.Modification;
+import edu.ben.cmsc398.model.RaceTime;
 import edu.ben.cmsc398.model.User;
 import edu.ben.cmsc398.model.Vehicle;
 import edu.ben.cmsc398.model.VehicleSpecs;
@@ -39,6 +41,54 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		String action = (String) request.getParameter("action");
+		String id = request.getParameter("id");
+		UserDao uDao = new UserDao();
+		VehicleDao vDao = new VehicleDao();
+		VehicleSpecDao vsDao = new VehicleSpecDao();
+		PerformanceDao pDao = new PerformanceDao();
+
+		if (action.equals("dashboard")) {
+			try {
+				float min = 10000;
+				int mph = 0;
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vehicleId = (int) request.getSession().getAttribute(
+						"vehicleId");
+
+				ArrayList<Modification> mods = new ArrayList<Modification>();
+				ArrayList<RaceTime> times = new ArrayList<RaceTime>();
+
+				mods = pDao.getModificationById(userId, vehicleId);
+				times = pDao.getRaceTimeById(userId, vehicleId);
+				VehicleSpecs vehicleSpec = vsDao.getVehicleSpec(vehicleId);
+				for (RaceTime r : times) {
+					if(r.getTime() <= min) {
+						min = r.getTime();
+						mph = r.getSpeed();
+					}
+				}
+				
+				request.setAttribute("min", min); // respond
+				request.setAttribute("mph", mph); // respond
+				request.setAttribute("vehicleSpec", vehicleSpec); // respond
+				request.setAttribute("times", times); // respond
+				request.setAttribute("mods", mods); // respond
+
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("LoggedInIndex.jsp");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else if (action.equals("logOff")) {
+			request.getSession().setAttribute("vehicleList", null);
+			request.getSession().setAttribute("userId", null);
+			request.getSession().setAttribute("vehicleId", null);
+			response.setHeader("Refresh","0; URL=Index.jsp");
+			
+		}
 	}
 
 	/**
@@ -50,8 +100,6 @@ public class RegistrationServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
 		String id = request.getParameter("id");
-		// System.out.println("Action is: " + action);
-		// System.out.println("ID is: " + id);
 		UserDao uDao = new UserDao();
 		VehicleDao vDao = new VehicleDao();
 		VehicleSpecDao vsDao = new VehicleSpecDao();
@@ -81,7 +129,8 @@ public class RegistrationServlet extends HttpServlet {
 				int autoId = uDao.insertUser(user);
 				request.getSession().setAttribute("userId", autoId);
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationPageStage2.jsp");
+				RequestDispatcher dispatcher = request
+						.getRequestDispatcher("RegistrationPageStage2.jsp");
 				dispatcher.forward(request, response);
 
 			} catch (SQLException e) {
@@ -156,7 +205,7 @@ public class RegistrationServlet extends HttpServlet {
 				float pistonDeckHeight = Float.parseFloat(request
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
-				
+
 				if (request.getParameter("nitrous") == "1")
 					bsfc = (float) .65;
 				else if (request.getParameter("fi") == "1")
@@ -212,12 +261,13 @@ public class RegistrationServlet extends HttpServlet {
 						resultCubicInch, resultCompressionRatio,
 						resultFuelInjector);
 				vsDao.addVehicleSpecs(vehicleSpecs);
-				
+
 				int userId = (int) request.getSession().getAttribute("userId");
-				int vehicle = (int) request.getSession().getAttribute("vehicleId");
-				
-				
-				response.setHeader("Refresh", "0; URL=LoggedInIndex.jsp");
+				int vehicle = (int) request.getSession().getAttribute(
+						"vehicleId");
+
+				response.setHeader("Refresh",
+						"0; URL=RegistrationServlet?action=dashboard");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -242,14 +292,16 @@ public class RegistrationServlet extends HttpServlet {
 							// vehicles[i] = String.valueOf(car.getVehicleId());
 							//
 							// }
-							ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(user.getId());
-							request.getSession().setAttribute("vehicleList", vehicleList);
+							ArrayList<Vehicle> vehicleList = vDao
+									.getAllVehicleByUser(user.getId());
+							request.getSession().setAttribute("vehicleList",
+									vehicleList);
 							request.getSession().setAttribute("userId",
 									user.getId());
 							request.getSession().setAttribute("vehicleId",
 									vDao.getDefaultVehicleId(user.getId()));
 							response.setHeader("Refresh",
-									"0; URL=LoggedInIndex.jsp");
+									"0; URL=RegistrationServlet?action=dashboard");
 							break;
 						} else {
 							System.out.println("bad password");
@@ -264,8 +316,6 @@ public class RegistrationServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (action.equals("addVehicleSpec")) {
-
-		}
+		} 
 	}
 }

@@ -2,7 +2,7 @@
 	<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 		Home</a>
 	<ul>
-		<li><a href="LoggedInIndex.jsp"><i class="icon icon-home"></i>
+		<li><a href="RegistrationServlet?action=dashboard"><i class="icon icon-home"></i>
 				<span>Dashboard</span></a></li>
 		<li><a href="TrackingServlet?action=getPerformance"><i
 				class="icon-road"></i> <span>Performance</span></a></li>

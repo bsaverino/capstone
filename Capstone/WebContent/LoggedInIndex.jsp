@@ -46,12 +46,23 @@
 			</ul></li>
 		<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 				class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-		<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
+		<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
 				class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 	</ul>
 </div>
 
 <jsp:include page="Nav.jspf" />
+
+<%
+	ArrayList<Modification> mods = (ArrayList<Modification>) request
+			.getAttribute("mods");
+	ArrayList<RaceTime> times = (ArrayList<RaceTime>) request
+			.getAttribute("times");
+	VehicleSpecs specs = (VehicleSpecs) request
+			.getAttribute("vehicleSpec");
+	int mph = (Integer) request.getAttribute("mph");
+	float min = (Float) request.getAttribute("min");
+%>
 
 <div id="content">
 	<div id="content-header">
@@ -67,7 +78,7 @@
 				<ul class="stat-boxes">
 					<li>
 						<div class="left peity_bar_good">
-							<span>524.23</span>
+							<span><%=specs.getHp()%></span>
 						</div>
 						<div class="right">
 							<strong>WHP</strong>
@@ -75,7 +86,8 @@
 					</li>
 					<li>
 						<div class="left peity_bar_good">
-							<span>10.234</span> 111mph
+							<span><%=min%></span>
+							<%=mph%>MPH
 						</div>
 						<div class="right">
 							<strong>ET</strong> Fastest 1/4
@@ -83,7 +95,7 @@
 					</li>
 					<li>
 						<div class="left peity_bar_good">
-							<span>504.12</span>
+							<span><%=specs.getTorque()%></span>
 						</div>
 						<div class="right">
 							<strong>WTQ</strong>
@@ -106,15 +118,22 @@
 					<div class="widget-title">
 						<span class="icon"><i class="icon-time"></i></span>
 						<h5>Race Times</h5>
-						<span title="54 total posts" class="label label-info tip-left">3</span>
 					</div>
 					<div class="widget-content nopadding">
 						<ul class="recent-posts">
-							<li>Race time here:</li>
-							<li>Race time 2 here:</li>
-							<li>Race time 3 here:</li>
+							<%
+								int count = 0;
+								for (RaceTime t : times) {
+									if (count <= 6) {
+										count++;
+							%>
+							<li><%=t.getDate()%> <%=t.getRaceType()%> <%=t.getTime()%> <%=t.getTime()%></li>
+							<%
+								}
+								}
+							%>
 							<li class="viewall"><a title="View all posts"
-								class="tip-top" href="#"> + View all + </a></li>
+								class="tip-top" href="TrackingServlet?action=getPerformance"> + View all + </a></li>
 						</ul>
 					</div>
 				</div>
@@ -124,15 +143,24 @@
 					<div class="widget-title">
 						<span class="icon"><i class="icon-list"></i></span>
 						<h5>Current Mod List</h5>
-						<span title="88 total comments" class="label label-info tip-left">4</span>
 					</div>
 					<div class="widget-content nopadding">
-						<ul class="recent-comments">
-							<li>Headers Kooks Custom Headers P3245 $1200</li>
-							<li>Cam 234/238 112+7LSA .610/.622Lift $399.00</li>
-							<li>Toque Converter 3200Stall Pricision Industries</li>
-							<li class="viewall"><a title="View all comments"
-								class="tip-top" href="#"> + View all + </a></li>
+						<ul class="recent-posts">
+							<%
+								count = 0;
+								for (Modification m : mods) {
+									if (count <= 6) {
+										count++;
+							%>
+
+							<li><%=m.getModType()%> <%=m.getBrand()%> <%=m.getPart()%> <%=m.getPrice()%></li>
+
+							<%
+								}
+								}
+							%>
+							<li class="viewall"><a title="View all posts"
+								class="tip-top" href="TrackingServlet?action=getPerformance"> + View all + </a></li>
 						</ul>
 					</div>
 				</div>
