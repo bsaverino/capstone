@@ -168,4 +168,4 @@
 							</div>
 						</div>
 					</div>
-					<jsp:include page="Footer.jspf" />
+					<jsp:include page="Footer2.jspf" />

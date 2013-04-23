@@ -419,9 +419,11 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				if (request.getParameter("nitrous").equals("nitrous"))
+				boolean cbState;
+				
+				if (cbState = request.getParameter("nitrous") != null)
 					bsfc = (float) .65;
-				else if (request.getParameter("fi").equals("fi"))
+				else if (cbState = request.getParameter("fi") != null)
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
@@ -576,10 +578,12 @@ public class UpdateServlet extends HttpServlet {
 				float pistonDeckHeight = Float.parseFloat(request
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
-
-				if (request.getParameter("nitrous").equals("nitrous"))
+				
+				boolean cbState;
+				
+				if (cbState = request.getParameter("nitrous") != null)
 					bsfc = (float) .65;
-				else if (request.getParameter("fi").equals("fi"))
+				else if (cbState = request.getParameter("fi") != null)
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;

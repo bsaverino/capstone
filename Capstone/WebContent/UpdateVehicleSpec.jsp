@@ -40,15 +40,15 @@
 <body>
 	<%
 		int userId = (Integer) session.getAttribute("userId");
-			int vehicleId = (Integer) session.getAttribute("vehicleId");
-			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
-			.getAttribute("vehicleList");
-			ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
-			.getAttribute("vehicleWithSpecList");
-		VehicleSpecs vehicle = (VehicleSpecs) request.getAttribute("vehicleSpec");
-			float niFi = (float) .65;
-			float na = (float) .55;
-			boolean exist = (Boolean) request.getAttribute("exist");
+		int vehicleId = (Integer) session.getAttribute("vehicleId");
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
+		.getAttribute("vehicleList");
+		ArrayList<Vehicle> vehicleWithSpecList = (ArrayList<Vehicle>) request
+		.getAttribute("vehicleWithSpecList");
+			VehicleSpecs vehicle = (VehicleSpecs) request.getAttribute("vehicleSpec");
+		float niFi = (float) .65;
+		float na = (float) .55;
+		boolean exist = (Boolean) request.getAttribute("exist");
 	%>
 
 	<%
@@ -97,7 +97,7 @@
 									+" " + newVehicle.getTrim()%></a></li>
 					<%
 						}
-															}
+																		}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -116,7 +116,7 @@
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
 				class="icon-home"></i> Home</a> <a href="#">Profile</a><a href="#"
-				class="current">Add Vehicle Specs</a>
+				class="current">Update Vehicle Specs</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -182,7 +182,7 @@
 							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></option>
 														<%
 															}
-																																																			}
+																																																															}
 														%>
 													</select>
 												</div>
@@ -248,8 +248,8 @@
 													<select id="fuel" name="fuel">
 														<%
 															ArrayList<FuelType> fuel = (ArrayList<FuelType>) request.getAttribute("fuelList");
-																																						for (FuelType fuelType : fuel) {
-																																							if (vehicle.getOctane() == fuelType.getFuelId()) {
+																																																		for (FuelType fuelType : fuel) {
+																																																			if (vehicle.getOctane() == fuelType.getFuelId()) {
 														%>
 														<option selected value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 														<%
@@ -258,7 +258,7 @@
 														<option value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 														<%
 															}
-																																						}
+																																																		}
 														%>
 													</select>
 												</div>
@@ -271,7 +271,7 @@
 														<option value="0" selected="selected">Cylinders</option>
 														<%
 															for (int i = 1; i <= 16; i++) {
-																																								if (vehicle.getCylinders() == i ) {
+																																																				if (vehicle.getCylinders() == i ) {
 														%>
 														<option selected value=<%=i%>><%=i%></option>
 														<%
@@ -280,7 +280,7 @@
 														<option value=<%=i%>><%=i%></option>
 														<%
 															}
-																																									}
+																																																					}
 														%>
 													</select>
 												</div>
@@ -421,5 +421,5 @@
 							</div>
 						</div>
 					</div>
-
-					<jsp:include page="Footer.jspf" />
+				</div>
+				<jsp:include page="Footer2.jspf" />
