@@ -120,7 +120,7 @@
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
 				class="icon-home"></i> Home</a> <a href="#">Profile</a><a href="#"
-				class="current">Add Vehicle</a>
+				class="current">Add Vehicle Spec</a>
 		</div>
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -354,4 +354,4 @@
 					</div>
 				</div>
 
-				<jsp:include page="Footer.jspf" />
+				<jsp:include page="Footer2.jspf" />

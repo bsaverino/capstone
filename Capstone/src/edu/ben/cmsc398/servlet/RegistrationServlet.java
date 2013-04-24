@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
 		VehicleDao vDao = new VehicleDao();
 		VehicleSpecDao vsDao = new VehicleSpecDao();
 		PerformanceDao pDao = new PerformanceDao();
-
+	
 		if (action.equals("dashboard")) {
 			try {
 				float min = 10000;
@@ -56,13 +56,19 @@ public class RegistrationServlet extends HttpServlet {
 				int userId = (int) request.getSession().getAttribute("userId");
 				int vehicleId = (int) request.getSession().getAttribute(
 						"vehicleId");
-
+				
+				VehicleSpecs blankVehicleSpecs = new VehicleSpecs(vehicleId, 0,
+						0, 0, 0, 0, 0,0, 0,0,0,0,0,0,0,0,0,0,0);
+				
 				ArrayList<Modification> mods = new ArrayList<Modification>();
 				ArrayList<RaceTime> times = new ArrayList<RaceTime>();
 
 				mods = pDao.getModificationById(userId, vehicleId);
 				times = pDao.getRaceTimeById(userId, vehicleId);
 				VehicleSpecs vehicleSpec = vsDao.getVehicleSpec(vehicleId);
+				
+				if (vehicleSpec==null)
+					vehicleSpec = blankVehicleSpecs;
 				for (RaceTime r : times) {
 					if(r.getTime() <= min) {
 						min = r.getTime();

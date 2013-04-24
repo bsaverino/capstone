@@ -55,7 +55,6 @@
 			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
 			int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
-	getValue();
 	<div id="header">
 		<h1>
 			<a href="./dashboard.html">rCal Tracer</a>
@@ -226,4 +225,4 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="Footer.jspf" />
+		<jsp:include page="Footer2.jspf" />
