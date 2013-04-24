@@ -40,8 +40,8 @@
 <body>
 	<%
 		Vehicle vehicle = (Vehicle) request.getAttribute("vehicle");
-		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-		int vehicleId = (Integer) session.getAttribute("vehicleId");
+			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+			int vehicleId = (Integer) session.getAttribute("vehicleId");
 	%>
 
 	<div id="header">
@@ -77,7 +77,7 @@
 						+ " "+ newVehicle.getTrim()%></a></li>
 					<%
 						}
-																																																																}
+																																																																			}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
@@ -121,8 +121,8 @@
 							<li><a href="UpdateServlet?action=loadUpdateVehicle"> <i
 									class="icon-survey"></i> Update Vehicle
 							</a></li>
-							<li><a href="UpdateServlet?action=loadUpdateVehicleSpec"> <i
-									class="icon-survey"></i> Update Vehicle Spec
+							<li><a href="UpdateServlet?action=loadUpdateVehicleSpec">
+									<i class="icon-survey"></i> Update Vehicle Spec
 							</a></li>
 						</ul>
 					</div>
@@ -162,7 +162,7 @@
 																	+ " "+ newVehicle.getModel()+ " "+ newVehicle.getTrim()%></option>
 														<%
 															}
-																																																																																																				}
+																																																																																																																}
 														%>
 													</select>
 												</div>
@@ -254,7 +254,8 @@
 											</div>
 										</div>
 										<div class="form-actions">
-											<input id="next" class="btn btn-primary" type="submit" value="Submit" />
+											<input id="next" class="btn btn-primary" type="submit"
+												value="Submit" />
 											<div id="status"></div>
 										</div>
 										<div id="submitted"></div>

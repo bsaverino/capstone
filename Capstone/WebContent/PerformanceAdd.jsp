@@ -84,19 +84,19 @@
 								<div class="control-group">
 									<label class="control-label">Date</label>
 									<div class="controls">
-										<input id="date" type="text" name="date" />
+										<input id="date" type="date" name="date" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Total Time</label>
 									<div class="controls">
-										<input id="time" type="text" name="time" />
+										<input id="time" type="time" name="time" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Lap/60 Time</label>
 									<div class="controls">
-										<input id="distanceTime" type="text" name="distanceTime" />
+										<input id="distanceTime" type="time" name="distanceTime" />
 									</div>
 								</div>
 								<div class="control-group">
