@@ -87,9 +87,9 @@ public class RegistrationServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if (action.equals("logOff")) {
-			request.getSession().setAttribute("vehicleList", null);
-			request.getSession().setAttribute("userId", null);
-			request.getSession().setAttribute("vehicleId", null);
+			request.getSession().removeAttribute("vehicleList");
+			request.getSession().removeAttribute("userId");
+			request.getSession().removeAttribute("vehicleId");
 			response.setHeader("Refresh","0; URL=Index.jsp");
 			
 		}
