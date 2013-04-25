@@ -36,15 +36,15 @@
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i>
 			Home</a>
 		<ul>
-			<li class="active"><a href="LoggedOutIndex"><i
+			<li class="active"><a href="Index.jsp"><i
 					class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Cal</a></li>
-					<li><a href="guestCompressionRatioCalc.jsp">Compression
+					<li><a href="GuestCubicInchCalc.jsp">Cubic Inch Cal</a></li>
+					<li><a href="GuestCompressionRatioCalc.jsp">Compression
 							Ratio Cal</a></li>
-					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Cal</a></li>
+					<li><a href="GuestFuelInjectorCalc.jsp">Fuel Injector Cal</a></li>
 				</ul></li>
 		</ul>
 
