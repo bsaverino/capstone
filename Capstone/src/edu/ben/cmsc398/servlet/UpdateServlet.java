@@ -83,6 +83,7 @@ public class UpdateServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateProfile.jsp");
 			dispatcher.forward(request, response);
+			
 		} else if (action.equalsIgnoreCase("loadUpdateVehicle")) {	// load UpdateVehicle.jsp
 			Vehicle vehicle = null;
 			
@@ -326,6 +327,7 @@ public class UpdateServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		} else if (action.equals("changePassword")) {		// Change user password
 			// get information from page
 			String currentPassword = request.getParameter("currentPassword");
@@ -348,6 +350,7 @@ public class UpdateServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 		// Need to add in the Vehicle Specs
 		else if (action.equals("addVehicle")) {			// Create a vehicle to my ever expanding list
 			try {
@@ -523,6 +526,7 @@ public class UpdateServlet extends HttpServlet {
 				int year = Integer.parseInt(request.getParameter("year"));
 				int engine = Integer.parseInt(request.getParameter("engine"));
 				int def = Integer.parseInt(request.getParameter("default"));
+				
 				// get User Object and Vehicle Object from the DB
 				user = uDao.getUser(userId);
 				vehicle = vDao.getVehicle(vehicleId);
@@ -535,14 +539,17 @@ public class UpdateServlet extends HttpServlet {
 				vehicle.setTrans(trans);
 				vehicle.setTrim(trim);
 				vehicle.setYear(year);
+				
 				// Update user's default vehicle
 				if (def == 1) {
 					user.setDefaultVehicle(vehicle.getVehicleId());
 					uDao.updateUser(user);
 					request.getSession().setAttribute("vehicleId", vehicle.getVehicleId());
 				}
+				
 				// update Vehicle in the DB
 				vDao.updateVehicle(vehicle);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("error");
@@ -552,6 +559,8 @@ public class UpdateServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("Profile.jsp");
 			dispatcher.forward(request, response);
+			
+			
 		}else if(action.equalsIgnoreCase("updateVehicleSpec")){	// if the the user wants to update a vehicle's spec info
 			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
 			int pistonType, syntheticOil;

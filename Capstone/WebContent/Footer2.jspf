@@ -16,5 +16,7 @@
 <!-- <script src="js/jquery.dataTables.min.js"></script> -->
 <script src="js/unicorn.js"></script>
 <script src="js/unicorn.tables.js"></script>
+<script src="bootstrap-tooltip.js"></script>
+<script src="bootstrap-popover.js"></script>
 </body>
 </html>

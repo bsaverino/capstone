@@ -99,11 +99,12 @@
 										<label class="control-label">Is your car Naturally
 											Aspirate, Boosted, or does it use Nitrous? </label>
 										<div class="controls">
-											<label><input type="checkbox" name="nitrous" value="nitrous" onClick="return KeepCount()" /> 
-												Nitrous</label> 
-												<label><input type="checkbox" name="fi" value="fi" onClick="return KeepCount()" />
-												Boosted (Superchared or Turbocharged)</label> 
-												<label><input type="checkbox" name="na" value="na" onClick="return KeepCount()" />
+											<label><input type="checkbox" name="nitrous"
+												value="nitrous" onClick="return KeepCount()" /> Nitrous</label> <label><input
+												type="checkbox" name="fi" value="fi"
+												onClick="return KeepCount()" /> Boosted (Superchared or
+												Turbocharged)</label> <label><input type="checkbox"
+												name="na" value="na" onClick="return KeepCount()" />
 												Naturally Aspirated (All motor, no power adders)</label>
 										</div>
 									</div>
@@ -111,16 +112,18 @@
 										<label class="control-label">Is your nitrous system
 											wet or dry?</label>
 										<div class="controls">
-											<label><input type="radio" name="radios" value="1" />Wet</label> 
-											<label><input type="radio" name="radios" value="2" /> Dry</label>
-											<label><input type="radio" name="radios" value="0" /> I don't have Nitrous</label>
+											<label><input type="radio" name="radios" value="1" />Wet</label>
+											<label><input type="radio" name="radios" value="2" />
+												Dry</label> <label><input type="radio" name="radios"
+												value="0" /> I don't have Nitrous</label>
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Do you use Synthetic Oil?</label>
 										<div class="controls">
-											<label><input type="radio" name="syntheticOil" value="yes" /> Yes</label> 
-											<label><input type="radio" name="syntheticOil" value="no" /> No</label>
+											<label><input type="radio" name="syntheticOil"
+												value="yes" /> Yes</label> <label><input type="radio"
+												name="syntheticOil" value="no" /> No</label>
 										</div>
 									</div>
 									<div class="control-group">
@@ -129,16 +132,17 @@
 										<div class="controls">
 											<select id="fuel" name="fuel">
 												<%
-													ArrayList<FuelType> fuel = (ArrayList<FuelType>) request.getAttribute("fuelList");
-												
-												for (FuelType fuelType : fuel) {
+													ArrayList<FuelType> fuel = (ArrayList<FuelType>) request
+															.getAttribute("fuelList");
+
+													for (FuelType fuelType : fuel) {
 												%>
 												<option value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 												<%
 													}
 												%>
-												
-												<option value="0" name="octane" id="octane"
+
+												<option value="93" name="octane" id="octane"
 													selected="selected">Octane</option>
 											</select>
 										</div>
@@ -192,9 +196,9 @@
 										<label class="control-label">Are your pistons Domed or
 											Dished?</label>
 										<div class="controls">
-											<label><input type="radio" id="pistonType" name="pistonType" value="dome" /> Domed</label> 
-											<label><input type="radio" id="pistonType" name="pistonType"
-												value="dish" />Dished</label>
+											<label><input type="radio" id="pistonType"
+												name="pistonType" value="dome" /> Domed</label> <label><input
+												type="radio" id="pistonType" name="pistonType" value="dish" />Dished</label>
 										</div>
 									</div>
 									<div class="control-group">
@@ -223,13 +227,16 @@
 										<label class="control-label">Bore of your head
 											gaskets?</label>
 										<div class="controls">
-											<input id="headGasketBore" type="text" name="headGasketBore" value="0" />
+											<input id="headGasketBore" type="text" name="headGasketBore"
+												value="0" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">What is the piston deck heeight?</label>
+										<label class="control-label">What is the piston deck
+											heeight?</label>
 										<div class="controls">
-											<input id="pistonDeckHeight" type="text" name="pistonDeckHeight" value="0" />
+											<input id="pistonDeckHeight" type="text"
+												name="pistonDeckHeight" value="0" />
 										</div>
 									</div>
 
@@ -247,4 +254,4 @@
 				</div>
 			</div>
 		</div>
-<jsp:include page="Footer.jspf" />
+		<jsp:include page="Footer2.jspf" />

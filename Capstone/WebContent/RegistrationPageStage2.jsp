@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+	pageEncoding="US-ASCII"%>
 <!DOCTYPE html>
-<%@ page import="java.util.Calendar"%>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
@@ -9,6 +10,34 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
+<script type="text/javascript">
+	function validateForm() {
+
+		var year = document.forms["reg1"]["year"].value;
+		var make = document.forms["reg1"]["make"].value;
+		var model = document.forms["reg1"]["model"].value;
+
+		if (year == null || year == "") {
+			alert("Year must be filled out");
+			reg1.year.focus();
+			return false;
+		}
+		if (make == null || make == "") {
+			alert("Make name must be filled out");
+			reg1.make.focus();
+			return false;
+		}
+		if (model == null || model == "") {
+			alert("Model must be filled out");
+			reg1.model.focus();
+			return false;
+		}
+		if (reg1.other[0].checked == false && reg1.other[1].checked == false) {
+			alert("Select if this will be your default vehicle");
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -38,19 +67,20 @@
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
 					<li><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="guestCompressionRatioCalc.jsp">Compression
+							Ratio Calc</a></li>
 					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>
-	
+
 	<div id="content">
 		<div id="content-header">
 			<h1>Registration</h1>
 		</div>
 		<div id="breadcrumb">
 			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#" >Personal Info</a> <a
+				class="icon-home"></i> Home</a> <a href="#">Personal Info</a> <a
 				href="#" class="current">Car Info</a>
 		</div>
 		<div class="container-fluid">
@@ -63,22 +93,25 @@
 							<h5>Registration Page 2</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post" action="RegistrationServlet?action=registerVehicle">
+							<form name="reg1" id="form-wizard" class="form-horizontal"
+								method="post"
+								action="RegistrationServlet?action=registerVehicle"
+								onsubmit="return validateForm()">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">Year</label>
+										<label class="control-label">Year*</label>
 										<div class="controls">
 											<input id="year" type="text" name="year" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Make</label>
+										<label class="control-label">Make*</label>
 										<div class="controls">
 											<input id="make" type="text" name="make" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Model</label>
+										<label class="control-label">Model*</label>
 										<div class="controls">
 											<input id="model" type="text" name="model" />
 										</div>
@@ -86,32 +119,34 @@
 									<div class="control-group">
 										<label class="control-label">Trim</label>
 										<div class="controls">
-											<input id="trim" type="text" name="trim" />
+											<input id="trim" type="text" name="trim" value=" " />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Engine</label>
+										<label class="control-label">Engine (cubic inches)</label>
 										<div class="controls">
-											<input id="engine" type="text" name="engine" />
+											<input id="engine" type="text" name="engine" value="0" />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Transmission</label>
 										<div class="controls">
-											<input id="trans" type="text" name="trans" />
+											<input id="trans" type="text" name="trans" value=" " />
 										</div>
 									</div>
 									<div class="control-group">
 										<label class="control-label">Car Color</label>
 										<div class="controls">
-											<input id="color" type="text" name="color" />
+											<input id="color" type="text" name="color" value=" " />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Is this the main vehicle you will be tracking?</label>
+										<label class="control-label">Is this the main vehicle
+											you will be tracking?*</label>
 										<div class="controls">
-											<label><input type="radio" name="default" value="1" />Yes</label> 
-											<label><input type="radio" name="default" value="0" /> No</label>
+											<label><input type="radio" name="other" value="1" />Yes</label>
+											<label><input type="radio" name="other" value="0" />
+												No</label>
 										</div>
 									</div>
 
@@ -129,4 +164,4 @@
 				</div>
 			</div>
 
-			<jsp:include page="Footer.jspf" />
+			<jsp:include page="Footer2.jspf" />

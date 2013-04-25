@@ -1,5 +1,7 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+	pageEncoding="US-ASCII"%>
 <%@ page import="java.util.Calendar"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <title>rCal Tracer</title>
@@ -9,6 +11,111 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
+<script>
+	function validateForm() {
+
+		var firstName = document.forms["reg1"]["firstName"].value;
+		var lastName = document.forms["reg1"]["lastName"].value;
+		var email = document.forms["reg1"]["email"].value;
+		var areacode = document.forms["reg1"]["areacode"].value;
+		var username = document.forms["reg1"]["username"].value;
+		var password = document.forms["reg1"]["password"].value;
+		var password2 = document.forms["reg1"]["password2"].value;
+		var month = document.forms["reg1"]["month"].value;
+		var day = document.forms["reg1"]["day"].value;
+		var year = document.forms["reg1"]["year"].value;
+
+		if (firstName == null || firstName == "") {
+			alert("First name must be filled out");
+			reg1.firstName.focus();
+			return false;
+		}
+		if (lastName == null || lastName == "") {
+			alert("Last name must be filled out");
+			reg1.lastName.focus();
+			return false;
+		}
+		if (email == null || email == "") {
+			alert("E-Mail must be filled out");
+			reg1.email.focus();
+			return false;
+		}
+		if (areacode == null || areacode == "") {
+			alert("Area code must be filled out");
+			reg1.areacode.focus();
+			return false;
+		}
+		if (username == null || username == "") {
+			alert("Username must be filled out");
+			reg1.username.focus();
+			return false;
+		}
+		if (password == null || password == "") {
+			alert("Password must be filled out");
+			reg1.password.focus();
+			return false;
+		}
+		if (password2 == null || password2 == "") {
+			alert("Confirm Password must be filled out");
+			reg1.password2.focus();
+			return false;
+		}
+		if (password != "" && password == password2) {
+			if (password.length < 6) {
+				alert("Error: Password must contain at least six characters!");
+				reg1.password.focus();
+				return false;
+			}
+			if (password == username) {
+				alert("Error: Password must be different from Username!");
+				reg1.password.focus();
+				return false;
+			}
+			re = /[0-9]/;
+			if (!re.test(password)) {
+				alert("Error: password must contain at least one number (0-9)!");
+				reg1.password.focus();
+				return false;
+			}
+			re = /[a-z]/;
+			if (!re.test(password)) {
+				alert("Error: password must contain at least one lowercase letter (a-z)!");
+				reg1.password.focus();
+				return false;
+			}
+			re = /[A-Z]/;
+			if (!re.test(password)) {
+				alert("Error: password must contain at least one uppercase letter (A-Z)!");
+				reg1.password.focus();
+				return false;
+			}
+		} else {
+			alert("Error: Please check that you've entered and confirmed your password!");
+			reg1.password.focus();
+			return false;
+		}
+		if (reg1.gender[0].checked == false && reg1.gender[1].checked == false) {
+			alert("Gender must be selected");
+			return false;
+		}
+		if (year == 0 || year == "" || year == "Year") {
+			alert("Year must be selected");
+			reg1.year.focus();
+			return false;
+		}
+		if (month == 0 || month == "" || month == "Month") {
+			alert("Month must be selected");
+			reg1.month.focus();
+			return false;
+		}
+		if (day == 0 || day == "" || day == "Day") {
+			alert("Day must be selected");
+			reg1.day.focus();
+			return false;
+		}
+
+	}
+</script>
 </head>
 <body>
 
@@ -65,53 +172,57 @@
 							<h5>Registration Page 1</h5>
 						</div>
 						<div class="widget-content nopadding">
-							<form id="form-wizard" class="form-horizontal" method="post"
-								action="RegistrationServlet?action=registerUser">
+							<form name="reg1" id="form-wizard" class="form-horizontal"
+								method="post" action="RegistrationServlet?action=registerUser"
+								onsubmit="return validateForm()">
 								<div id="form-wizard-1" class="step">
 									<div class="control-group">
-										<label class="control-label">First Name</label>
+										<label class="control-label">First Name*</label>
 										<div class="controls">
 											<input id="firstName" type="text" name="firstName" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Last Name</label>
+										<label class="control-label">Last Name*</label>
 										<div class="controls">
 											<input id="lastName" type="text" name="lastName" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">E-Mail</label>
+										<label class="control-label">E-Mail*</label>
 										<div class="controls">
 											<input id="email" type="email" name="email" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Area Code</label>
+										<label class="control-label">Area Code*</label>
 										<div class="controls">
 											<input id="areacode" type="text" name="areacode" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Username</label>
+										<label class="control-label">Username*</label>
 										<div class="controls">
 											<input id="username" type="text" name="username" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Password</label>
+										<label class="control-label">Password*</label>
 										<div class="controls">
-											<input id="password" type="password" name="password" />
+											<a href="#"
+												title="Password must be: At least 6 characters, have a capital letter, a lower case letter, and at least 1 number"
+												class="tip-bottom"><input id="password" type="password"
+												name="password" /></a>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Confirm Password</label>
+										<label class="control-label">Confirm Password*</label>
 										<div class="controls">
 											<input id="password2" type="password" name="password2" />
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Gender</label>
+										<label class="control-label">Gender*</label>
 										<div class="controls">
 											<label><input type="radio" id="genderMale"
 												name="gender" value="male" /> Male</label> <label><input
@@ -120,7 +231,7 @@
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Birthdate</label>
+										<label class="control-label">Birthdate*</label>
 										<div class="controls">
 											<select id="month" name="month">
 												<option value="0" selected="selected">Month</option>
@@ -173,4 +284,4 @@
 					</div>
 				</div>
 			</div>
-			<jsp:include page="Footer.jspf" />
+			<jsp:include page="Footer2.jspf" />

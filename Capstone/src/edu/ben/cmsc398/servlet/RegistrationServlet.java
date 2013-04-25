@@ -54,11 +54,9 @@ public class RegistrationServlet extends HttpServlet {
 				float min = 10000;
 				int mph = 0;
 				int userId = (int) request.getSession().getAttribute("userId");
-				int vehicleId = (int) request.getSession().getAttribute(
-						"vehicleId");
+				int vehicleId = (int) request.getSession().getAttribute("vehicleId");
 				
-				VehicleSpecs blankVehicleSpecs = new VehicleSpecs(vehicleId, 0,
-						0, 0, 0, 0, 0,0, 0,0,0,0,0,0,0,0,0,0,0);
+				VehicleSpecs blankVehicleSpecs = new VehicleSpecs(vehicleId, 87, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 				
 				ArrayList<Modification> mods = new ArrayList<Modification>();
 				ArrayList<RaceTime> times = new ArrayList<RaceTime>();
@@ -131,9 +129,22 @@ public class RegistrationServlet extends HttpServlet {
 				User user = new User(' ', firstName, lastName, username,
 						password, email, areacode, gender, year, month, day,
 						' ');
-
+				
 				int autoId = uDao.insertUser(user);
+				
+				Vehicle vehicle = new Vehicle(null, null, null, null, 0, null, 0, ' ', autoId);
+				
+				int autoV = vDao.addVehicle(vehicle);
+				
+				VehicleSpecs vehicleSpec = new VehicleSpecs(autoV, 87, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+				vsDao.addVehicleSpecs(vehicleSpec);
+				
+				
+				
 				request.getSession().setAttribute("userId", autoId);
+				request.getSession().setAttribute("vehicleId", autoV);
+				
 
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("RegistrationPageStage2.jsp");
@@ -150,28 +161,23 @@ public class RegistrationServlet extends HttpServlet {
 				String trans = request.getParameter("trans");
 				String color = request.getParameter("color");
 				int year = Integer.parseInt(request.getParameter("year"));
-				int userId = 0;
 				int engine = Integer.parseInt(request.getParameter("engine"));
-				int def = Integer.parseInt(request.getParameter("default"));
-				// userId = uDao.getNewUserId();
-				userId = (int) request.getSession().getAttribute("userId");
-				System.out.println(userId);
-
+				int def = Integer.parseInt(request.getParameter("other"));
+				int userId = (int) request.getSession().getAttribute("userId");
+				int vId = (int) request.getSession().getAttribute("vehicleId");
+				
 				User user = uDao.getUser(userId);
-
-				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine,
-						color, year, ' ', userId);
-				int vId = vDao.addVehicle(vehicle);
+				Vehicle vehicle = new Vehicle(make, model, trim, trans, engine, color, year, vId, userId);
+				
+				vDao.updateVehicle(vehicle);
 
 				if (user.getDefaultVehicle() == 0) {
 					user.setDefaultVehicle(vId);
 					uDao.updateUser(user);
-					request.getSession().setAttribute("vehicleId", vId);
 				} else {
 					if (def == 1) {
 						user.setDefaultVehicle(vId);
 						uDao.updateUser(user);
-						request.getSession().setAttribute("vehicleId", vId);
 					}
 				}
 
@@ -179,8 +185,10 @@ public class RegistrationServlet extends HttpServlet {
 				 * This is grabing the fuel type and passing it into the
 				 * registraton page 3
 				 */
+				ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
 				ArrayList<FuelType> fuel = vsDao.getFuelType();
 				request.setAttribute("fuelList", fuel); // respond
+				request.getSession().setAttribute("vehicleList", vehicleList);
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("RegistrationPageStage3.jsp");
 				dispatcher.forward(request, response);
@@ -190,26 +198,21 @@ public class RegistrationServlet extends HttpServlet {
 
 		} else if (action.equals("addVehicleSpec")) {
 			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
-			int pistonType, syntheticOil, vehicleId;
+			int pistonType, syntheticOil;
 			try {
 				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
-				pistonType = syntheticOil = vehicleId = 0;
+				pistonType = syntheticOil = 0;
 				int octane = Integer.parseInt(request.getParameter("fuel"));
-				int cylinders = Integer.parseInt(request
-						.getParameter("cylinders"));
+				int cylinders = Integer.parseInt(request.getParameter("cylinders"));
 				int headCC = Integer.parseInt(request.getParameter("headCC"));
-				int pistonCC = Integer.parseInt(request
-						.getParameter("pistonCC"));
+				int pistonCC = Integer.parseInt(request.getParameter("pistonCC"));
 				float hp = Float.parseFloat(request.getParameter("hp"));
 				float torque = Float.parseFloat(request.getParameter("torque"));
 				float bore = Float.parseFloat(request.getParameter("bore"));
 				float stroke = Float.parseFloat(request.getParameter("stroke"));
-				float headGasketThickness = Float.parseFloat(request
-						.getParameter("headGasketThickness"));
-				float headGasketBore = Float.parseFloat(request
-						.getParameter("headGasketBore"));
-				float pistonDeckHeight = Float.parseFloat(request
-						.getParameter("pistonDeckHeight"));
+				float headGasketThickness = Float.parseFloat(request.getParameter("headGasketThickness"));
+				float headGasketBore = Float.parseFloat(request.getParameter("headGasketBore"));
+				float pistonDeckHeight = Float.parseFloat(request.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
 				if (request.getParameter("nitrous") == "1")
@@ -218,22 +221,23 @@ public class RegistrationServlet extends HttpServlet {
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
-
-				if (request.getParameter("pistonType").equals("dome"))
+				
+				if (request.getParameter("pistonType") == null)
+					pistonType = 0;
+				else if (request.getParameter("pistonType").equals("dome"))
 					pistonType = 1;
 				else if (request.getParameter("pistonType").equals("dish"))
 					pistonType = -1;
-				else
-					pistonType = 0;
 
-				if (request.getParameter("syntheticOil").equals("yes"))
+				if (request.getParameter("syntheticOil") == null)
+					syntheticOil = 1;
+				else if (request.getParameter("syntheticOil").equals("yes"))
 					syntheticOil = 1;
 				else if (request.getParameter("syntheticOil").equals("no"))
 					syntheticOil = 2;
-				else
-					syntheticOil = 0;
+				
 
-				vehicleId = vDao.getNewVehicleId();
+				int vehicleId = (int) request.getSession().getAttribute("vehicleId");
 
 				// Gets Cubic Inch result for storage
 				if (bore != 0 && stroke != 0 && cylinders != 0) {
@@ -266,11 +270,7 @@ public class RegistrationServlet extends HttpServlet {
 						headGasketBore, dutyCycle, bsfc, pistonDeckHeight,
 						resultCubicInch, resultCompressionRatio,
 						resultFuelInjector);
-				vsDao.addVehicleSpecs(vehicleSpecs);
-
-				int userId = (int) request.getSession().getAttribute("userId");
-				int vehicle = (int) request.getSession().getAttribute(
-						"vehicleId");
+				vsDao.updateVehicleSpecs(vehicleSpecs);
 
 				response.setHeader("Refresh",
 						"0; URL=RegistrationServlet?action=dashboard");
