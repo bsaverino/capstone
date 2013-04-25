@@ -42,14 +42,14 @@
 		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
 			rCal Tracer</a>
 		<ul>
-			<li><a href="LoggedOutIndex.jsp"><i class="icon icon-home"></i>
+			<li><a href="Index.jsp"><i class="icon icon-home"></i>
 					<span>Dashboard</span></a></li>
 			<li class="submenu active open"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
-					<li class="active"><a href="guestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
-					<li><a href="guestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
-					<li><a href="guestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
+					<li class="active"><a href="GuestCubicInchCalc.jsp">Cubic Inch Calc</a></li>
+					<li><a href="GuestCompressionRatioCalc.jsp">Compression Ratio Calc</a></li>
+					<li><a href="GuestFuelInjectorCalc.jsp">Fuel Injector Calc</a></li>
 				</ul></li>
 		</ul>
 	</div>

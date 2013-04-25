@@ -41,15 +41,14 @@ public class CalculatorServlet extends HttpServlet {
 		int userId = Integer.parseInt(session.getAttribute("userId").toString());
 		VehicleSpecDao vsDao = new VehicleSpecDao();
 		VehicleSpecs vehicle = null;
-		VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, 0,
-				0, 0, 0, 0, 0,0, 0,0,0,0,0,0,0,0,0,0,0);
+		VehicleSpecs blankVehicleSpecs = new VehicleSpecs(vehicleId, 87, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		try {
 			// Get the vehicle spec that correspond to the vehicleId
 			vehicle = vsDao.getVehicleSpec(vehicleId);
 			
 			// If none is found, create a blank one that can be passed to the page so the user can edit it
 			if (vehicle==null){
-				vehicle = vehicleSpecs;
+				vehicle = blankVehicleSpecs;
 			}
 			
 		} catch (SQLException e) {
