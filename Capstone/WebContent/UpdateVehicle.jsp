@@ -82,7 +82,7 @@
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-			<li class="btn btn-inverse"><a title="" href="LoginPage.jsp"><i
+			<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>
