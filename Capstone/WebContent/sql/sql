@@ -1,0 +1,282 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE SCHEMA IF NOT EXISTS `cmsc374_capstone` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+USE `cmsc374_capstone` ;
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`fuel_lookup`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`fuel_lookup` (
+  `fuel_type_id` INT(4) NOT NULL ,
+  `fuel_type` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`fuel_type_id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`service_lookup`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`service_lookup` (
+  `service_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `service` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `service_discription` VARCHAR(500) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`service_id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 17
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`vehicle`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`vehicle` (
+  `vehicle_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `user_id` INT(11) NOT NULL ,
+  `year` INT(11) NULL DEFAULT NULL ,
+  `make` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `model` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `trim` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `trans` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `engine_size` INT(11) NULL DEFAULT NULL ,
+  `color` VARCHAR(145) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`vehicle_id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 68
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`user`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`user` (
+  `user_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `first_name` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `last_name` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `email` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `area_code` INT(11) NULL DEFAULT NULL ,
+  `sex` TINYINT(4) NULL DEFAULT NULL ,
+  `username` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `password` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `year` INT(11) NULL DEFAULT NULL ,
+  `month` INT(11) NULL DEFAULT NULL ,
+  `day` INT(11) NULL DEFAULT NULL ,
+  `default_vehicle` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`user_id`) ,
+  INDEX `default_vehicle_idx` (`default_vehicle` ASC) ,
+  CONSTRAINT `default_vehicle`
+    FOREIGN KEY (`default_vehicle` )
+    REFERENCES `cmsc374_capstone`.`vehicle` (`vehicle_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 49
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`maintenance`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`maintenance` (
+  `service_id` INT(11) NOT NULL ,
+  `user_id` INT(11) NULL DEFAULT NULL ,
+  `vehicle_id` INT(11) NULL DEFAULT NULL ,
+  `mileage` FLOAT NULL DEFAULT NULL ,
+  `maintenance_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `date` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`maintenance_id`) ,
+  INDEX `user_id_idx` (`user_id` ASC) ,
+  INDEX `maintenance_service_id_idx` (`service_id` ASC) ,
+  INDEX `maintenance_vehicle_id_idx` (`vehicle_id` ASC) ,
+  CONSTRAINT `maintenance_service_id`
+    FOREIGN KEY (`service_id` )
+    REFERENCES `cmsc374_capstone`.`service_lookup` (`service_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `maintenance_vehicle_id`
+    FOREIGN KEY (`vehicle_id` )
+    REFERENCES `cmsc374_capstone`.`vehicle` (`vehicle_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user_id2`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `cmsc374_capstone`.`user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`modification_lookup`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`modification_lookup` (
+  `mod_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `modification` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`mod_id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`modification`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`modification` (
+  `vehicle_id` INT(11) NULL DEFAULT NULL ,
+  `user_id` INT(11) NULL DEFAULT NULL ,
+  `brand` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `part` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `price` FLOAT NULL DEFAULT NULL ,
+  `mod_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `mod_lookup_id` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`mod_id`) ,
+  INDEX `user_id_idx` (`user_id` ASC) ,
+  INDEX `modificiation_performed_id_idx` (`mod_id` ASC) ,
+  INDEX `modificiation_vehicle_id` (`vehicle_id` ASC) ,
+  INDEX `modification_lookup_id_idx` (`mod_lookup_id` ASC) ,
+  CONSTRAINT `modification_lookup_id`
+    FOREIGN KEY (`mod_lookup_id` )
+    REFERENCES `cmsc374_capstone`.`modification_lookup` (`mod_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `modificiation_user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `cmsc374_capstone`.`user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `modificiation_vehicle_id`
+    FOREIGN KEY (`vehicle_id` )
+    REFERENCES `cmsc374_capstone`.`vehicle` (`vehicle_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 33
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`oil_lookup`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`oil_lookup` (
+  `oil_type_id` TINYINT(3) NOT NULL AUTO_INCREMENT ,
+  `oil_type` VARCHAR(40) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`oil_type_id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`race_type_lookup`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`race_type_lookup` (
+  `race_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `race_type` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`race_type_id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`performance`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`performance` (
+  `user_id` INT(11) NOT NULL ,
+  `vehicle_id` INT(11) NOT NULL ,
+  `race_type_id` INT(11) NULL DEFAULT NULL ,
+  `time` FLOAT NULL DEFAULT NULL ,
+  `date` VARCHAR(15) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `distance_time` FLOAT NULL DEFAULT NULL ,
+  `speed` INT(11) NULL DEFAULT NULL ,
+  `performance_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  PRIMARY KEY (`performance_id`) ,
+  INDEX `performance_vehicle_id_idx` (`vehicle_id` ASC) ,
+  INDEX `performance_race_type_id_idx` (`race_type_id` ASC) ,
+  INDEX `user_id` (`user_id` ASC) ,
+  CONSTRAINT `performance_race_type_id`
+    FOREIGN KEY (`race_type_id` )
+    REFERENCES `cmsc374_capstone`.`race_type_lookup` (`race_type_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `cmsc374_capstone`.`user` (`user_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `vehicle_id_race`
+    FOREIGN KEY (`vehicle_id` )
+    REFERENCES `cmsc374_capstone`.`vehicle` (`vehicle_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 33
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `cmsc374_capstone`.`vehicle_specs`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `cmsc374_capstone`.`vehicle_specs` (
+  `vehicle_id` INT(11) NOT NULL ,
+  `bore` FLOAT NULL DEFAULT NULL ,
+  `stroke` FLOAT NULL DEFAULT NULL ,
+  `number_cylinders` TINYINT(2) NULL DEFAULT NULL ,
+  `piston_deck_height` FLOAT NULL DEFAULT NULL ,
+  `head_cc` INT(11) NULL DEFAULT NULL ,
+  `piston_type_id` TINYINT(1) NULL DEFAULT NULL ,
+  `piston_cc` TINYINT(3) NULL DEFAULT NULL ,
+  `head_gasket_bore` FLOAT NULL DEFAULT NULL ,
+  `horse_power` FLOAT NULL DEFAULT NULL ,
+  `duty_cycle` FLOAT NULL DEFAULT NULL ,
+  `bsfc` FLOAT NULL DEFAULT NULL ,
+  `fuel_type_id` INT(4) NULL DEFAULT NULL ,
+  `oil_type_id` TINYINT(3) NULL DEFAULT NULL ,
+  `torque` FLOAT NULL DEFAULT NULL ,
+  `result_ci` FLOAT NULL DEFAULT NULL ,
+  `result_cr` FLOAT NULL DEFAULT NULL ,
+  `result_fi` FLOAT NULL DEFAULT NULL ,
+  `head_gasket_thickness` FLOAT NULL DEFAULT NULL ,
+  PRIMARY KEY (`vehicle_id`) ,
+  INDEX `fuel_type_id_idx` (`fuel_type_id` ASC) ,
+  INDEX `oil_type_id_idx` (`oil_type_id` ASC) ,
+  INDEX `piston_type_id_idx` (`piston_type_id` ASC) ,
+  CONSTRAINT `fuel_type_id`
+    FOREIGN KEY (`fuel_type_id` )
+    REFERENCES `cmsc374_capstone`.`fuel_lookup` (`fuel_type_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `oil_type_id`
+    FOREIGN KEY (`oil_type_id` )
+    REFERENCES `cmsc374_capstone`.`oil_lookup` (`oil_type_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `vehicle_id`
+    FOREIGN KEY (`vehicle_id` )
+    REFERENCES `cmsc374_capstone`.`vehicle` (`vehicle_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+USE `cmsc374_capstone` ;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
