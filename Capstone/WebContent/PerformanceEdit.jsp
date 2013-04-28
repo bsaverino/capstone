@@ -46,7 +46,8 @@
 			</ul></li>
 		<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 				class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-		<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+		<li class="btn btn-inverse"><a title=""
+			href="RegistrationServlet?action=logOff"><i
 				class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 	</ul>
 </div>
@@ -58,8 +59,9 @@
 		<h1>Dashboard</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="#" title="Go to Home" class="tip-bottom"><i
-			class="icon-home"></i> Home</a> <a href="#" class="current">Maintenance</a>
+		<a href="RegistrationServlet?action=dashboard" title="Go to Home" class="tip-bottom"><i
+			class="icon-home"></i> Home</a> <a href="TrackingServlet?action=getPerformance">Performance</a><a href="#"
+			class="current">Edit Record</a>
 	</div>
 
 	<div class="container-fluid">
@@ -75,7 +77,7 @@
 
 						<span class="icon"> <i class="icon-th"></i>
 						</span>
-						<h5>Current Maintenance -> Add Record</h5>
+						<h5>Current Maintenance -> Edit Record</h5>
 						<span class="label label-info">Maintenance</span>
 					</div>
 					<div class="widget-content nopadding">
@@ -114,8 +116,7 @@
 									<label class="control-label">Type</label>
 									<div class="controls">
 										<select id="services" name="raceType">
-											<option value="<%=time.getRaceTypeId()%>"
-												selected="selected"><%=time.getRaceType()%></option>
+											<option value="<%=time.getRaceTypeId()%>" selected="selected"><%=time.getRaceType()%></option>
 											<%
 												for (RaceType r : times) {
 											%>
@@ -129,9 +130,8 @@
 
 							</div>
 							<div class="form-actions">
-								<input id="back" class="btn btn-primary" type="reset"
-									value="Back" /> <input id="next" class="btn btn-primary"
-									type="submit" value="Next" />
+								<input id="next" class="btn btn-primary" type="submit"
+									value="Next" />
 								<div id="status"></div>
 							</div>
 							<div id="submitted"></div>

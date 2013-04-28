@@ -46,7 +46,8 @@
 			</ul></li>
 		<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 				class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-		<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+		<li class="btn btn-inverse"><a title=""
+			href="RegistrationServlet?action=logOff"><i
 				class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 	</ul>
 </div>
@@ -63,9 +64,10 @@
 		<h1>Performance</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="#" title="Go to Home" class="tip-bottom"><i
-			class="icon-home"></i> Home</a> <a href="#">Performance</a><a href="#"
-			class="current">Add Mod</a>
+		<a href="RegistrationServlet?action=dashboard" title="Go to Home"
+			class="tip-bottom"><i class="icon-home"></i> Home</a> <a
+			href="TrackingServlet?action=getPerformance">Performance</a><a
+			href="#" class="current">Add Mod</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -116,9 +118,8 @@
 								</div>
 							</div>
 							<div class="form-actions">
-								<input id="back" class="btn btn-primary" type="reset"
-									value="Back" /> <input id="next" class="btn btn-primary"
-									type="submit" value="Next" />
+								<input id="next" class="btn btn-primary" type="submit"
+									value="Next" />
 								<div id="status"></div>
 							</div>
 							<div id="submitted"></div>

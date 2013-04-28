@@ -45,7 +45,8 @@
 			</ul></li>
 		<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 				class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-		<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+		<li class="btn btn-inverse"><a title=""
+			href="RegistrationServlet?action=logOff"><i
 				class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 	</ul>
 </div>
@@ -62,8 +63,9 @@
 		<h1>Maintenance</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="#" title="Go to Home" class="tip-bottom"><i
-			class="icon-home"></i> Home</a> <a href="#" class="current">Maintenance</a>
+		<a href="RegistrationServlet?action=dashboard" title="Go to Home"
+			class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#"
+			class="current">Maintenance</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -104,23 +106,15 @@
 
 										<h5>Racing Times</h5>
 										<div class="btn-group">
-											<button class="btn btn-mini">Actions</button>
-											<button data-toggle="dropdown"
-												class="btn btn-mini dropdown-toggle">
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><input id="next" class="btn btn-primary"
+												<input style="margin: 5px; padding: 0px 5px;" id="next" class="btn btn-primary"
 													type="submit" value="Add Record"
 													onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
-												</li>
-												<li><input id="next" class="btn btn-primary"
+												<input style="margin: 5px; padding: 0px 5px;" id="next" class="btn btn-primary"
 													type="submit" value="Edit Record"
-													onclick="form.action='TrackingServlet?action=editForwardMaintenance';" /></li>
-												<li><input id="next" class="btn btn-primary"
+													onclick="form.action='TrackingServlet?action=editForwardMaintenance';" />
+												<input style="margin: 5px; padding: 0px 5px;" id="next" class="btn btn-primary"
 													type="submit" value="Delete Record"
-													onclick="form.action='TrackingServlet?action=deleteMaintenance';" /></li>
-											</ul>
+													onclick="form.action='TrackingServlet?action=deleteMaintenance';" />
 										</div>
 										<div id="status"></div>
 									</div>
