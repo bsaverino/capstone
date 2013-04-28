@@ -39,6 +39,10 @@
 </head>
 <body>
 	<%
+		if(null == session.getAttribute("user")){
+			     response.sendRedirect("Index.jsp");
+			     return;
+		}
 		Vehicle vehicle = (Vehicle) request.getAttribute("vehicle");
 			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
 			int vehicleId = (Integer) session.getAttribute("vehicleId");
@@ -77,12 +81,13 @@
 						+ " "+ newVehicle.getTrim()%></a></li>
 					<%
 						}
-																																																																			}
+																																																																									}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-			<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+			<li class="btn btn-inverse"><a title=""
+				href="RegistrationServlet?action=logOff"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>
@@ -162,7 +167,7 @@
 																	+ " "+ newVehicle.getModel()+ " "+ newVehicle.getTrim()%></option>
 														<%
 															}
-																																																																																																																}
+																																																																																																																																								}
 														%>
 													</select>
 												</div>

@@ -4,9 +4,9 @@
 <%@ page import="java.util.*"%>
 <jsp:include page="Header.jspf" />
 <%
-	if(null == session.getAttribute("user")){
-		     response.sendRedirect("Index.jsp");
-		     return;
+	if (null == session.getAttribute("user")) {
+		response.sendRedirect("Index.jsp");
+		return;
 	}
 	User user = (User) request.getAttribute("user");
 	ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session

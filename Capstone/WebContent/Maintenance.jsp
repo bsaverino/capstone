@@ -3,6 +3,10 @@
 <%@ page import="edu.ben.cmsc398.model.*, java.util.*"%>
 <jsp:include page="Header.jspf" />
 <%
+	if (null == session.getAttribute("user")) {
+		response.sendRedirect("Index.jsp");
+		return;
+	}
 	User user = (User) request.getAttribute("user");
 	ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 			.getAttribute("vehicleList");
@@ -106,15 +110,15 @@
 
 										<h5>Racing Times</h5>
 										<div class="btn-group">
-												<input style="margin: 5px; padding: 0px 5px;" id="next" class="btn btn-primary"
-													type="submit" value="Add Record"
-													onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
-												<input style="margin: 5px; padding: 0px 5px;" id="next" class="btn btn-primary"
-													type="submit" value="Edit Record"
-													onclick="form.action='TrackingServlet?action=editForwardMaintenance';" />
-												<input style="margin: 5px; padding: 0px 5px;" id="next" class="btn btn-primary"
-													type="submit" value="Delete Record"
-													onclick="form.action='TrackingServlet?action=deleteMaintenance';" />
+											<input style="margin: 5px; padding: 0px 5px;" id="next"
+												class="btn btn-primary" type="submit" value="Add Record"
+												onclick="form.action='TrackingServlet?action=addForwardMaintenance';" />
+											<input style="margin: 5px; padding: 0px 5px;" id="next"
+												class="btn btn-primary" type="submit" value="Edit Record"
+												onclick="form.action='TrackingServlet?action=editForwardMaintenance';" />
+											<input style="margin: 5px; padding: 0px 5px;" id="next"
+												class="btn btn-primary" type="submit" value="Delete Record"
+												onclick="form.action='TrackingServlet?action=deleteMaintenance';" />
 										</div>
 										<div id="status"></div>
 									</div>

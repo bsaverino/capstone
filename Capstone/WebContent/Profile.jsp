@@ -5,6 +5,10 @@
 
 <jsp:include page="Header.jspf" />
 <%
+	if (null == session.getAttribute("user")) {
+		response.sendRedirect("Index.jsp");
+		return;
+	}
 	ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 			.getAttribute("vehicleList");
 	int vehicleId = (Integer) session.getAttribute("vehicleId");

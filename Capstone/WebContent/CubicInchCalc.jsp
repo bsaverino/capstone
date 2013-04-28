@@ -25,6 +25,10 @@
 </head>
 <body>
 	<%
+		if (null == session.getAttribute("user")) {
+			response.sendRedirect("Index.jsp");
+			return;
+		}
 		User user = (User) request.getAttribute("user");
 		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 				.getAttribute("vehicleList");
@@ -71,7 +75,8 @@
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-			<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+			<li class="btn btn-inverse"><a title=""
+				href="RegistrationServlet?action=logOff"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>

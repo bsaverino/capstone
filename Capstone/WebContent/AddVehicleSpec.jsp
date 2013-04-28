@@ -39,16 +39,20 @@
 </head>
 <body>
 	<%
-		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-			.toString());
-			int userId = Integer.parseInt(session.getAttribute("userId")
-			.toString());
-			ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
-			int vehicleNoSpecListSize = (Integer) request.getAttribute("vehicleNoSpecListSize");
-			ArrayList<Vehicle> vehicleNoSpecList = null;
-			if(vehicleNoSpecListSize>0){
-		vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
-			}
+		if(null == session.getAttribute("user")){
+		     response.sendRedirect("Index.jsp");
+		     return;
+	}
+			int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
+		.toString());
+		int userId = Integer.parseInt(session.getAttribute("userId")
+		.toString());
+		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
+		int vehicleNoSpecListSize = (Integer) request.getAttribute("vehicleNoSpecListSize");
+		ArrayList<Vehicle> vehicleNoSpecList = null;
+		if(vehicleNoSpecListSize>0){
+			vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
+		}
 	%>
 	<%
 		if(vehicleNoSpecListSize==0){
@@ -106,7 +110,8 @@
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-			<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+			<li class="btn btn-inverse"><a title=""
+				href="RegistrationServlet?action=logOff"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>

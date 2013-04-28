@@ -5,6 +5,10 @@
 <jsp:include page="Header.jspf" />
 
 <%
+	if (null == session.getAttribute("user")) {
+		response.sendRedirect("Index.jsp");
+		return;
+	}
 	User user = (User) request.getAttribute("user");
 	ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 			.getAttribute("vehicleList");
@@ -67,8 +71,9 @@
 		<h1>Performance</h1>
 	</div>
 	<div id="breadcrumb">
-		<a href="RegistrationServlet?action=dashboard" title="Go to Home" class="tip-bottom"><i
-			class="icon-home"></i> Home</a> <a href="#" class="current">Performance</a>
+		<a href="RegistrationServlet?action=dashboard" title="Go to Home"
+			class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#"
+			class="current">Performance</a>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">

@@ -39,6 +39,10 @@
 </head>
 <body>
 	<%
+		if(null == session.getAttribute("user")){
+			     response.sendRedirect("Index.jsp");
+			     return;
+		}
 		int userId = (Integer) session.getAttribute("userId");
 		int vehicleId = (Integer) session.getAttribute("vehicleId");
 		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
@@ -97,12 +101,13 @@
 									+" " + newVehicle.getTrim()%></a></li>
 					<%
 						}
-																		}
+																								}
 					%>
 				</ul></li>
 			<li class="btn btn-inverse"><a title="" href="Profile.jsp"><i
 					class="icon icon-cog"></i> <span class="text">Profile</span></a></li>
-			<li class="btn btn-inverse"><a title="" href="RegistrationServlet?action=logOff"><i
+			<li class="btn btn-inverse"><a title=""
+				href="RegistrationServlet?action=logOff"><i
 					class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
 		</ul>
 	</div>
@@ -182,7 +187,7 @@
 							+ newVehicle.getMake() + " "+ newVehicle.getModel()+ " " + newVehicle.getTrim()%></option>
 														<%
 															}
-																																																															}
+																																																																																							}
 														%>
 													</select>
 												</div>
@@ -248,8 +253,8 @@
 													<select id="fuel" name="fuel">
 														<%
 															ArrayList<FuelType> fuel = (ArrayList<FuelType>) request.getAttribute("fuelList");
-																																																		for (FuelType fuelType : fuel) {
-																																																			if (vehicle.getOctane() == fuelType.getFuelId()) {
+																																																																										for (FuelType fuelType : fuel) {
+																																																																											if (vehicle.getOctane() == fuelType.getFuelId()) {
 														%>
 														<option selected value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 														<%
@@ -258,7 +263,7 @@
 														<option value=<%=fuelType.getFuelId()%>><%=fuelType.getFuelType()%></option>
 														<%
 															}
-																																																		}
+																																																																										}
 														%>
 													</select>
 												</div>
@@ -271,7 +276,7 @@
 														<option value="0" selected="selected">Cylinders</option>
 														<%
 															for (int i = 1; i <= 16; i++) {
-																																																				if (vehicle.getCylinders() == i ) {
+																																																																												if (vehicle.getCylinders() == i ) {
 														%>
 														<option selected value=<%=i%>><%=i%></option>
 														<%
@@ -280,7 +285,7 @@
 														<option value=<%=i%>><%=i%></option>
 														<%
 															}
-																																																					}
+																																																																													}
 														%>
 													</select>
 												</div>
