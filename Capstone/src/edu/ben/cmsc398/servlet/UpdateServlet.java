@@ -381,7 +381,8 @@ public class UpdateServlet extends HttpServlet {
 				if (user.getPassword().equals(currentMd5))
 					if (newMd5.equals(newMd52)) {
 						// update user info in DB
-						user.setPassword(newPassword);
+						System.out.println(user.getPassword());
+						user.setPassword(newMd5);
 						uDao.updateUser(user);
 					}
 				RequestDispatcher dispatcher = request
