@@ -51,7 +51,7 @@
 </head>
 <body>
 	<%
-		if(null == session.getAttribute("user")){
+		if(null == session.getAttribute("userId")){
 		     response.sendRedirect("Index.jsp");
 		     return;
 	}

@@ -3,7 +3,7 @@
 <%@ page import="edu.ben.cmsc398.model.*, java.util.*"%>
 <jsp:include page="Header.jspf" />
 <%
-	if (null == session.getAttribute("user")) {
+	if (null == session.getAttribute("userId")) {
 		response.sendRedirect("Index.jsp");
 		return;
 	}
