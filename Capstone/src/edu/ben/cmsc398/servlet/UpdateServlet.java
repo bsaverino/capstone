@@ -466,28 +466,26 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				boolean cbState;
-
-				if (cbState = request.getParameter("nitrous") != null)
+				if (request.getParameter("nitrous") == "1")
 					bsfc = (float) .65;
-				else if (cbState = request.getParameter("fi") != null)
+				else if (request.getParameter("fi") == "1")
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
 
-				if (request.getParameter("pistonType").equals("dome"))
+				if (request.getParameter("pistonType") == null)
+					pistonType = 0;
+				else if (request.getParameter("pistonType").equals("dome"))
 					pistonType = 1;
 				else if (request.getParameter("pistonType").equals("dish"))
 					pistonType = -1;
-				else
-					pistonType = 0;
 
-				if (request.getParameter("syntheticOil").equals("yes"))
+				if (request.getParameter("syntheticOil") == null)
+					syntheticOil = 1;
+				else if (request.getParameter("syntheticOil").equals("yes"))
 					syntheticOil = 1;
 				else if (request.getParameter("syntheticOil").equals("no"))
 					syntheticOil = 2;
-				else
-					syntheticOil = 0;
 
 				// Gets Cubic Inch result for storage
 				if (bore != 0 && stroke != 0 && cylinders != 0) {
@@ -514,13 +512,37 @@ public class UpdateServlet extends HttpServlet {
 					resultFuelInjector = (hp * bsfc) / (cylinders * dutyCycle);
 				}
 				// creating VehicleSpecs object and inserting it to DB
+				VehicleSpecs vehicleSpec = new VehicleSpecs(vehicleId, 87, 0, 0, 0,
+						0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+				vsDao.addVehicleSpecs(vehicleSpec);
+				vehicleSpec.setOctane(octane);
+				vehicleSpec.setCylinders(cylinders);
+				vehicleSpec.setPistonType(pistonType);
+				vehicleSpec.setHeadCC(headCC);
+				vehicleSpec.setPistonCC(pistonCC);
+				vehicleSpec.setSyntheticOil(syntheticOil);
+				vehicleSpec.setHp(hp);
+				vehicleSpec.setTorque(torque);
+				vehicleSpec.setBore(bore);
+				vehicleSpec.setStroke(stroke);
+				vehicleSpec.setHeadGasketThickness(headGasketThickness);
+				vehicleSpec.setHeadGasketBore(headGasketBore);
+				vehicleSpec.setDutyCycle(dutyCycle);
+				vehicleSpec.setBsfc(bsfc);
+				vehicleSpec.setPistonDeckHeight(pistonDeckHeight);
+				vehicleSpec.setResultCubicInch(resultCubicInch);
+				vehicleSpec.setResultCompressionRatio(resultCompressionRatio);
+				vehicleSpec.setResultFuelInjector(resultFuelInjector);
+
+				// Update VehicleSpec in the DB
+				vsDao.updateVehicleSpecs(vehicleSpec);
 				VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, octane,
 						cylinders, pistonType, headCC, pistonCC, syntheticOil,
 						hp, torque, bore, stroke, headGasketThickness,
 						headGasketBore, dutyCycle, bsfc, pistonDeckHeight,
 						resultCubicInch, resultCompressionRatio,
 						resultFuelInjector);
-				vsDao.addVehicleSpecs(vehicleSpecs);
+				//vsDao.addVehicleSpecs(vehicleSpecs);
 
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Profile.jsp");
@@ -597,7 +619,8 @@ public class UpdateServlet extends HttpServlet {
 
 				// update Vehicle in the DB
 				vDao.updateVehicle(vehicle);
-
+				vehicleList = vDao.getAllVehicleByUser(userId);
+				request.getSession().setAttribute("vehicleList",vehicleList);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("error");
@@ -635,28 +658,26 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				boolean cbState;
-
-				if (cbState = request.getParameter("nitrous") != null)
+				if (request.getParameter("nitrous") == "1")
 					bsfc = (float) .65;
-				else if (cbState = request.getParameter("fi") != null)
+				else if (request.getParameter("fi") == "1")
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
 
-				if (request.getParameter("pistonType").equals("dome"))
+				if (request.getParameter("pistonType") == null)
+					pistonType = 0;
+				else if (request.getParameter("pistonType").equals("dome"))
 					pistonType = 1;
 				else if (request.getParameter("pistonType").equals("dish"))
 					pistonType = -1;
-				else
-					pistonType = 0;
 
-				if (request.getParameter("syntheticOil").equals("yes"))
+				if (request.getParameter("syntheticOil") == null)
+					syntheticOil = 1;
+				else if (request.getParameter("syntheticOil").equals("yes"))
 					syntheticOil = 1;
 				else if (request.getParameter("syntheticOil").equals("no"))
 					syntheticOil = 2;
-				else
-					syntheticOil = 0;
 
 				// Gets Cubic Inch result for storage
 				if (bore != 0 && stroke != 0 && cylinders != 0) {

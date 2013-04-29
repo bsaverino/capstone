@@ -107,7 +107,7 @@
 								<div class="control-group">
 									<label class="control-label">Fuel Injector</label>
 									<div class="controls">
-										<input type="text" id="fuelInjectorTotal" name="fuelInjectorTotal" disabled>
+										<input type="text" id="fuelInjectorTotal" name="fuelInjectorTotal" readonly>
 									</div>
 								</div>
 								<div class="form-actions">

@@ -98,7 +98,7 @@
 										<label class="control-label">Cubic Inch</label>
 										<div class="controls">
 											<input type="text" id="cubicInchTotal" name="cubicInchTotal"
-												disabled>
+												readonly>
 										</div>
 									</div>
 								</div>
