@@ -224,18 +224,6 @@
 													%>
 												</div>
 											</div>
-											<!-- TODO -->
-											<div class="control-group">
-												<label class="control-label">Is your nitrous system
-													wet or dry?</label>
-												<div class="controls">
-													<label><input type="radio" name="radios" value="1"
-														id="wet" />Wet</label> <label><input type="radio"
-														name="radios" value="2" id="dry" /> Dry</label> <label><input
-														type="radio" name="radios" value="0" id="no" /> I don't
-														have Nitrous</label>
-												</div>
-											</div>
 											<div class="control-group">
 												<label class="control-label">Do you use Synthetic
 													Oil?</label>

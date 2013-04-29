@@ -177,17 +177,7 @@ public class UpdateServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateVehicleSpec.jsp");
 			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("changeDefaultVehicle")) { // if the
-																		// the
-																		// user
-																		// wants
-																		// to
-																		// change
-																		// the
-																		// default
-																		// vehicle
-																		// in
-																		// session
+		} else if (action.equalsIgnoreCase("changeDefaultVehicle")) { // if the user wants to change the default vehicle in session
 			// getting the previous page
 			String prevPage = (String) request.getHeader("Referer");
 			try {
@@ -205,15 +195,7 @@ public class UpdateServlet extends HttpServlet {
 			// Go back to the previous page
 			response.sendRedirect(request.getHeader("referer"));
 
-		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { // if the
-																	// the user
-																	// wants to
-																	// change
-																	// the
-																	// default
-																	// vehicle
-																	// in
-																	// session
+		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { // if the user wants to add a new vehicle spec
 			ArrayList<FuelType> fuel = null;
 
 			System.out.println("in servlet");
@@ -390,14 +372,18 @@ public class UpdateServlet extends HttpServlet {
 				digest.update(newHash3.getBytes(), 0, newHash3.length());
 				String newMd52 = new BigInteger(1, digest.digest())
 						.toString(16);
-
+				System.out.println(currentMd5);
+				System.out.println(newMd5);
+				System.out.println(newMd52);
 				// get user object from DB and check password is valid
 				User user = uDao.getUser(userId);
 				if (user.getPassword().equals(currentMd5))
 					if (newMd5.equals(newMd52)) {
 						// update user info in DB
-						user.setPassword(newPassword);
+						System.out.println(user.getPassword());
+						user.setPassword(newMd5);
 						uDao.updateUser(user);
+						System.out.println(user.getPassword());
 					}
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Profile.jsp");
@@ -409,11 +395,7 @@ public class UpdateServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-
-		// Need to add in the Vehicle Specs
-		else if (action.equals("addVehicle")) { // Create a vehicle to my ever
-												// expanding list
+		}else if (action.equals("addVehicle")) { // if the user wants to add a vehicle
 			try {
 				// get information from page
 				String make = request.getParameter("make");
@@ -547,8 +529,7 @@ public class UpdateServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if (action.equalsIgnoreCase("deleteVehicle")) { // Delete a
-																// vehicle
+		} else if (action.equalsIgnoreCase("deleteVehicle")) { // Delete a vehicle
 			// get which vehicle to delete
 			int deleteVehicleId = Integer.parseInt(request
 					.getParameter("Vehicle"));
@@ -579,11 +560,7 @@ public class UpdateServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		} else if (action.equalsIgnoreCase("updateVehicle")) { // if the the
-																// user wants to
-																// update a
-																// vehicle's
-																// info
+		} else if (action.equalsIgnoreCase("updateVehicle")) { // if the user wants to update vehicle info
 			Vehicle vehicle = null;
 			User user;
 			try {
@@ -631,12 +608,7 @@ public class UpdateServlet extends HttpServlet {
 					.getRequestDispatcher("Profile.jsp");
 			dispatcher.forward(request, response);
 
-		} else if (action.equalsIgnoreCase("updateVehicleSpec")) { // if the the
-																	// user
-																	// wants to
-																	// update a
-																	// vehicle's
-																	// spec info
+		} else if (action.equalsIgnoreCase("updateVehicleSpec")) { // if the user wants to update vehicle spec
 			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
 			int pistonType, syntheticOil;
 			VehicleSpecs vehicleSpecs = null;
