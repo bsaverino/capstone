@@ -40,18 +40,18 @@
 <body>
 	<%
 		if(null == session.getAttribute("userId")){
-		     response.sendRedirect("Index.jsp");
-		     return;
-	}
-			int vehicleId = Integer.parseInt(session.getAttribute("vehicleId")
-		.toString());
-		int userId = Integer.parseInt(session.getAttribute("userId")
-		.toString());
+			     response.sendRedirect("Index.jsp");
+			     return;
+		}
+		int vehicleId = Integer.parseInt(session.getAttribute("vehicleId").toString());
+		int userId = Integer.parseInt(session.getAttribute("userId").toString());
 		ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>)session.getAttribute("vehicleList");
 		int vehicleNoSpecListSize = (Integer) request.getAttribute("vehicleNoSpecListSize");
 		ArrayList<Vehicle> vehicleNoSpecList = null;
-		if(vehicleNoSpecListSize>0){
-			vehicleNoSpecList = (ArrayList<Vehicle>)request.getAttribute("vehicleNoSpecList");
+		
+		if (vehicleNoSpecListSize > 0) {
+			vehicleNoSpecList = (ArrayList<Vehicle>) request
+					.getAttribute("vehicleNoSpecList");
 		}
 	%>
 	<%

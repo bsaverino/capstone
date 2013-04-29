@@ -91,7 +91,7 @@
 								<div class="control-group">
 									<label class="control-label">Date</label>
 									<div class="controls">
-										<input id="date" type="text" name="date" />
+										<input id="date" type="date" name="date" />
 									</div>
 								</div>
 								<div class="control-group">
