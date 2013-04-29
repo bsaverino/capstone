@@ -12,7 +12,34 @@
 	ArrayList<Vehicle> vehicleList = (ArrayList<Vehicle>) session
 			.getAttribute("vehicleList");
 %>
+<script>
+function validateForm() {
 
+	var year = document.forms["av"]["year"].value;
+	var make = document.forms["av"]["make"].value;
+	var model = document.forms["av"]["model"].value;
+
+	if (year == null || year == "") {
+		alert("Year must be filled out");
+		av.year.focus();
+		return false;
+	}
+	if (make == null || make == "") {
+		alert("Make name must be filled out");
+		av.make.focus();
+		return false;
+	}
+	if (model == null || model == "") {
+		alert("Model must be filled out");
+		av.model.focus();
+		return false;
+	}
+	if (av.other[0].checked == false && av.other[1].checked == false) {
+		alert("Select if this will be your default vehicle");
+		return false;
+	}
+}
+</script>
 <div id="user-nav" class="navbar navbar-inverse">
 	<ul class="nav btn-group">
 		<li class="btn btn-inverse dropdown"><a href="#"
@@ -106,8 +133,8 @@
 								<h5>Add Vehicle</h5>
 							</div>
 							<div class="widget-content nopadding">
-								<form id="form-wizard" class="form-horizontal" method="post"
-									action="UpdateServlet?action=addVehicle">
+								<form id="av" class="form-horizontal" method="post"
+									action="UpdateServlet?action=addVehicle"onsubmit="return validateForm()">
 									<div id="form-wizard-1" class="step">
 										<div class="control-group">
 											<label class="control-label">Year</label>

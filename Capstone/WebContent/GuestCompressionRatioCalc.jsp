@@ -162,7 +162,7 @@
 									<label class="control-label">Compression Ratio</label>
 									<div class="controls">
 										<input type="text" id="compressionRatioTotal"
-											name="compressionRatioTotal">
+											name="compressionRatioTotal" readonly>
 									</div>
 								</div>
 								<div class="form-actions">

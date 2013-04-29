@@ -17,21 +17,47 @@
 
 		var NewCount = 0;
 
-		if (document.reg3.nitrous.checked) {
+		if (document.uv.nitrous.checked) {
 			NewCount = NewCount + 1;
 		}
 
-		if (document.reg3.fi.checked) {
+		if (document.uv.fi.checked) {
 			NewCount = NewCount + 1;
 		}
 
-		if (document.reg3.na.checked) {
+		if (document.uv.na.checked) {
 			NewCount = NewCount + 1;
 		}
 
 		if (NewCount == 3) {
 			alert('Pick Just Two Please');
-			document.reg3;
+			document.uv;
+			return false;
+		}
+	}
+	function validateForm() {
+
+		var year = document.forms["uv"]["year"].value;
+		var make = document.forms["uv"]["make"].value;
+		var model = document.forms["uv"]["model"].value;
+
+		if (year == null || year == "") {
+			alert("Year must be filled out");
+			uv.year.focus();
+			return false;
+		}
+		if (make == null || make == "") {
+			alert("Make name must be filled out");
+			uv.make.focus();
+			return false;
+		}
+		if (model == null || model == "") {
+			alert("Model must be filled out");
+			uv.model.focus();
+			return false;
+		}
+		if (uv.other[0].checked == false && uv.other[1].checked == false) {
+			alert("Select if this will be your default vehicle");
 			return false;
 		}
 	}
@@ -142,8 +168,8 @@
 									<h5>Update Vehicle</h5>
 								</div>
 								<div class="widget-content nopadding">
-									<form id="form-wizard" class="form-horizontal" method="post"
-										action="UpdateServlet?action=updateVehicle">
+									<form id="uv" class="form-horizontal" method="post"
+										action="UpdateServlet?action=updateVehicle" onsubmit="return validateForm()">
 										<div id="form-wizard-1" class="step">
 											<div class="control-group">
 												<label class="control-label">Select Vehicle</label>
@@ -260,7 +286,7 @@
 										</div>
 										<div class="form-actions">
 											<input id="next" class="btn btn-primary" type="submit"
-												value="Submit" />
+												value="Submit"/>
 											<div id="status"></div>
 										</div>
 										<div id="submitted"></div>
