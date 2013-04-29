@@ -123,35 +123,45 @@ public class RegistrationServlet extends HttpServlet {
 				int month = Integer.parseInt(request.getParameter("month"));
 				int day = Integer.parseInt(request.getParameter("day"));
 				int year = Integer.parseInt(request.getParameter("year"));
+				int areacode = Integer.parseInt(request.getParameter("areacode"));
 				String password = request.getParameter("password");
-				String hash = password + salt;
+				
 				int gender = 1;
-				int areacode = Integer.parseInt(request
-						.getParameter("areacode"));
 				if (request.getParameter("gender").equals("male"))
 					gender = 1;
 				else if (request.getParameter("gender").equals("female"))
 					gender = 0;
 
+				//Salt is combied with password here.  
+				String hash = password + salt;
+				
+				//MD5 is set here.  
 				MessageDigest digest = MessageDigest.getInstance("MD5");
 				digest.update(hash.getBytes(), 0, hash.length());
 				String md5 = new BigInteger(1, digest.digest()).toString(16);
-
+				
 				User user = new User(' ', firstName, lastName, username, md5,
 						email, areacode, gender, year, month, day, ' ');
 
+				//Check to see if username already exists. 
+				ArrayList<User> users = uDao.getAllUsers();
+				for(User u : users) {
+					if(u.getUsername().equalsIgnoreCase(username)) {
+						request.setAttribute("error", "Username has already been taken.  Please try again!");
+						RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationPageStage1.jsp");
+						dispatcher.forward(request, response);
+					}
+				}
+				
 				int autoId = uDao.insertUser(user);
-
 				Vehicle vehicle = new Vehicle(null, null, null, null, 0, null,
 						0, ' ', autoId);
 
 				int autoV = vDao.addVehicle(vehicle);
-
 				VehicleSpecs vehicleSpec = new VehicleSpecs(autoV, 87, 0, 0, 0,
 						0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 				vsDao.addVehicleSpecs(vehicleSpec);
-
 				request.getSession().setAttribute("userId", autoId);
 				request.getSession().setAttribute("vehicleId", autoV);
 
@@ -198,14 +208,16 @@ public class RegistrationServlet extends HttpServlet {
 				 * This is grabing the fuel type and passing it into the
 				 * registraton page 3
 				 */
-				ArrayList<Vehicle> vehicleList = vDao
-						.getAllVehicleByUser(userId);
+				
 				ArrayList<FuelType> fuel = vsDao.getFuelType();
 				request.setAttribute("fuelList", fuel); // respond
+				
+				ArrayList<Vehicle> vehicleList = vDao.getAllVehicleByUser(userId);
 				request.getSession().setAttribute("vehicleList", vehicleList);
-				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("RegistrationPageStage3.jsp");
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("RegistrationPageStage3.jsp");
 				dispatcher.forward(request, response);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -311,9 +323,7 @@ public class RegistrationServlet extends HttpServlet {
 				ArrayList<User> list = uDao.getAllUsers();
 				for (User user : list) {
 					if (currentUsername.equalsIgnoreCase(user.getUsername())) {
-						System.out.println("I have a username");
 						if (md5.equals(user.getPassword())) {
-							System.out.println("I have a password");
 							// ArrayList<Vehicle> singleVehicle =
 							// vDao.getAllVehicleByUser(user.getId());
 							// int count = vDao.getVehiclesCount(user.getId());
@@ -336,12 +346,10 @@ public class RegistrationServlet extends HttpServlet {
 									"0; URL=RegistrationServlet?action=dashboard");
 							break;
 						} else {
-							System.out.println("bad password");
 							response.setHeader("Refresh",
 									"0; URL=LoginPage.jsp");
 						}
 					} else {
-						System.out.println("bad username");
 						response.setHeader("Refresh", "0; URL=LoginPage.jsp");
 					}
 				}

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
 <%@ page import="java.util.Calendar"%>
+<%@ page import="edu.ben.cmsc398.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,8 +141,7 @@
 		<a href="#" class="visible-phone"><i class="icon icon-th-list"></i>
 			rCal Tracer</a>
 		<ul>
-			<li><a href="Index.jsp"><i class="icon icon-home"></i>
-					<span>Dashboard</span></a></li>
+			<li><a href="Index.jsp"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 			<li class="submenu"><a href="#"><i class="icon icon-th-list"></i>
 					<span>Calculators</span> <span class="label">3</span></a>
 				<ul>
@@ -151,6 +152,7 @@
 				</ul></li>
 		</ul>
 	</div>
+
 
 
 	<div id="content">
@@ -171,6 +173,8 @@
 							</span>
 							<h5>Registration Page 1</h5>
 						</div>
+
+						<div style="color:red">${error}</div> 
 						<div class="widget-content nopadding">
 							<form name="reg1" id="form-wizard" class="form-horizontal"
 								method="post" action="RegistrationServlet?action=registerUser"
@@ -195,9 +199,10 @@
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">Area Code*</label>
+										<label class="control-label">5 Didget Area Code*</label>
 										<div class="controls">
-											<input id="areacode" type="text" name="areacode" />
+											<input id="areacode" type="number" min="00000" max="99999"
+												name="areacode" />
 										</div>
 									</div>
 									<div class="control-group">

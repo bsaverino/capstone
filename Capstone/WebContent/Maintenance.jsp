@@ -108,7 +108,7 @@
 									</tbody>
 									<div class="widget-title">
 
-										<h5>Racing Times</h5>
+										<h5>Maintenance Record</h5>
 										<div class="btn-group">
 											<input style="margin: 5px; padding: 0px 5px;" id="next"
 												class="btn btn-primary" type="submit" value="Add Record"

@@ -177,17 +177,9 @@ public class UpdateServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateVehicleSpec.jsp");
 			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("changeDefaultVehicle")) { // if the
-																		// the
-																		// user
-																		// wants
-																		// to
-																		// change
-																		// the
-																		// default
-																		// vehicle
-																		// in
-																		// session
+			
+			// if the the user wants to change the default vehicle in session
+		} else if (action.equalsIgnoreCase("changeDefaultVehicle")) { 
 			// getting the previous page
 			String prevPage = (String) request.getHeader("Referer");
 			try {
@@ -205,15 +197,8 @@ public class UpdateServlet extends HttpServlet {
 			// Go back to the previous page
 			response.sendRedirect(request.getHeader("referer"));
 
-		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { // if the
-																	// the user
-																	// wants to
-																	// change
-																	// the
-																	// default
-																	// vehicle
-																	// in
-																	// session
+			// if the the user wants to change the default vehicle in session
+		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { 
 			ArrayList<FuelType> fuel = null;
 
 			System.out.println("in servlet");
