@@ -177,7 +177,9 @@ public class UpdateServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("UpdateVehicleSpec.jsp");
 			dispatcher.forward(request, response);
-		} else if (action.equalsIgnoreCase("changeDefaultVehicle")) { // if the user wants to change the default vehicle in session
+			
+			// if the the user wants to change the default vehicle in session
+		} else if (action.equalsIgnoreCase("changeDefaultVehicle")) { 
 			// getting the previous page
 			String prevPage = (String) request.getHeader("Referer");
 			try {
@@ -195,7 +197,8 @@ public class UpdateServlet extends HttpServlet {
 			// Go back to the previous page
 			response.sendRedirect(request.getHeader("referer"));
 
-		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { // if the user wants to add a new vehicle spec
+			// if the the user wants to change the default vehicle in session
+		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { 
 			ArrayList<FuelType> fuel = null;
 
 			System.out.println("in servlet");
@@ -372,18 +375,14 @@ public class UpdateServlet extends HttpServlet {
 				digest.update(newHash3.getBytes(), 0, newHash3.length());
 				String newMd52 = new BigInteger(1, digest.digest())
 						.toString(16);
-				System.out.println(currentMd5);
-				System.out.println(newMd5);
-				System.out.println(newMd52);
+
 				// get user object from DB and check password is valid
 				User user = uDao.getUser(userId);
 				if (user.getPassword().equals(currentMd5))
 					if (newMd5.equals(newMd52)) {
 						// update user info in DB
-						System.out.println(user.getPassword());
-						user.setPassword(newMd5);
+						user.setPassword(newPassword);
 						uDao.updateUser(user);
-						System.out.println(user.getPassword());
 					}
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Profile.jsp");
@@ -395,7 +394,11 @@ public class UpdateServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if (action.equals("addVehicle")) { // if the user wants to add a vehicle
+		}
+
+		// Need to add in the Vehicle Specs
+		else if (action.equals("addVehicle")) { // Create a vehicle to my ever
+												// expanding list
 			try {
 				// get information from page
 				String make = request.getParameter("make");
@@ -466,26 +469,28 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				if (request.getParameter("nitrous") == "1")
+				boolean cbState;
+
+				if (cbState = request.getParameter("nitrous") != null)
 					bsfc = (float) .65;
-				else if (request.getParameter("fi") == "1")
+				else if (cbState = request.getParameter("fi") != null)
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
 
-				if (request.getParameter("pistonType") == null)
-					pistonType = 0;
-				else if (request.getParameter("pistonType").equals("dome"))
+				if (request.getParameter("pistonType").equals("dome"))
 					pistonType = 1;
 				else if (request.getParameter("pistonType").equals("dish"))
 					pistonType = -1;
+				else
+					pistonType = 0;
 
-				if (request.getParameter("syntheticOil") == null)
-					syntheticOil = 1;
-				else if (request.getParameter("syntheticOil").equals("yes"))
+				if (request.getParameter("syntheticOil").equals("yes"))
 					syntheticOil = 1;
 				else if (request.getParameter("syntheticOil").equals("no"))
 					syntheticOil = 2;
+				else
+					syntheticOil = 0;
 
 				// Gets Cubic Inch result for storage
 				if (bore != 0 && stroke != 0 && cylinders != 0) {
@@ -512,30 +517,6 @@ public class UpdateServlet extends HttpServlet {
 					resultFuelInjector = (hp * bsfc) / (cylinders * dutyCycle);
 				}
 				// creating VehicleSpecs object and inserting it to DB
-				VehicleSpecs vehicleSpec = new VehicleSpecs(vehicleId, 87, 0, 0, 0,
-						0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-				vsDao.addVehicleSpecs(vehicleSpec);
-				vehicleSpec.setOctane(octane);
-				vehicleSpec.setCylinders(cylinders);
-				vehicleSpec.setPistonType(pistonType);
-				vehicleSpec.setHeadCC(headCC);
-				vehicleSpec.setPistonCC(pistonCC);
-				vehicleSpec.setSyntheticOil(syntheticOil);
-				vehicleSpec.setHp(hp);
-				vehicleSpec.setTorque(torque);
-				vehicleSpec.setBore(bore);
-				vehicleSpec.setStroke(stroke);
-				vehicleSpec.setHeadGasketThickness(headGasketThickness);
-				vehicleSpec.setHeadGasketBore(headGasketBore);
-				vehicleSpec.setDutyCycle(dutyCycle);
-				vehicleSpec.setBsfc(bsfc);
-				vehicleSpec.setPistonDeckHeight(pistonDeckHeight);
-				vehicleSpec.setResultCubicInch(resultCubicInch);
-				vehicleSpec.setResultCompressionRatio(resultCompressionRatio);
-				vehicleSpec.setResultFuelInjector(resultFuelInjector);
-
-				// Update VehicleSpec in the DB
-				vsDao.updateVehicleSpecs(vehicleSpec);
 				VehicleSpecs vehicleSpecs = new VehicleSpecs(vehicleId, octane,
 						cylinders, pistonType, headCC, pistonCC, syntheticOil,
 						hp, torque, bore, stroke, headGasketThickness,
@@ -551,7 +532,8 @@ public class UpdateServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if (action.equalsIgnoreCase("deleteVehicle")) { // Delete a vehicle
+		} else if (action.equalsIgnoreCase("deleteVehicle")) { // Delete a
+																// vehicle
 			// get which vehicle to delete
 			int deleteVehicleId = Integer.parseInt(request
 					.getParameter("Vehicle"));
@@ -582,7 +564,11 @@ public class UpdateServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		} else if (action.equalsIgnoreCase("updateVehicle")) { // if the user wants to update vehicle info
+		} else if (action.equalsIgnoreCase("updateVehicle")) { // if the the
+																// user wants to
+																// update a
+																// vehicle's
+																// info
 			Vehicle vehicle = null;
 			User user;
 			try {
@@ -619,8 +605,7 @@ public class UpdateServlet extends HttpServlet {
 
 				// update Vehicle in the DB
 				vDao.updateVehicle(vehicle);
-				vehicleList = vDao.getAllVehicleByUser(userId);
-				request.getSession().setAttribute("vehicleList",vehicleList);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("error");
@@ -631,7 +616,12 @@ public class UpdateServlet extends HttpServlet {
 					.getRequestDispatcher("Profile.jsp");
 			dispatcher.forward(request, response);
 
-		} else if (action.equalsIgnoreCase("updateVehicleSpec")) { // if the user wants to update vehicle spec
+		} else if (action.equalsIgnoreCase("updateVehicleSpec")) { // if the the
+																	// user
+																	// wants to
+																	// update a
+																	// vehicle's
+																	// spec info
 			float bsfc, resultCubicInch, resultCompressionRatio, resultFuelInjector;
 			int pistonType, syntheticOil;
 			VehicleSpecs vehicleSpecs = null;
@@ -658,26 +648,28 @@ public class UpdateServlet extends HttpServlet {
 						.getParameter("pistonDeckHeight"));
 				float dutyCycle = (float) .80;
 
-				if (request.getParameter("nitrous") == "1")
+				boolean cbState;
+
+				if (cbState = request.getParameter("nitrous") != null)
 					bsfc = (float) .65;
-				else if (request.getParameter("fi") == "1")
+				else if (cbState = request.getParameter("fi") != null)
 					bsfc = (float) .65;
 				else
 					bsfc = (float) .55;
 
-				if (request.getParameter("pistonType") == null)
-					pistonType = 0;
-				else if (request.getParameter("pistonType").equals("dome"))
+				if (request.getParameter("pistonType").equals("dome"))
 					pistonType = 1;
 				else if (request.getParameter("pistonType").equals("dish"))
 					pistonType = -1;
+				else
+					pistonType = 0;
 
-				if (request.getParameter("syntheticOil") == null)
-					syntheticOil = 1;
-				else if (request.getParameter("syntheticOil").equals("yes"))
+				if (request.getParameter("syntheticOil").equals("yes"))
 					syntheticOil = 1;
 				else if (request.getParameter("syntheticOil").equals("no"))
 					syntheticOil = 2;
+				else
+					syntheticOil = 0;
 
 				// Gets Cubic Inch result for storage
 				if (bore != 0 && stroke != 0 && cylinders != 0) {
@@ -732,7 +724,6 @@ public class UpdateServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println("test");
 		}
 	}
 
