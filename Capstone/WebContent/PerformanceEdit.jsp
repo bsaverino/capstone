@@ -60,7 +60,7 @@
 
 <div id="content">
 	<div id="content-header">
-		<h1>Dashboard</h1>
+		<h1>Performance</h1>
 	</div>
 	<div id="breadcrumb">
 		<a href="RegistrationServlet?action=dashboard" title="Go to Home"
