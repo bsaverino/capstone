@@ -312,7 +312,7 @@ public class TrackingServlet extends HttpServlet {
 						.getParameter("raceType"));
 				int speed = Integer.parseInt(request.getParameter("speed"));
 
-				RaceTime r = new RaceTime(' ', userId, vehicleId, raceTypeId,
+				RaceTime r = new RaceTime(0, userId, vehicleId, raceTypeId,
 						speed, date, time, distanceTime);
 
 				pDao.insertRaceTime(r);
