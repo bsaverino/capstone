@@ -208,7 +208,7 @@ public class TrackingServlet extends HttpServlet {
 				String part = request.getParameter("part");
 				float price = Float.parseFloat(request.getParameter("price"));
 
-				Modification mod = new Modification(' ', vehicleId, userId,
+				Modification mod = new Modification(0, vehicleId, userId,
 						brand, part, modTypeId, price);
 
 				pDao.insertModification(mod);
