@@ -81,8 +81,8 @@
 
 						<span class="icon"> <i class="icon-th"></i>
 						</span>
-						<h5>Current Maintenance -> Add Record</h5>
-						<span class="label label-info">Maintenance</span>
+						<h5>Add Racing Record</h5>
+						<span class="label label-info">Performance</span>
 					</div>
 					<div class="widget-content nopadding">
 						<form id="form-wizard" class="form-horizontal" method="post"
