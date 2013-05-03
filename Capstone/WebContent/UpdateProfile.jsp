@@ -10,9 +10,6 @@
 		var lastName = document.forms["up"]["lastName"].value;
 		var email = document.forms["up"]["email"].value;
 		var areacode = document.forms["up"]["areacode"].value;
-		var username = document.forms["up"]["username"].value;
-		var password = document.forms["up"]["password"].value;
-		var password2 = document.forms["up"]["password2"].value;
 		var month = document.forms["up"]["month"].value;
 		var day = document.forms["up"]["day"].value;
 		var year = document.forms["up"]["year"].value;
@@ -35,55 +32,6 @@
 		if (areacode == null || areacode == "") {
 			alert("Area code must be filled out");
 			up.areacode.focus();
-			return false;
-		}
-		if (username == null || username == "") {
-			alert("Username must be filled out");
-			up.username.focus();
-			return false;
-		}
-		if (password == null || password == "") {
-			alert("Password must be filled out");
-			up.password.focus();
-			return false;
-		}
-		if (password2 == null || password2 == "") {
-			alert("Confirm Password must be filled out");
-			up.password2.focus();
-			return false;
-		}
-		if (password != "" && password == password2) {
-			if (password.length < 6) {
-				alert("Error: Password must contain at least six characters!");
-				up.password.focus();
-				return false;
-			}
-			if (password == username) {
-				alert("Error: Password must be different from Username!");
-				up.password.focus();
-				return false;
-			}
-			re = /[0-9]/;
-			if (!re.test(password)) {
-				alert("Error: password must contain at least one number (0-9)!");
-				up.password.focus();
-				return false;
-			}
-			re = /[a-z]/;
-			if (!re.test(password)) {
-				alert("Error: password must contain at least one lowercase letter (a-z)!");
-				up.password.focus();
-				return false;
-			}
-			re = /[A-Z]/;
-			if (!re.test(password)) {
-				alert("Error: password must contain at least one uppercase letter (A-Z)!");
-				up.password.focus();
-				return false;
-			}
-		} else {
-			alert("Error: Please check that you've entered and confirmed your password!");
-			up.password.focus();
 			return false;
 		}
 		if (up.gender[0].checked == false && up.gender[1].checked == false) {
@@ -234,7 +182,7 @@
 										<div class="control-group">
 											<label class="control-label">Area Code</label>
 											<div class="controls">
-												<input id="areacode" type="text" name="areacode"
+												<input id="areacode" name="areacode"type="number" min="00000" max="99999"
 													value="<%=user.getAreacode()%>" />
 											</div>
 										</div>
@@ -338,8 +286,8 @@
 
 									</div>
 									<div class="form-actions">
-										<a href="RegistrationPageStage2.jsp"><input
-											class="btn btn-primary" type="submit" value="Submit" /></a>
+										<input
+											class="btn btn-primary" type="submit" value="Submit" />
 										<div id="status"></div>
 									</div>
 									<div id="submitted"></div>
