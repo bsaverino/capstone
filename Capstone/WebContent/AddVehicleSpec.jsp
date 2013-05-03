@@ -295,7 +295,7 @@
 											<div class="controls">
 												<label><input type="radio" id="pistonType"
 													name="pistonType" value="dome" /> Domed</label> <label><input
-													type="radio" id="pistonType" name="pistonType" value="dish" />Dished</label>
+													type="radio" id="pistonType" name="pistonType" value="dish" /> Dished</label>
 											</div>
 										</div>
 										<div class="control-group">
@@ -336,7 +336,7 @@
 													name="pistonDeckHeight" value="0" />
 											</div>
 										</div>
-								</div>
+								
 								<div class="form-actions">
 									<input id="next" class="btn btn-primary" type="submit"
 										value="Submit" />

@@ -2,9 +2,54 @@
 	pageEncoding="US-ASCII"%>
 <%@ page import="edu.ben.cmsc398.model.*"%>
 <%@ page import="java.util.*"%>
-
-
 <jsp:include page="Header.jspf" />
+
+<script>
+function validateForm() {
+	var newPassword = document.forms["password_validate"]["newPassword"].value;
+	var newPassword2 = document.forms["password_validate"]["newPassword2"].value;
+	if (newPassword == null || newPassword == "") {
+		alert("Password must be filled out");
+		password_validate.newPassword.focus();
+		return false;
+	}
+	if (newPassword2 == null || newPassword2 == "") {
+		alert("Confirm Password must be filled out");
+		password_validate.newPassword2.focus();
+		return false;
+	}
+	if (newPassword != "" && newPassword == newPassword2) {
+		if (newPassword.length < 6) {
+			alert("Error: Password must contain at least six characters!");
+			password_validate.newPassword.focus();
+			return false;
+		}
+		re = /[0-9]/;
+		if (!re.test(newPassword)) {
+			alert("Error: password must contain at least one number (0-9)!");
+			password_validate.newPassword.focus();
+			return false;
+		}
+		re = /[a-z]/;
+		if (!re.test(newPassword)) {
+			alert("Error: password must contain at least one lowercase letter (a-z)!");
+			password_validate.newPassword.focus();
+			return false;
+		}
+		re = /[A-Z]/;
+		if (!re.test(newPassword)) {
+			alert("Error: password must contain at least one uppercase letter (A-Z)!");
+			password_validate.newPassword.focus();
+			return false;
+		}
+	} else {
+		alert("Error: Please check that you've entered and confirmed your password!");
+		password_validate.newPassword.focus();
+		return false;
+	}
+}
+</script>
+
 <%
 	if (null == session.getAttribute("userId")) {
 		response.sendRedirect("Index.jsp");
@@ -109,9 +154,8 @@
 							</div>
 							<div class="widget-content nopadding">
 								<form class="form-horizontal" method="post"
-									action="UpdateServlet?action=changePassword"
-									name="password_validate" id="password_validate"
-									novalidate="novalidate">
+									action="UpdateServlet?action=changePassword" novalidate="novalidate"
+									id="password_validate" name="password_validate"onsubmit="return validateForm()">
 									<div class="control-group">
 										<label class="control-label">Current Password</label>
 										<div class="controls">
@@ -132,12 +176,15 @@
 										</div>
 									</div>
 									<div class="form-actions">
-										<input type="submit" value="Submit" class="btn btn-primary">
+										<input class="btn btn-primary" type="submit" value="Submit" />
+										<div id="status"></div>
 									</div>
+									<div id="submitted"></div>
 								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<jsp:include page="Footer2.jspf" />
+			</div>
+		</div>
+		<jsp:include page="Footer2.jspf" />
