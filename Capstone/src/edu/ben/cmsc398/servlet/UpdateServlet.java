@@ -145,12 +145,9 @@ public class UpdateServlet extends HttpServlet {
 
 				// find out the default vehicle's specs and return it
 				for (Vehicle v : vehicleWithSpecList) {
-					System.out.println("v with specs: " + v.toString());
 					if (v.getVehicleId() == vehicleId) {
 						request.setAttribute("vehicleSpec",
 								vsDao.getVehicleSpec(vehicleId));
-						System.out.println(vsDao.getVehicleSpec(vehicleId)
-								.toString());
 						found = true;
 						break;
 					}
@@ -181,14 +178,10 @@ public class UpdateServlet extends HttpServlet {
 			// getting the previous page
 			String prevPage = (String) request.getHeader("Referer");
 			try {
-				System.out.println("default vehicle before " + vehicleId);
 				// setting the new vehicleId in the session and in the DB
 				request.getSession().setAttribute("vehicleId",
 						newDefaultVehicleId);
 				uDao.updateDefaultVehicle(userId, newDefaultVehicleId);
-				System.out.println("default vehicle after "
-						+ Integer.parseInt(session.getAttribute("vehicleId")
-								.toString()));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -198,7 +191,6 @@ public class UpdateServlet extends HttpServlet {
 		} else if (action.equalsIgnoreCase("loadAddVehicleSpec")) { // if the user wants to add a new vehicle spec
 			ArrayList<FuelType> fuel = null;
 
-			System.out.println("in servlet");
 			// Figure out what vehicles don't have vehicleSpecs
 			ArrayList<VehicleSpecs> vehicleSpecsList = null;
 			ArrayList<Vehicle> vehicleNoSpecList = new ArrayList<Vehicle>();
@@ -211,10 +203,6 @@ public class UpdateServlet extends HttpServlet {
 				for (Vehicle v : vehicleList)
 					vehicleIdList.add(v.getVehicleId());
 
-				System.out.println("ID in v spec table");
-				for (Integer v : vehicleIdList)
-					System.out.println(v);
-
 				// find out which of my vehicles have specs
 				for (int j = 0; j < vehicleSpecsList.size(); j++) {
 					for (int y = 0; y < vehicleIdList.size(); y++) {
@@ -224,23 +212,14 @@ public class UpdateServlet extends HttpServlet {
 					}
 				}
 
-				for (Integer v : vehicleWithSpecList)
-					System.out.println("I own ID" + v.toString());
-
 				// Remove all the vehicles that belong to me and has specs so
 				// what remains is the vehicleId of those with no specs
 				vehicleIdList.removeAll(vehicleWithSpecList);
-
-				System.out.println("Removed those with ID so what remains is");
-				for (Integer v : vehicleIdList)
-					System.out.println(v);
 
 				// getting a list of vehicles that don't have specs
 				for (Integer x : vehicleIdList)
 					vehicleNoSpecList.add(vDao.getVehicle(x));
 
-				for (Vehicle v : vehicleNoSpecList)
-					System.out.println("v w/o spec " + v.toString());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -324,7 +303,6 @@ public class UpdateServlet extends HttpServlet {
 			User user = null;
 			try {
 				user = uDao.getUser(userId);
-				System.out.println("User before: " + user.toString());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				System.out.println("error");
@@ -342,7 +320,6 @@ public class UpdateServlet extends HttpServlet {
 			user.setDefaultVehicle(vehicleId);
 			try {
 				// updating user information in the DB
-				System.out.println("User after: " + user.toString());
 				uDao.updateUser(user);
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Profile.jsp");
@@ -372,18 +349,14 @@ public class UpdateServlet extends HttpServlet {
 				digest.update(newHash3.getBytes(), 0, newHash3.length());
 				String newMd52 = new BigInteger(1, digest.digest())
 						.toString(16);
-				System.out.println(currentMd5);
-				System.out.println(newMd5);
-				System.out.println(newMd52);
+
 				// get user object from DB and check password is valid
 				User user = uDao.getUser(userId);
 				if (user.getPassword().equals(currentMd5))
 					if (newMd5.equals(newMd52)) {
 						// update user info in DB
-						System.out.println(user.getPassword());
 						user.setPassword(newMd5);
 						uDao.updateUser(user);
-						System.out.println(user.getPassword());
 					}
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("Profile.jsp");
@@ -444,9 +417,7 @@ public class UpdateServlet extends HttpServlet {
 			try {
 				bsfc = resultCubicInch = resultCompressionRatio = resultFuelInjector = 0;
 				pistonType = syntheticOil = 0;
-				System.out.println("selected v request"
-						+ (String) request.getParameter("selectedVehicle"));
-				System.out.println(newDefaultVehicleId);
+
 				// getting information from page
 				int octane = Integer.parseInt(request.getParameter("fuel"));
 				int cylinders = Integer.parseInt(request
@@ -555,7 +526,6 @@ public class UpdateServlet extends HttpServlet {
 			// get which vehicle to delete
 			int deleteVehicleId = Integer.parseInt(request
 					.getParameter("Vehicle"));
-			System.out.println("delete " + deleteVehicleId);
 			String check = request.getParameter("delete");
 			// making sure user really wants to delete it
 			if (check.equals("on"))
@@ -567,9 +537,7 @@ public class UpdateServlet extends HttpServlet {
 							.getVehicleId());
 					vsDao.deleteVehicleSpecs(deleteVehicleId);
 					vDao.deleteVehicle(deleteVehicleId);
-					System.out.println("deleted vehicle" + deleteVehicleId);
 					// get an update vehicleList
-					System.out.println("new vehicle list");
 					vehicleList = vDao.getAllVehicleByUser(userId);
 
 					// set the new vehicleList into the session
