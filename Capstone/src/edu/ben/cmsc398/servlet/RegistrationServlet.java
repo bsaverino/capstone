@@ -46,9 +46,6 @@ public class RegistrationServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		String action = (String) request.getParameter("action");
-		String id = request.getParameter("id");
-		UserDao uDao = new UserDao();
-		VehicleDao vDao = new VehicleDao();
 		VehicleSpecDao vsDao = new VehicleSpecDao();
 		PerformanceDao pDao = new PerformanceDao();
 
@@ -73,12 +70,17 @@ public class RegistrationServlet extends HttpServlet {
 				if (vehicleSpec == null)
 					vehicleSpec = blankVehicleSpecs;
 				for (RaceTime r : times) {
-					if (r.getTime() <= min) {
+					if (r.getTime() <= min && r.getRaceTypeId() == 2) {
 						min = r.getTime();
 						mph = r.getSpeed();
 					}
 				}
-
+				
+				//checks to see if there were any quarter mile times.  If not set to 0
+				if(min == 10000) {
+					min = 0;
+				}
+				
 				request.setAttribute("min", min); // respond
 				request.setAttribute("mph", mph); // respond
 				request.setAttribute("vehicleSpec", vehicleSpec); // respond
@@ -139,6 +141,7 @@ public class RegistrationServlet extends HttpServlet {
 				MessageDigest digest = MessageDigest.getInstance("MD5");
 				digest.update(hash.getBytes(), 0, hash.length());
 				String md5 = new BigInteger(1, digest.digest()).toString(16);
+				System.out.println(md5);
 				
 				User user = new User(' ', firstName, lastName, username, md5,
 						email, areacode, gender, year, month, day, ' ');

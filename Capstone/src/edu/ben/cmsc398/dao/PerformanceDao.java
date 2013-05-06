@@ -96,7 +96,7 @@ public class PerformanceDao extends DBConnector {
 				+ "WHERE m.user_id = "
 				+ userId
 				+ " AND m.vehicle_id = "
-				+ vehicleId + " AND m.mod_lookup_id = l.mod_id;";
+				+ vehicleId + " AND m.mod_lookup_id = l.mod_id ORDER BY mod_id DESC;";
 		ArrayList<Modification> mods = new ArrayList<Modification>();
 
 		PreparedStatement ps = conn.prepareStatement(sql);
