@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@ page import="java.util.Calendar"%>
-<%@ page import="edu.ben.cmsc398.model.*"%>
-<%@ page import="java.util.*"%>
+<%@ page
+	import="java.util.Calendar, java.util.*, edu.ben.cmsc398.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/uniform.css" />
+<link rel="stylesheet" href="css/select2.css" />
 <link rel="stylesheet" href="css/unicorn.main.css" />
 <link rel="stylesheet" href="css/unicorn.blue.css" class="skin-color" />
-<script>
+<script type="text/javascript">
 	function validateForm() {
 
 		var firstName = document.forms["reg1"]["firstName"].value;
@@ -174,7 +175,7 @@
 							<h5>Registration Page 1</h5>
 						</div>
 
-						<div style="color:red">${error}</div> 
+						<div style="color: red">${error}</div>
 						<div class="widget-content nopadding">
 							<form name="reg1" id="form-wizard" class="form-horizontal"
 								method="post" action="RegistrationServlet?action=registerUser"
@@ -199,7 +200,7 @@
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label">5 Didget Area Code*</label>
+										<label class="control-label">5 Digit Area Code*</label>
 										<div class="controls">
 											<input id="areacode" type="number" min="00000" max="99999"
 												name="areacode" />
@@ -289,4 +290,6 @@
 					</div>
 				</div>
 			</div>
+			<script src="js/jquery.validate.js"></script>
+			<script src="js/unicorn.form_validation.js"></script>
 			<jsp:include page="Footer2.jspf" />
